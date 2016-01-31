@@ -835,11 +835,11 @@ post.hotPosts = function(req,res){
     var sql,flag=0;
 
             if (!req.query.fromId) {
-                sql= "select * from secret_post where id in (select postId from secret_weibo_query where status=0) order by id desc limit 0," + ":pageSize"
+                sql= "select * from secret_post where id in (select postId from secret_weibo_query where status=1) order by id desc limit 0," + ":pageSize"
 
             } else {
                 flag=1;
-                sql = "select * from secret_post where id in (select postId from secret_weibo_query where status=0 and postId<:id) order by id desc limit 0," + ":pageSize"
+                sql = "select * from secret_post where id in (select postId from secret_weibo_query where status=1 and postId<:id) order by id desc limit 0," + ":pageSize"
             }
     conn.query(
         {
