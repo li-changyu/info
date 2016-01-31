@@ -33,7 +33,10 @@ router.get('/api/posts',function(req,res){//文章列表
    // console.log('success in index');
     post.postsView(req,res);
 });
-
+router.get('/api/hot',function(req,res){//文章列表
+    // console.log('success in index');
+    post.hotPosts(req,res);
+});
 router.post('/api/like/post',check.isLoginApi,function(req,res){//文章点赞
 
    like.post(req,res);

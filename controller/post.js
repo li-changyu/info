@@ -821,6 +821,168 @@ post.postsDetail = function (req, res) {
     )
     }
 };
+
+post.hotPosts = function(req,res){
+
+
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("X-Powered-By",' 3.2.1');
+    if (!req.query.pageSize) {
+        req.query.pageSize = 15
+    }
+    var sql,flag=0;
+
+            if (!req.query.fromId) {
+                sql= "select * from secret_post where id in (select postId from secret_weibo_query where status=0) order by id desc limit 0," + ":pageSize"
+
+            } else {
+                flag=1;
+                sql = "select * from secret_post where id in (select postId from secret_weibo_query where status=0 and postId<:id) order by id desc limit 0," + ":pageSize"
+            }
+    conn.query(
+        {
+            sql: sql,
+            params:{
+                id:parseInt(req.query.fromId),
+                pageSize:parseInt(req.query.pageSize)
+            }
+        }, function (err, rows) {
+            var data = [];
+
+            if (err) {
+                console.log(err);
+                res.end(JSON.stringify(code.mysqlError));
+                return;
+            }
+
+            async.each(rows, function (item, callback) {
+                    conn.query(
+                        {
+                            sql: 'select count("postId") from `secret_comment` where postId = ' + item.id
+                        }, function (e1, r1) {
+                            if (e1) {
+                                console.log(e1);
+                                callback(code.mysqlError);
+                                return;
+                            }
+
+                            //  console.log(r2);
+
+
+                            conn.query(
+                                {
+
+                                    sql:'select userId from secret_post_like where postId ='+item.id
+                                },function(e3,r3){
+                                    if(e3){
+                                        console.log(e3);
+                                        callback(code.mysqlError);
+                                        return;
+                                    }
+                                    var items = {};
+                                    items.id = item.id;
+                                    items.title = item.title;
+                                    items.gender = item.gender;
+                                    items.secret = item.secret;
+                                    items.avatar = item.avatar;
+                                    items.nickname = item.nickname;
+                                    //console.log(r1[0]['count("postId")']);return;
+                                    items.commentCount = r1[0]['count("postId")'];
+                                    //console.log(r1);
+                                    items.content = item.content;
+                                    items.author = (item.userId==req.session.userId)?1:0;
+                                    items.userId = (item.secret)?0:item.userId;
+                                    items.likeCount = r3.length;
+
+                                    var like=0;
+
+
+                                    if(r3.length>0 && req.session.userId ){
+
+
+                                        for(var i=0;i<r3.length;i++){
+                                            if(r3[i].userId==req.session.userId){
+                                                like=1
+                                            }
+                                        }
+
+                                    }
+
+                                    items.like=like;
+                                    items.top=item.top;
+                                    items.level = req.session.level;
+                                    items.date = item.date;
+                                    items.more = item.more;
+                                    data.push(items);
+                                    //console.log(data);
+                                    callback(null);
+                                }
+                            )
+
+                        }
+                    );
+                }, function (err) {
+                    if (err) {
+                        res.end(JSON.stringify(err));
+                        return;
+                    }
+                    //console.log(data);
+                    var topStatus=0;
+                    function compare(a,b){
+                        if(a.id> b.id){
+                            return -1;
+                        }else{
+                            return 1
+                        }
+                    }
+                    if(flag==0) {
+                        var newData=[];
+                        //console.log(data);
+                        for (var i = 0; i < data.length; i++) {
+                            if (data[i].top == 1) {
+
+                                //console.log(i);
+                                newData.push(data[i]);
+                                data.splice(i,1);
+                                topStatus=1;
+                            }
+                        }
+
+                        //console.log(data);
+
+
+                        if(topStatus==1){
+
+                            data.sort(compare);
+                            //console.log(data);
+
+                            for(var i=0;i<data.length;i++){
+                                newData.push(data[i]);
+                            }
+                            data=newData;
+
+                        }else{
+                            data.sort(compare);
+
+                        }
+
+
+                    }else{
+                        data.sort(compare);
+
+                    }
+
+
+
+                    //data.sort(compare);
+                    res.end(common.format(200, "success", data));
+                }
+            )
+        }
+    )
+};
 post.postsView = function (req, res) {
     //console.log('success in api');
     //console.log(req.body);
