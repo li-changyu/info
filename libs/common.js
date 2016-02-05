@@ -12,6 +12,10 @@ common.time = function(){
   return parseInt(new Date().getTime()/1000);
 };
 
+common.gender = function(code){
+    return (code==1)?('男'):((code==2)?('女'):'未知');
+};
+
 
 common.date = function (time) {
     if(time){

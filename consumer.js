@@ -68,7 +68,7 @@ consumer.weibo = function(){
 
                             request.post('http://text2pic.scuinfo.com',{form:{
                                 "text":rr[0].content,
-                                "footer":rr[0].nickname+"\n"+common.dayWeibo(rr[0].date*1000)
+                                "footer":rr[0].nickname+"·"+common.gender(rr[0].gender)+"\n"+common.dayWeibo(rr[0].date*1000)
                             }},function(eeeee,rrrrr,bbbbb){
                                 try{
                                     var result = JSON.parse(bbbbb);
