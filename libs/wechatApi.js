@@ -307,10 +307,15 @@ var menu1 ={
                     "name":"成绩查询 ",
                     "key":"score"
                 },
+                //{
+                //    "type":"click",
+                //    "name":"考试查询",
+                //    "key":"exam"
+                //},
                 {
                     "type":"click",
-                    "name":"考试查询",
-                    "key":"exam"
+                    "name":"补考查询",
+                    "key":"examAgain"
                 },
                 {
                     "type":"click",
@@ -360,7 +365,7 @@ console.log(e,r);
 /**
  * 创建菜单
  */
-//wechatApi.createMenu();
+wechatApi.createMenu();
 
 
 /**
