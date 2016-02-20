@@ -1465,8 +1465,7 @@ user.examAgain = function(msg,req,res,next){
                                 text += "\n\n["+(((new Date().getTime()/1000)>examsData[i].end)?"已完成":"未完成")+"]("+examsData[i].examName+")"+examsData[i].name + "\n" + common.dateChina(examsData[i].start*1000)+'~'+common.hour(examsData[i].end*1000) + "\n"+examsData[i].campus+'校区'+examsData[i].building+examsData[i].classroom;
                         }
 
-                        text+=((msg.source=='weibo')?('\n\n点此生成你的专属补缓考页面或查看详情或更新数据:'+config.site.url+'/examAgain'):('\n\n <a href="'+config.site.url+'/examAgain">点击生成你的专属考试页面或更新</a>')) +
-                            '\n\n最后更新时间:'+common.dateChina(exams.data.updateAt*1000) ;
+                        text+=((msg.source=='weibo')?('\n\n点此生成你的专属补缓考页面或查看详情:'+config.site.url+'/examAgain'):('\n\n <a href="'+config.site.url+'/examAgain">点击生成你的专属考试页面或更新</a>'));
                         res.reply(text);
                         return;
 
