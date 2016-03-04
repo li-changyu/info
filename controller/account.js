@@ -144,7 +144,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
         var userInfo=body;
         //console.log(userInfo);
         
-        //console.log('正在更新头像');
+        console.log('正在更新头像');
 
         if(userInfo){
 //console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
@@ -155,6 +155,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
                             console.log(e);
                         }else {
                             //console.log( r);
+                            cb(null,'yes');
                         }
                     }
                 )
@@ -325,6 +326,7 @@ account.wechatGetUserInfo = function(req,res) {
                         );
 
      account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId,function(e,r){
+
          //更新用户资料
      });
 
