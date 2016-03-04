@@ -142,13 +142,13 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
             return;
         }
         var userInfo=body;
-        console.log(userInfo);
+        //console.log(userInfo);
         
-        console.log('正在更新头像');
+        //console.log('正在更新头像');
 
         if(userInfo){
 //console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
-            console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);  
+//            console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
                
                 conn.query(
                     {sql:"update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId
@@ -156,7 +156,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
                         if(e){
                             console.log(e);
                         }else {
-                            console.log( r);
+                            //console.log( r);
                             cb(null,'yes');
                         }
                     }
