@@ -412,7 +412,31 @@ check.postCreate = function(o,cb){
 
     });
 };
+check.postReport = function(o,cb){
 
+    //console.log(o);
+    if(!o.content){
+        cb(code.contentCantNull);
+        return;
+    }
+
+    if(!o.postId){
+        cb(code.lackParamsPostId);
+        return;
+    }
+
+    o.content=escape(o.content);
+
+
+
+        cb(null,{
+
+            content: o.content,
+            postId:o.postId,
+            userId:o.session.userId,
+            time:common.time()
+        });
+};
 
 check.register = function(o,cb){
     var tel,nickname,avatar,openId,unionId,gender,source;

@@ -1,0 +1,5 @@
+*
+!.gitignore
+!access_token.example.txt
+!weibo_token.example.txt
+!ticketToken.example.txt

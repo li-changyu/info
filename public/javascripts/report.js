@@ -15,14 +15,18 @@ bom.check = function (o,cb){
         });
         return;
     }
-    var secret=0;
-    if(o.secret){
-        secret=1;
+
+    if(!o.postId){
+        cb({
+            code:3002,
+            message:"postId不能为空"
+        });
+        return;
     }
 
     cb(null,{
             content: o.content,
-            secret: secret
+            postId:o.postId
     })
 
 
@@ -44,7 +48,7 @@ bom.post = function(o,cb){
         //console.log(r);
         $.ajax({
             type: 'POST',
-            url: '/api/post',
+            url: '/api/report',
             data: JSON.stringify(r),
             success: function(data) { //alert('data: ' + data);
 
@@ -65,13 +69,13 @@ bom.post = function(o,cb){
                 $submitButton.button('loading');
                 var o={};
                 o.content = $("#content").val();
-                o.secret = $("#secret").bootstrapSwitch('state');
+                o.postId = bom.getQueryString('id');
 //                   console.log(o);
                 bom.post(o,function(r){
                     if(r.code==200) {
                         $("#content").val("");
                         $submitButton.button('reset');
-                        console.log('success');
+                        //console.log('success');
                         //跳转到前一页
                         location.href = '/';
                     }else{

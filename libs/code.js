@@ -207,6 +207,10 @@ var code = {
     'passwordMustString':{
         code:2045,
         message:"密码必须是string类型"
+    },
+    'canNotFoundContent':{
+        code:2046,
+        message:"该内容已被删除"
     }
 };
 

@@ -19,6 +19,12 @@
         return new Date().getFullYear().toString()+"年"+(new Date().getMonth()+1).toString()+"月"+new Date().getDate().toString()+"日 "+new Date().getHours().toString()+":"+((new Date(time).getMinutes()<10)?"0":"")+new Date().getMinutes().toString()
     };
 
+    bom.getQueryString = function(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+
     /**
      * 输出格式化的时间
      * @param time
@@ -728,8 +734,7 @@ bom.getDateDiff = function(dateTimeStamp) {
 
     $("#posts").on('click','.shareToWeibo',function(){
         var weibo = $($(this).children()[0]);
-        var article = $(this).parents('article');
-        wbUrl			= article.attr('href'),
+        var article = $(this).parents('article'),wbUrl			= article.attr('href'),
             wbAppkey		= $("#weiboAppKey").val(),
             wbTitle			= encodeURIComponent(article.attr('weiboTitle')),
             wbRalateUid	= $("#weiboUid").val(),

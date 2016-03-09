@@ -50,7 +50,7 @@ consumer.weibo = function(){
             if(r.length>0){
 
 
-                //todo 发布到微博,改状态
+                //todo 检测是否被举报,如果举报则修改状态
 
                 conn.query(
 

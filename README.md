@@ -1,6 +1,20 @@
 # scuinfo
 3.0
 
+
+## 部署
+
+1. 更改根目录下的config.example.js 为 config.js
+
+2.给token/ 775的权限
+
+3. 更改/token 下各个带example的文件,去掉example
+
+
+
+
+
+
 项目地址:http://scuinfo.com
 
 分为web系统/微信服务/通知中心/微博服务/消费者（定时检测任务）
@@ -628,3 +642,63 @@
           password:"密码"
           }
           }
+          
+          
+### 22.举报不良内容
+    
+          {
+          method:"post",
+          url:"/api/report",
+          params:{
+          postId:"reports",
+          content:"举报描述"
+          }
+        return:{
+        code:200
+        }
+        }
+        
+### 23.审核列表
+
+        {
+                  method:"get",
+                  url:"/api/reports",
+                params:{
+                fromId:22222, //从那篇起
+                pageSize:15, //每页多少篇
+                },
+                return:{
+                code:200
+                }
+                }
+
+### 24.删除帖子并封禁该用户
+
+        {
+        method:"post",
+        url:"/api/delete_blacklist",
+        params:{
+        userId:2,
+        postId:23232,
+        content:"理由"
+        },
+        return:{
+        code:200
+        }
+        }
+
+### 25. 审核确定没问题
+
+        {
+        method:"post",
+        url:"/api/no_question",
+        params:{
+        id:"22",//审核id
+        content:"xxx" //理由
+        },
+        return:{
+        code:200
+        }
+        }
+        
+        

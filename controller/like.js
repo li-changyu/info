@@ -86,55 +86,79 @@ like.post = function(req,res){
               /**
                * 判断是否添加到微博发布的列表，期待封装
                */
+
               conn.query(
                   {
-                      sql: 'select count("postId") from `secret_post_like` where postId = ' + ":id",
+                      sql:"select id from 'secret_report' where postId = :id",
                       params:{
                           id:parseInt(req.body.id)
                       }
-                  }, function (e6, r6) {
-                      if (e6) {
-                          console.log(e6);
+                  },function(e8,r8){
+                      if(e8){
+                          console.log(e8);
                           res.end(JSON.stringify(code.mysqlError));
                           return;
                       }
+                      if(r8.length==0 || (r8[0].status!=0 && r8[0].status!=2)){
 
-              if (r6[0]['count("postId")'] >= config.postWeibo.count) {
 
-                  conn.query(
-                      {
-                          sql: "select id from `secret_weibo_query` where postId=" + ":id",
-                          params:{
-                              id:parseInt(req.body.id)
-                          }
-                      }, function (e5, r5) {
-                          if (e5) {
-                              console.log(e5);
-                              return;
-                          }
-                          if (r5.length == 0) {
-
-                              console.log('加入微博发布队列');
-                              //console.log("insert into secret_weibo_query (postId,createAt) values (" + parseInt(req.body.id) + "," + common.time() + ")");
-                              conn.query(
-                                  {
-                                      sql: "insert into secret_weibo_query (postId,createAt) values (" + ":id"+ "," + common.time() + ")",
-                                      params:{
-                                          id:parseInt(req.body.id)
-                                      }
-                                  }, function (e4, r4) {
-                                      //console.log(e4, r4);
+                          conn.query(
+                              {
+                                  sql: 'select count("postId") from `secret_post_like` where postId = ' + ":id",
+                                  params:{
+                                      id:parseInt(req.body.id)
                                   }
-                              )
+                              }, function (e6, r6) {
+                                  if (e6) {
+                                      console.log(e6);
+                                      res.end(JSON.stringify(code.mysqlError));
+                                      return;
+                                  }
 
-                          }
+                                  if (r6[0]['count("postId")'] >= config.postWeibo.count) {
+
+                                      conn.query(
+                                          {
+                                              sql: "select id from `secret_weibo_query` where postId=" + ":id",
+                                              params:{
+                                                  id:parseInt(req.body.id)
+                                              }
+                                          }, function (e5, r5) {
+                                              if (e5) {
+                                                  console.log(e5);
+                                                  return;
+                                              }
+                                              if (r5.length == 0) {
+
+                                                  console.log('加入微博发布队列');
+                                                  //console.log("insert into secret_weibo_query (postId,createAt) values (" + parseInt(req.body.id) + "," + common.time() + ")");
+                                                  conn.query(
+                                                      {
+                                                          sql: "insert into secret_weibo_query (postId,createAt) values (" + ":id"+ "," + common.time() + ")",
+                                                          params:{
+                                                              id:parseInt(req.body.id)
+                                                          }
+                                                      }, function (e4, r4) {
+                                                          //console.log(e4, r4);
+                                                      }
+                                                  )
+
+                                              }
+                                          }
+                                      )
+
+
+                                  }
+
+                              });
+
                       }
-                  )
+                  }
+              );
 
 
-              }
 
-                  });
+
 
 
 

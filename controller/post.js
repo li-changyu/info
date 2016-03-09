@@ -521,6 +521,87 @@ post.createMove = function(req,res){
     });
 
 };
+
+
+post.report = function(req,res){
+check.postReport({
+    session:req.session,
+    content:req.body.content,
+    postId:req.body.postId
+},function(e,r){
+    if (e) {
+        res.end(JSON.stringify(e));
+        return;
+    }
+
+    conn.query(
+        {
+            sql:"select content from secret_post where id=:id",
+            params:{
+                id:r.postId
+            }
+        },function(e8,r8){
+            if(e8){
+                res.end(JSON.stringify(code.mysqlError));
+                console.log(e8);
+                return;
+            }else{
+               if(r8.length>0){
+
+                   conn.query({
+                       sql:"insert into secret_report (postId,time,reason,userId,content) values (:postId,:time,:reason,:userId,:content)",
+                       params:{
+                           postId:r.postId,
+                           reason:r.content,
+                           time:r.time,
+                           userId:r.userId,
+                           content:r8[0].content
+                       }
+                   },function(ee,rr){
+                       if (ee) {
+                           res.end(JSON.stringify(code.mysqlError));
+                           console.log(ee);
+                           return;
+                       }
+                       res.end(common.format(200, 'success', {
+                           insertId: rr.insertId
+                       }));
+                       return;
+
+                   })
+
+               } else{
+                   res.end(JSON.stringify(code.canNotFoundContent));
+                   return;
+               }
+            }
+        }
+    )
+
+;
+})
+
+};
+
+post.reports = function(req,res){
+
+
+    var status = req.query.status;
+
+    conn.query(
+        {
+            sql:"select * from secret_post where id in (select * from secret_report where status=:status)",
+            params:{
+                status:status
+            }
+        },function(e,r){
+
+        }
+    )
+
+};
+
+
 post.create = function(req,res){
 //console.log(req.body);
     check.postCreate({
@@ -1247,9 +1328,6 @@ post.change = function(req,res){
         res.end(JSON.stringify(code.loginError));
         return
     }
-
-
-
 };
 
 

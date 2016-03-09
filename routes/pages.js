@@ -580,6 +580,23 @@ pages.post = function(req,res){
     }});
 };
 
+pages.report = function(req,res){
+    var url = req.protocol+"://"+config.host.url+req.originalUrl;
+    res.render('report',{title:"举报不良内容"+config.site.separator+config.site.name,
+        userId:req.session.userId,
+        barTitle:"举报",
+        page:{
+            userId:req.session.userId,
+            avatar:req.session.avatar,
+            nickname:req.session.nickname,
+            gender:req.session.gender,
+            content:req.query.content?req.query.content:"",
+            userStatus:req.session.userStatus,
+            url:url
+
+        }});
+};
+
 pages.fm = function(req,res){
     var url = req.protocol+"://"+config.host.url+req.originalUrl;
     var param = {

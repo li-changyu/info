@@ -61,6 +61,14 @@ router.post('/api/post',check.isLoginApi,function(req,res){//添加文章
     post.create(req,res);
 });
 
+router.post('/api/report',check.isLoginApi,function(req,res){//添加文章
+
+    post.report(req,res);
+});
+
+router.get('/api/reports',check.isLoginApi,function(req,res){
+    post.reports(req,res);
+});
 router.post('/api/postMove',function(req,res){//添加文章
 
     post.createMove(req,res);
@@ -257,9 +265,23 @@ router.get('/',check.autoWechat,function(req,res){
 //
 });
 
-router.get('/dsgygb',check.autoWechat,function(req,res){
+router.get('/debug',check.autoWechat,function(req,res){
+
+
     req.session.level=1;
-    req.session.userId=2;
+    req.session.userId=888888;
+    req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+    req.session.nickname="我就喜欢语文老师体育能跑100米";
+    req.session.gender=2;
+    req.session.userStatus='login';
+    console.log(req.session);
+    pages.index(req,res);
+//
+});
+router.get('/debug/:userId',check.autoWechat,function(req,res){
+
+    req.session.level=1;
+    req.session.userId=req.params.userId;
     req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
     req.session.nickname="我就喜欢语文老师体育能跑100米";
     req.session.gender=2;
@@ -441,6 +463,18 @@ router.get('/post',check.autoWechat,check.isLogin,function(req,res){
     //req.session.userStatus = 'login';
     pages.post(req,res);
 });
+
+router.get('/report',check.autoWechat,check.isLogin,function(req,res){
+
+    //req.session.userId=1;
+    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+    //req.session.nickname="我就喜欢语文老师体育能跑100米";
+    //req.session.gender=0;
+    //req.session.userStatus = 'login';
+    pages.report(req,res);
+});
+
+
 
 router.get('/notice',check.autoWechat,check.isLogin,function(req,res){
 

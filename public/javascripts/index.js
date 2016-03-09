@@ -122,7 +122,8 @@
                                '<ul class="am-dropdown-content">'+
                                 '<li class="shareToWeibo"><a href="#"><span class="am-icon-weibo"></span> 分享到微博</a></li>'+
                             '<li class="posts-delete"><a href="#"><span class="am-icon-trash"></span> 删除</a></li>'+
-                            '</ul> </div> </span></footer> </article>';
+                                '<li class="posts-report"><a href="#"><span class="am-icon-flag-checkered"></span> 举报</a></li>'+
+                                '</ul> </div> </span></footer> </article>';
 
                         }
                         // postsStore+=posts;
@@ -264,6 +265,11 @@
                 }
             });
 
+        });
+
+        $("#posts").on('click','.posts-report',function(){
+
+                location.href = '/report/?id='+$(this).parent().parent().parent().parent().parent().attr('id');
         });
 
     });
