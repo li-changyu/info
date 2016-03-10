@@ -46,7 +46,7 @@ consumer.weibo = function(){
                 console.log(e+new Date());
                 return;
             }
-            //console.log(r);
+            console.log(r);
             if(r.length>0){
 
 
@@ -64,7 +64,7 @@ consumer.weibo = function(){
                         }
                         
                         if(rr.length>0){
-//console.log(rr);
+console.log(rr);
 
                             request.post('http://text2pic.scuinfo.com',{form:{
                                 "text":rr[0].content,
@@ -79,7 +79,7 @@ consumer.weibo = function(){
                                         message:"json解析出错"
                                     }
                                 }
-//console.log(result);
+console.log(result);
                                 if(result.code==200){
                                     var form = new FormData();
 
