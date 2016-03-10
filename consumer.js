@@ -84,7 +84,7 @@ console.log(result);
                                     var form = new FormData();
 
                                     var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
-                                    //console.log(encodeURIComponent(content));
+                                    console.log(encodeURIComponent(content));
                                     form.append('status', encodeURIComponent(content));
                                     form.append('access_token',weiboToken.access_token);
                                     form.append('pic', request(result.data.url));
@@ -116,7 +116,7 @@ console.log(result);
                                                 {
                                                     sql: "update secret_weibo_query set status=1,postAt=" + common.time() + ",weiboId=" + userInfo.id + " where id=" + r[0].id
                                                 }, function (eeeee, rrrrr) {
-                                                    //console.log(eeeee,'成功发布一条微博');
+                                                    console.log(eeeee,'成功发布一条微博');
                                                 }
                                             );
                                         });
