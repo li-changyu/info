@@ -111,6 +111,7 @@ console.log(result);
                                                 console.log(userInfo + new Date());
                                                 return;
                                             }
+                                            console.log(userInfo);
                                             conn.query(
                                                 {
                                                     sql: "update secret_weibo_query set status=1,postAt=" + common.time() + ",weiboId=" + userInfo.id + " where id=" + r[0].id
