@@ -86,10 +86,13 @@ like.post = function(req,res){
               /**
                * 判断是否添加到微博发布的列表，期待封装
                */
+              var reportSql = "select id from secret_report where postId = :id";
+
+              console.log(reportSql);
 
               conn.query(
                   {
-                      sql:"select id from 'secret_report' where postId = :id",
+                      sql:reportSql,
                       params:{
                           id:parseInt(req.body.id)
                       }
