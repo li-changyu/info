@@ -64,7 +64,7 @@ consumer.weibo = function(){
                         }
                         
                         if(rr.length>0){
-console.log(rr);
+//console.log(rr);
 
                             request.post('http://text2pic.scuinfo.com',{form:{
                                 "text":rr[0].content,
@@ -79,7 +79,7 @@ console.log(rr);
                                         message:"json解析出错"
                                     }
                                 }
-console.log(result);
+//console.log(result);
                                 if(result.code==200){
                                     var form = new FormData();
 
@@ -111,12 +111,12 @@ console.log(result);
                                                 console.log(userInfo + new Date());
                                                 return;
                                             }
-                                            console.log(userInfo);
+                                            //console.log(userInfo);
                                             conn.query(
                                                 {
                                                     sql: "update secret_weibo_query set status=1,postAt=" + common.time() + ",weiboId=" + userInfo.id + " where id=" + r[0].id
                                                 }, function (eeeee, rrrrr) {
-                                                    console.log(eeeee,'成功发布一条微博');
+                                                    //console.log(eeeee,'成功发布一条微博');
                                                 }
                                             );
                                         });
@@ -130,7 +130,7 @@ console.log(result);
                                 }else{
 
 
-                                    console.log(result);
+                                    //console.log(result);
 
                                 }
 
