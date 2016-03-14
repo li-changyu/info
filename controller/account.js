@@ -132,9 +132,12 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
                     },function(e,r){
                         if(e){
                             console.log(e);
+                            cb(e)
+                            return;
                         }else {
                             //console.log( r);
                             cb(null,'yes');
+                            return;
                         }
                     }
                 )
@@ -680,7 +683,9 @@ account.wechatLogin = function (req, res) {
                                 }
                             );
                             //console.log(codeResult);
-                            account.updateUserInfo(codeResult.access_token, codeResult.openid, r1[0].userId);
+                            account.updateUserInfo(codeResult.access_token, codeResult.openid, r1[0].userId,function(e,r){
+
+                            });
 
                             //toto 后台去更新用户资料
                         } else {
@@ -739,7 +744,7 @@ account.wechatLogin = function (req, res) {
                                                     });
                                             });
 
-                                        account.updateUserInfo(codeResult.access_token, codeResult.openid, r5[0].userId);
+                                        account.updateUserInfo(codeResult.access_token, codeResult.openid, r5[0].userId,function(e,r){});
 
 
                                     } else {
@@ -845,7 +850,9 @@ account.wechatLogin = function (req, res) {
                                 }
                             );
 
-                            account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId);
+                            account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId, function (e,r) {
+
+                            });
 
 
                             //toto 后台去更新用户资料
@@ -903,7 +910,9 @@ account.wechatLogin = function (req, res) {
                                                         }
                                                     });
                                             });
-                                        account.updateUserInfo(codeResult.access_token,codeResult.openid,r5[0].userId);
+                                        account.updateUserInfo(codeResult.access_token,codeResult.openid,r5[0].userId,function(e,r){
+
+                                        });
 
 
                                     } else {
