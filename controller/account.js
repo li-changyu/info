@@ -653,7 +653,7 @@ account.wechatLogin = function (req, res) {
                                     if (r2.length > 0) {
                                         console.log({
                                             avatar: r2[0].avatar,
-                                            openId: r1.openid,
+                                            openId: r1.openId,
                                             unionId: codeResult.unionid,
                                             nickname: r2[0].nickname,
                                             gender: r2[0].gender,
@@ -665,7 +665,7 @@ account.wechatLogin = function (req, res) {
                                         account.login(
                                             req, res, {
                                                 avatar: r2[0].avatar,
-                                                openId: r1.openid,
+                                                openId: r1.openId,
                                                 unionId: codeResult.unionid,
                                                 nickname: r2[0].nickname,
                                                 gender: r2[0].gender,
@@ -832,7 +832,7 @@ account.wechatLogin = function (req, res) {
                                         account.login(
                                             req, res, {
                                                 avatar: r2[0].avatar,
-                                                openId: r1.openid,
+                                                openId: r1.openId,
                                                 unionId: codeResult.unionid,
                                                 nickname: r2[0].nickname,
                                                 gender: r2[0].gender,
