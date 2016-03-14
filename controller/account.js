@@ -648,7 +648,17 @@ account.wechatLogin = function (req, res) {
                                         return;
                                     }
                                     if (r2.length > 0) {
-
+                                        console.log({
+                                            avatar: r2[0].avatar,
+                                            openId: r1.openid,
+                                            unionId: codeResult.unionid,
+                                            nickname: r2[0].nickname,
+                                            gender: r2[0].gender,
+                                            source: state[0],
+                                            level: r2[0].level,
+                                            userId: r1[0].userId,
+                                            redirect: state[1]
+                                        });
                                         account.login(
                                             req, res, {
                                                 avatar: r2[0].avatar,
