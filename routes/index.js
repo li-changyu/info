@@ -308,21 +308,13 @@ router.get('/p/:id',check.autoWechat,function(req,res){
 
 router.get('/u',check.autoWechat,check.isLogin,function(req,res){
 
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=0;
+
     pages.profile(req,res);
 });
 
 
 router.get('/score',check.autoWechat,check.isLogin,function(req,res){
 
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=1;
-    //req.session.userStatus='login';
     pages.score(req,res);
 });
 
