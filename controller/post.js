@@ -13,7 +13,6 @@ var post = {
 
 
 post.createWechat = function(req,res){
-//console.log(req.body);
     conn.query(
         {
             sql: 'select unionId,userId from secret_open where openId = ' + ":openId",

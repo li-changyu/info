@@ -121,39 +121,6 @@ datas.updateWechatJsApiTicket = function(cb){
     }
 
 };
-//
-//datas.updateWechatToken(function(e,r){
-//    if(e){
-//        return;
-//    }
-//    var expire = (parseInt(r.expires_in)-180)*1000;
-//    setTimeout(function(){
-//    datas.updateWechatToken(function(e,r){
-//       if(e){
-//           return;
-//       }
-//        expire = (parseInt(r.expires_in)-180)*1000;
-//    });
-//    }, expire)
-//});
-
-//
-//setTimeout(function(){
-//datas.updateWechatJsApiTicket(function(e,r){
-//    if(e){
-//        return;
-//    }
-//    var expire = (parseInt(r.expires_in)-180)*1000;
-//    setTimeout(function(){
-//        datas.updateWechatJsApiTicket(function(e,r){
-//            if(e){
-//                return;
-//            }
-//            expire = (parseInt(r.expires_in)-180)*1000;
-//        });
-//    }, expire)
-//});
-//},2000);
 
 
 datas.updateTag(function(e){

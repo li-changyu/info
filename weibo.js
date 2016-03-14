@@ -1,5 +1,5 @@
 /**
- 微博粉丝服务平台
+ 微博粉丝服务平台相关业务
  */
 var express = require('express');
 var weibo={};
@@ -51,31 +51,15 @@ router.get('/weibo',function(req,res,next){
 router.post('/weibo',function(req,res,next){
 
     res.reply = function (content) {
-        //
-        //{
-        //    "result": true,
-        //    "receiver_id":123456,
-        //    "sender_id":123123,
-        //    "type": "text",
-        //    "data":"{}"
-        //}
-        //
-        //{ content: '收到。',
-        //    result: true,
-        //    type: 'text',
-        //    receiver_id: 2786119320,
-        //    sender_id: 3656973697,
-        //    data: '%7B%22text%22%3A%22%E6%94%B6%E5%88%B0%E3%80%82%22%7D' }
+
 
         res.writeHead(200);
         // 响应空字符串，用于响应慢的情况，避免微信重试
         if (!content) {
             return res.end('');
         }
-        //var json = reply(content, message.ToUserName, message.FromUserName);
         var info = {};
         var type = 'text';
-
         var data={};
         if (Array.isArray(content)) {
             type = 'articles';
@@ -108,13 +92,10 @@ router.post('/weibo',function(req,res,next){
         info.receiver_id = req.body.sender_id;
         info.sender_id = req.body.receiver_id;
         info.data=encodeURIComponent(JSON.stringify(data));
-        //console.log(info);
-        //console.log(JSON.stringify(info));
-            res.end(JSON.stringify(info));
+        res.end(JSON.stringify(info));
 
     };
     if(!checkSignature(req.query,config.weibo.appSecret)){
-        //console.log('not weibo ');
         res.end('not weibo')
         return;
     }

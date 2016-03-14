@@ -48,7 +48,6 @@ var oauthWechat = new OAUTH(config.wechat.appId,config.wechat.appSecret, functio
 var api = new API(config.wechat.appId,config.wechat.appSecret, function (callback) {
     // 传入一个获取全局token的方法
     fs.readFile('./token/access_token.txt', 'utf8', function (err, txt) {
-        //console.log(err,txt);//return;
         //console.log(txt);
         if (err) {return callback(err);}
         callback(null, JSON.parse(txt));
@@ -60,8 +59,6 @@ var api = new API(config.wechat.appId,config.wechat.appSecret, function (callbac
     fs.writeFile('./token/access_token.txt', JSON.stringify(token), callback);
 });
 
-
-//account.updateWeiboUserInfo(codeResult.access_token,codeResult.uid,r1[0].userId);
 
 account.updateWeiboUserInfo = function(accessToken,openId,userId){
 
@@ -111,19 +108,6 @@ account.updateWeiboUserInfo = function(accessToken,openId,userId){
 };
 
 account.updateUserInfo = function(accessToken,openId,userId,cb){
-    //console.log(accessToken,openId);
-
-    //oauth.getUser(_openId,function(e,r){
-    //    if(e){
-    //        console.log(e);return;
-    //    }
-    //
-    //    console.log(r);
-    //    cb(null)
-    //    //conn.query(
-    //    //    //sql:"update secret_user_extend set gender="+ r.gender
-    //    //)
-    //})
     request('https://api.weixin.qq.com/sns/userinfo?access_token='+accessToken+'&openid='+openId,function(eee21,rrr21,bbb21){
 
         if(eee21){
@@ -142,14 +126,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
             return;
         }
         var userInfo=body;
-        //console.log(userInfo);
-        
-        //console.log('正在更新头像');
-
         if(userInfo){
-//console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
-//            console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
-               
                 conn.query(
                     {sql:"update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId
                     },function(e,r){
@@ -165,7 +142,6 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
 
 
             }else{
-            //console.log('解析urserInfo出错');
         }
     });
 
@@ -187,23 +163,13 @@ account.logout = function(req,res){
 };
 
 account.login = function(req,res,data){
-    
-    //console.log(data);
-  req.session.userId = data.userId;
+    req.session.userId = data.userId;
     req.session.nickname = data.nickname;
     req.session.gender = data.gender;
     req.session.avatar = data.avatar;
     req.session.userStatus = 'login';
     req.session.level = data.level?data.level:0;
     res.redirect(data.redirect?data.redirect:"/");
-};
-
-
-
-account.test = function(req,res){
-    console.log(req.body);
-    console.log(req.file);
-    res.end(req.toString());
 };
 
 
@@ -231,7 +197,6 @@ account.register = function(req,res,data){
                             res.end(JSON.stringify(code.mysqlError));
                             return;
                         }
-                        //console.log("insert into secret_open (userId,openId,unionId,source) values ("+rr.insertId+",'"+ r.openId+"','"+ r.unionId+"','"+r.source+"')");
                         conn.query(
                             {
                                 sql:"insert into secret_open (userId,openId,unionId,source) values ("+rr.insertId+",'"+ r.openId+"','"+ r.unionId+"','"+r.source+"')"
@@ -272,7 +237,6 @@ account.wechatGetUserInfo = function(req,res) {
 
     var state = [];
     state = req.query.state.split(',');
-    //console.log(state);
     oauthWechat.getAccessToken(req.query.code, function (err, result) {
 
             if (err) {
@@ -282,7 +246,6 @@ account.wechatGetUserInfo = function(req,res) {
                 return;
             }
                 var codeResult = result.data;
-            //console.log(codeResult);
             conn.query(
                 {
                     sql: 'select unionId,userId from secret_open where openId = "' + codeResult.openid + '"'
@@ -329,16 +292,8 @@ account.wechatGetUserInfo = function(req,res) {
 
      account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId,function(e,r){
 
-         //更新用户资料
      });
 
-                        //client.getUser('openid', function (err, result) {
-                    //    var userInfo = result;
-                    //});
-
-
-
-                        //toto后台去更新用户资料
                     } else {
 
 
@@ -351,7 +306,6 @@ account.wechatGetUserInfo = function(req,res) {
                                     res.end(JSON.stringify(code.mysqlError));
                                     return;
                                 }
-                                //console.log(r1);
                                 if (r5.length > 0) {
 
 
@@ -399,9 +353,8 @@ account.wechatGetUserInfo = function(req,res) {
 
                                     api.getUser(codeResult.openid, function (err, result) {
 
-var user = result;
+                                        var user = result;
                                         //console.log('下面一条输出是userinfo');
-                                        //console.log(user);
                                         if (err) {
                                             req.session.userStatus = 'wechatNotFans';
                                             //没有拿到用户资料

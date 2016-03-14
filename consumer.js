@@ -6,7 +6,7 @@ var fs= require('fs');
 var FormData = require('form-data');
 
 /**
- * 消费者
+ * 消费者主要用于发布待发布的微博
  * @type {{}}
  */
 var consumer={
@@ -122,9 +122,6 @@ consumer.weibo = function(){
                                         });
 
                                     });
-
-
-
 
 
                                 }else{
