@@ -270,38 +270,21 @@ router.get('/debug/:userId',check.autoWechat,function(req,res){
 
 
 router.get('/tag/:name',check.autoWechat,function(req,res){
-
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=0;
     pages.tag(req,res);
 });
 
 
 router.get('/u/:userId/like',check.autoWechat,function(req,res){
 
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=0;
     pages.like(req,res);
 });
 
 router.get('/u/:userId/posts',check.autoWechat,function(req,res){
-    //
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=0;
+
     pages.profilePosts(req,res);
 });
 router.get('/p/:id',check.autoWechat,function(req,res){
-    //
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=0;
+
     pages.detail(req,res);
 });
 
@@ -320,23 +303,11 @@ router.get('/score',check.autoWechat,check.isLogin,function(req,res){
 
 
 router.get('/classroom',check.autoWechat,function(req,res){
-
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=1;
-    //req.session.userStatus='login';
     pages.classroom(req,res);
 });
 
 
 router.get('/course',check.autoWechat,function(req,res){
-
-    //req.session.userId=1;
-    //req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    //req.session.nickname="我就喜欢语文老师体育能跑100米";
-    //req.session.gender=1;
-    //req.session.userStatus='login';
     pages.course(req,res);
 });
 
