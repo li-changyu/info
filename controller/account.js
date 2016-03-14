@@ -630,7 +630,7 @@ account.wechatLogin = function (req, res) {
                 var codeResult = result.data;
                 conn.query(
                     {
-                        sql: 'select unionId,userId from secret_open where openId = "' + codeResult.openid + '"'
+                        sql: 'select unionId,userId,openId from secret_open where openId = "' + codeResult.openid + '"'
                     },
                     function (e1, r1) {
                         console.log(e1, r1);
@@ -638,7 +638,6 @@ account.wechatLogin = function (req, res) {
                             res.end(JSON.stringify(code.mysqlError));
                             return;
                         }
-                        //console.log(r1);
                         if (r1.length > 0) {
 
                             conn.query(
