@@ -244,7 +244,7 @@ post.createWechat = function(req,res){
 
 post.createArticle = function(req,res,data){
 
-    console.log(data);
+    //console.log(data);
     check.postCreate({
         content:data.content,
         secret:data.secret,
@@ -284,25 +284,13 @@ post.createArticle = function(req,res,data){
                     res.end(JSON.stringify(code.mysqlError));
                     return;
                 }
-//console.log('1');
-//                console.log(datas.tag);
-                
-                //console.log('2');
-                //console.log(rr);
                 if (r.tags.length > 0) {
-                    //console.log(r.tags);
                     var newTags = [];
                     for (var i = 0; i < r.tags.length; i++) {
-                        //console.log(r[i]);
-                        
-                        //console.log('3');
-                        //console.log(datas.tag);
                         if (!datas.tag[r.tags[i]]) {
                             newTags.push(r.tags[i]);
                         }
                     }
-                    //console.log(newTags);
-
                     if (newTags.length > 0) {
 
                         var tagSql = 'insert into secret_tag (date,name,userId) VALUE ';
@@ -310,7 +298,6 @@ post.createArticle = function(req,res,data){
                         for (var i = 0; i < newTags.length; i++) {
                             tagValues[i]= '(' + common.time() + ',"' + newTags[i] + '",' + r.userId + ')';
                         }
-                        //console.log(tagSql,tagValues.join(','));
                         conn.query(
                             {
                                 sql: tagSql + tagValues.join(',')
@@ -642,21 +629,13 @@ post.create = function(req,res){
                 if (r.tags.length > 0) {
                     var newTags = [];
                     for (var i = 0; i < r.tags.length; i++) {
-                        //console.log(r);return;
-                        //console.log(r.tags[i]);
-//console.log('3');
-                        
-                        //console.log("是否有:"+datas.tag[r.tags[i]]);
+
 
 
                         if (!datas.tag[r.tags[i]]) {
-
-                            //console.log(newTags);
-
                             newTags.push(r.tags[i]);
                         }
                     }
-                    //console.log(newTags);
 
                     if (newTags.length > 0) {
 
@@ -665,7 +644,6 @@ post.create = function(req,res){
                         for (var i = 0; i < newTags.length; i++) {
                             tagValues[i]= '(' + common.time() + ',"' + newTags[i] + '",' + r.userId + ')';
                         }
-                        //console.log(tagSql,tagValues.join(','));
                         conn.query(
                             {
                                 sql: tagSql + tagValues.join(',')
@@ -684,7 +662,6 @@ post.create = function(req,res){
                                     for (var i = 0; i < r.tags.length; i++) {
                                         tagRelationValues[i] = '(' + common.time() + ',' + datas.tag[r.tags[i]] + ',' + rr.insertId + ')';
                                     }
-                                    //console.log("insert into secret_tag_relation (date,tagId,postId) values " + tagRelationValues.join(','));
                                     conn.query(
                                         {
                                             sql: "insert into secret_tag_relation (date,tagId,postId) values " + tagRelationValues.join(',')
@@ -709,7 +686,6 @@ post.create = function(req,res){
                             tagRelationValues[i] = '(' + common.time() + ',"' + datas.tag[r.tags[i]] + '",' + rr.insertId + ')';
                         }
                         
-                        //console.log("insert into secret_tag_relation (date,tagId,postId) values " + tagRelationValues.join(','));
                         conn.query(
                             {
                                 sql: "insert into secret_tag_relation (date,tagId,postId) values " + tagRelationValues.join(',')
@@ -745,10 +721,7 @@ post.create = function(req,res){
 
 };
 post.postsDel = function (req, res) {
-    //console.log('success in api');
-    //console.log(req.param('id'));
-    //console.log(req.param('token'))
-    //console.log(req.body.id);
+
     if(req.body.id){
         conn.query(
             {
@@ -794,7 +767,6 @@ post.postsDel = function (req, res) {
                         res.end(common.format(200, "success", {}));
                     })
                 }else{
-                    //console.log('小样,你还想删别人的帖子?');
                     res.end(JSON.stringify(code.loginError));
                     return;
                 }

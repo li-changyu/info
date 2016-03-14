@@ -111,7 +111,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
     request('https://api.weixin.qq.com/sns/userinfo?access_token='+accessToken+'&openid='+openId,function(eee21,rrr21,bbb21){
 
         if(eee21){
-            console.log(eee21);
+            console.log('更新微信用户信息出错'+eee21);
             return;
         }
         try{
@@ -633,7 +633,7 @@ account.wechatLogin = function (req, res) {
                         sql: 'select unionId,userId,openId from secret_open where openId = "' + codeResult.openid + '"'
                     },
                     function (e1, r1) {
-                        console.log(e1, r1);
+                        //console.log(e1, r1);
                         if (e1) {
                             res.end(JSON.stringify(code.mysqlError));
                             return;
@@ -650,17 +650,6 @@ account.wechatLogin = function (req, res) {
                                         return;
                                     }
                                     if (r2.length > 0) {
-                                        console.log({
-                                            avatar: r2[0].avatar,
-                                            openId: r1[0].openId,
-                                            unionId: codeResult.unionid,
-                                            nickname: r2[0].nickname,
-                                            gender: r2[0].gender,
-                                            source: state[0],
-                                            level: r2[0].level,
-                                            userId: r1[0].userId,
-                                            redirect: state[1]
-                                        });
                                         account.login(
                                             req, res, {
                                                 avatar: r2[0].avatar,
