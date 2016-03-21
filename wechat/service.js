@@ -88,32 +88,62 @@ service.advise = function(msg,req,res,next){
 };
 
 
+
 service.subscribe = function(msg,req,res,next){
     if(msg.source=='weibo'){
-        dbs.getWechatText({
-            name: "subscribeWeibo"
-        }, function (eee, rrrr) {
-            if (eee) {
-                res.reply(JSON.stringify(eee));
-                return;
-            }
-            //console.log(rrrr);
-            res.reply(rrrr);
+        //dbs.getWechatText({
+        //    name: "subscribeWeibo"
+        //}, function (eee, rrrr) {
+        //    if (eee) {
+        //        res.reply(JSON.stringify(eee));
+        //        return;
+        //    }
+        //    //console.log(rrrr);
+        //    res.reply(rrrr);
+        //
+        //});
 
-        });
+        res.reply(`终于等到你。
+
+@scuinfo不是官方的。不是官方的。不是官方的。（被问1w遍）
+
+来，跟我念：s(si)s(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
+
+我会的一些功能成绩、课表什么的都在我的自定菜单里面，你也可以通过发微博"@scuinfo 成绩"，这样我就会把你的成绩私信给你。相信你会很容易的上手使用。
+
+恩，对了，是这样的，你在scuinfo http://scuinfo.com 里发布的帖子，点赞数大于${config.postWeibo.count}个的话，就会自动同步到我的微博@scuinfo 上面。
+
+感谢关注，希望能帮到你。`);
         return;
     }
-    dbs.getWechatText({
-        name:"subscribe"
-    },function(eee,rrrr){
-        if(eee){
-            res.reply(JSON.stringify(eee));
-            return;
-        }
-        //console.log(rrrr);
-        res.reply(rrrr);
 
-    });
+
+    res.reply(`终于等到你。
+
+scuinfo是四川大学最大的微信公众平台，不是官方的。不是官方的。不是官方的。（被问1w遍）
+
+来，跟我念：s(si)c(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
+
+我的微博id是<a href="http://weibo.com/scuinfo">@scuinfo</a>,上面每天都会有很多好玩的事。
+
+我会的一些功能都在我的自定菜单里面。相信你会很容易的上手使用。
+
+恩，对了，是这样的，你在<a href="http://scuinfo.com">scuinfo</a>里发布的帖子，点赞数大于${config.postWeibo.count}个的话，就会自动同步到我的微博@scuinfo 上面。
+
+感谢关注，希望能帮到你。`);
+
+
+    //dbs.getWechatText({
+    //    name:"subscribe"
+    //},function(eee,rrrr){
+    //    if(eee){
+    //        res.reply(JSON.stringify(eee));
+    //        return;
+    //    }
+    //    //console.log(rrrr);
+    //    res.reply(rrrr);
+    //
+    //});
     return;
 
 };
