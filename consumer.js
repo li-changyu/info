@@ -85,7 +85,7 @@ consumer.weibo = function(){
                                     var form = new FormData();
 
                                     var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
-                                    console.log(encodeURIComponent(content));
+                                    //console.log(encodeURIComponent(content));
                                     form.append('status', encodeURIComponent(content));
                                     form.append('access_token',weiboToken.access_token);
                                     form.append('pic', request(result.data.url));
@@ -110,6 +110,17 @@ consumer.weibo = function(){
 
                                             if (userInfo.error_code) {
                                                 console.log(userInfo + new Date());
+
+
+                                                hooks.bearychatIncoming({
+                                                    type:"scuinfo同步微博出错",
+                                                    title:"错误详情",
+                                                    text:JSON.stringify(userInfo)
+                                                },function(e){
+                                                    if(e){
+                                                        console.log(e);
+                                                    }
+                                                });
                                                 return;
                                             }
                                             //console.log(userInfo);
@@ -117,6 +128,17 @@ consumer.weibo = function(){
                                                 {
                                                     sql: "update secret_weibo_query set status=1,postAt=" + common.time() + ",weiboId=" + userInfo.id + " where id=" + r[0].id
                                                 }, function (eeeee, rrrrr) {
+
+                                                    hooks.bearychatIncoming({
+                                                        type:"scuinfo新同步微博",
+                                                        title:rr[0].nickname+"("+rr[0].gender+")",
+                                                        text:rr[0].content
+                                                    },function(e){
+                                                        if(e){
+                                                            console.log(e);
+                                                        }
+                                                    });
+
                                                     //console.log(eeeee,'成功发布一条微博');
                                                 }
                                             );
