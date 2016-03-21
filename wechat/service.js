@@ -9,6 +9,8 @@ var config= require('../config.js');
 var dbs = require('../libs/db');
 var user= require('./user.js');
 var bind= require('../libs/bind.js');
+var hooks = require('../libs/hooks.js');
+
 service.validSession = function(msg,cb){
 
     if(msg.debug==0 || msg.debug){
@@ -281,6 +283,10 @@ service.text = function(msg,req,res,next){
                                                 return;
                                             }
                                             res.reply('已收到你的留言，稍后将人工回复你');
+
+                                            hooks.bearychatIncoming({type:'微信公众号scuinfo有新留言',title:rr.nickname,text:msg.Content},function(e,r){
+                                                //console.log(e,r);
+                                            });
                                         }
                                     );
 
@@ -313,8 +319,12 @@ service.text = function(msg,req,res,next){
                                             return;
                                         }
                                         res.reply('已收到你的留言，稍后将人工回复你。');
+                                        hooks.bearychatIncoming({type:'微信公众号scuinfo有新留言',title:(r4[0]?r4[0].nickname:'secret'),text:msg.Content},function(e,r){
+                                            //console.log(e,r);
+                                        });
                                     }
                                 );
+
 
 
 

@@ -3,6 +3,7 @@ var common= require('./libs/common.js');
 var request = require('request');
 var config = require('./config.js');
 var fs= require('fs');
+var hooks = require('./libs/hooks.js');
 var FormData = require('form-data');
 
 /**
@@ -184,7 +185,285 @@ consumer.wechatSession=function(){
 
 };
 
+
+consumer.checkStatus = function(){
+    var opt1 = {
+        url:"http://api.fyscu.com"
+    };
+
+    request(opt1,function(e,r){
+        if(e || r.statusCode!=200){
+            hooks.bearychatIncoming({
+                type:"fyscu api 故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }
+    });
+
+    var opt2 = {
+        url:"http://scuinfo.com",
+        headers:{
+            "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.87 Safari/537.36"
+        }
+    };
+
+
+    request(opt2,function(e,r,b){
+        if(e || r.statusCode!=200){
+
+            console.log(r.statusCode);
+            hooks.bearychatIncoming({
+                type:"scuinfo.com 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }
+    });
+
+
+
+    var opt3 = {
+        url:config.queueUrl+"/?name=score&opt=status_json"
+    };
+
+
+    request(opt3,function(e,r,b){
+        if(e || r.statusCode!=200){
+            hooks.bearychatIncoming({
+                type:"队列 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }else{
+
+            try{
+                var data = JSON.parse(b);
+            }catch (e){
+                var data = null;
+            }
+
+            if(data){
+
+                if(data.unread>config.queueMax){
+                    hooks.bearychatIncoming({
+                        type:"成绩队列没人管了!"
+                    },function(e){
+                        if(e){
+                            console.log(e);
+                        }
+                    })
+                }
+
+            }else{
+                hooks.bearychatIncoming({
+                    type:"队列body解析错误"
+                },function(e){
+                    if(e){
+                        console.log(e);
+                    }
+                })
+            }
+
+        }
+    });
+
+
+
+    var opt4 = {
+        url:config.queueUrl+"/?name=major&opt=status_json"
+    };
+
+
+    request(opt4,function(e,r,b){
+        if(e || r.statusCode!=200){
+            hooks.bearychatIncoming({
+                type:"队列 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }else{
+
+            try{
+                var data = JSON.parse(b);
+            }catch (e){
+                var data = null;
+            }
+
+            if(data){
+
+                if(data.unread>config.queueMax){
+                    hooks.bearychatIncoming({
+                        type:"课表队列没人管了!"
+                    },function(e){
+                        if(e){
+                            console.log(e);
+                        }
+                    })
+                }
+
+            }else{
+                hooks.bearychatIncoming({
+                    type:"队列body解析错误"
+                },function(e){
+                    if(e){
+                        console.log(e);
+                    }
+                })
+            }
+
+        }
+    });
+
+
+
+    var opt5 = {
+        url:config.queueUrl+"/?name=book&opt=status_json"
+    };
+
+
+    request(opt5,function(e,r,b){
+        if(e || r.statusCode!=200){
+            hooks.bearychatIncoming({
+                type:"队列 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }else{
+
+            try{
+                var data = JSON.parse(b);
+            }catch (e){
+                var data = null;
+            }
+
+            if(data){
+
+                if(data.unread>config.queueMax){
+                    hooks.bearychatIncoming({
+                        type:"图书队列没人管了!"
+                    },function(e){
+                        if(e){
+                            console.log(e);
+                        }
+                    })
+                }
+
+            }else{
+                hooks.bearychatIncoming({
+                    type:"队列body解析错误"
+                },function(e){
+                    if(e){
+                        console.log(e);
+                    }
+                })
+            }
+
+        }
+    });
+
+
+
+
+
+    var opt6 = {
+        url:config.queueUrl+"/?name=renew&opt=status_json"
+    };
+
+
+    request(opt6,function(e,r,b){
+        if(e || r.statusCode!=200){
+            hooks.bearychatIncoming({
+                type:"队列 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }else{
+
+            try{
+                var data = JSON.parse(b);
+            }catch (e){
+                var data = null;
+            }
+
+            if(data){
+
+                if(data.unread>config.queueMax){
+                    hooks.bearychatIncoming({
+                        type:"续借队列没人管了!"
+                    },function(e){
+                        if(e){
+                            console.log(e);
+                        }
+                    })
+                }
+
+            }else{
+                hooks.bearychatIncoming({
+                    type:"队列body解析错误"
+                },function(e){
+                    if(e){
+                        console.log(e);
+                    }
+                })
+            }
+
+        }
+    });
+
+
+    var opt7 = {
+        url:"http://wechat.scuinfo.com"
+    };
+
+
+    request(opt7,function(e,r){
+        if(e || r.statusCode!=404){
+            hooks.bearychatIncoming({
+                type:"wechat.scuinfo.com 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }
+    });
+
+
+    var opt8 = {
+        url:"http://weibo.scuinfo.com"
+    };
+
+
+    request(opt8,function(e,r){
+        if(e || r.statusCode!=404){
+            hooks.bearychatIncoming({
+                type:"weibo.scuinfo.com 访问故障"
+            },function(e){
+                if(e){
+                    console.log(e);
+                }
+            })
+        }
+    });
+
+};
+
 consumer.wechatSession();
+
+
 setInterval(function(){
     consumer.wechatSession();
 },1*60*1000);
@@ -195,4 +474,10 @@ consumer.weibo();
 setInterval(function(){
     consumer.weibo();
 },1*90*1000);
+
+
+setInterval(function(){
+    consumer.checkStatus();
+},5*60*1000);
+
 

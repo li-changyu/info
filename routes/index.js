@@ -409,12 +409,7 @@ router.get('/bind/library',check.autoWechat,check.isLogin,function(req,res){
 
 router.get('/t',function(req,res){
     res.render('t');
-})
-
-
-
-
-
+});
 
 //这后边不能有路由了
 

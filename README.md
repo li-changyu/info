@@ -4,6 +4,16 @@
 
 ## 部署
 
+
+        git clone git@git.oschina.net:xiaomingplus/scuinfo.git
+        cd scuinfo
+        npm install -g cnpm --registry=https://registry.npm.taobao.org
+        cnpm i   
+        cnpm i pm2 -g
+        cp config.example.js config.js  //随后修改config文件内的相关配置
+        导入mysql数据库
+        chmod -R 777 token/
+
 1. 更改根目录下的config.example.js 为 config.js
 
 2.给token/ 775的权限
