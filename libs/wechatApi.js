@@ -255,11 +255,18 @@ var menu1 ={
             //    "name":"教务通知",
             //    "key":"dean"
             //},
+            //{
+            //    type:"click",
+            //    "name":"合作建议",
+            //    "key":"advise"
+            //}
+
             {
                 type:"click",
-                "name":"合作建议",
+                "name":"其他功能&合作",
                 "key":"advise"
             }
+
 
             //{
             //    type:"view",

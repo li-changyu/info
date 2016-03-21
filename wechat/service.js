@@ -239,7 +239,7 @@ service.text = function(msg,req,res,next){
                                 var news=[];
                                 news[0]={
                                     title:'我已经帮你发布在scuinfo.com了',
-                                    description:'点击查看你刚刚发布的内容',
+                                    description:'点击查看你刚刚发布的内容,如果在scuinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@scuinfo 里",
                                     pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                                     url:config.site.url+'/p/'+result.data.insertId
                             };
@@ -556,7 +556,7 @@ service.noSessionText = function(msg,req,res,next){
                     var news=[];
                     news[0]={
                         title:'我已经帮你发布在scuinfo.com了',
-                        description:'点击查看你刚刚发布的内容',
+                        description:'点击查看你刚刚发布的内容,如果在scuinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@scuinfo 里",
                         pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                         url:config.site.url+'/p/'+result.data.insertId
                     };
