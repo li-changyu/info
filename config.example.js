@@ -31,6 +31,8 @@ var config = {
         password:"123456",
         database:"secret"
     },
+    queueUrl:"http://queue.scuinfo.com",
+    queueMax:50,
 
     /**
      *      * 微信公众号正式的id和key，请勿必不要在测试环境下使用
