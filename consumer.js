@@ -131,7 +131,7 @@ consumer.weibo = function(){
 
                                                     hooks.bearychatIncoming({
                                                         type:"scuinfo新同步微博",
-                                                        title:rr[0].nickname+"("+rr[0].gender+")",
+                                                        title:rr[0].nickname+"("+common.gender(rr[0].gender)+")",
                                                         text:rr[0].content
                                                     },function(e){
                                                         if(e){
