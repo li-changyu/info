@@ -46,15 +46,7 @@ conn.query(
 
 service.advise = function(msg,req,res,next){
 
-    conn.query(
-        {
-            sql:"insert into wechat_session (openId,createAt,type) values ('"+msg.FromUserName+"',"+common.time()+",1)"
-        },function(e,r) {
-            if (e) {
-                console.log(e);
-                res.reply(code.mysqlError.message);
-                return;
-            }
+
             if(msg.source=='weibo'){
                 dbs.getWechatText({
                     name: "adviseWeibo"
@@ -82,8 +74,7 @@ service.advise = function(msg,req,res,next){
 
             });
             return;
-        });
-    return;
+
 
 };
 
