@@ -100,6 +100,8 @@ service.subscribe = function(msg,req,res,next){
 
 来，跟我念：s(si)s(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
 
+如果你希望和我进行更加亲密的互动，请添加我的微信个人号: infotalk
+
 我会的一些功能成绩、课表什么的都在我的自定菜单里面，你也可以通过发微博"@scuinfo 成绩"，这样我就会把你的成绩私信给你。相信你会很容易的上手使用。
 
 恩，对了，是这样的，你在scuinfo http://scuinfo.com 里发布的帖子，点赞数大于${config.postWeibo.count}个的话，就会自动同步到我的微博@scuinfo 上面。
@@ -114,6 +116,9 @@ service.subscribe = function(msg,req,res,next){
 scuinfo是四川大学最大的微信公众平台，不是官方的。不是官方的。不是官方的。（被问1w遍）
 
 来，跟我念：s(si)c(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
+
+如果你希望和我进行更加亲密的互动，请添加我的微信个人号: infotalk
+
 
 我的微博id是<a href="http://weibo.com/scuinfo">@scuinfo</a>,上面每天都会有很多好玩的事。
 
