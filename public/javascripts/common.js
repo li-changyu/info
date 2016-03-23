@@ -703,25 +703,17 @@ bom.getDateDiff = function(dateTimeStamp) {
     $("#posts").on('click','.posts-footer-more',function(){
 
             var x=$(this).parents('article').attr('level');
-            console.log(x);
-             console.log($(this).parents('article').attr('author'));//return;
             if($(this).parents('article').attr('author')==0  && $(this).parents('article').attr('level')!=1){
                 $($(this).next().children()[1]).remove();
             }
-
             $(this).parent().on('open.dropdown.amui', function (e) {
-
                 $("#posts").off('click','.posts-body');
-
             });
-
-
 
             $(this).parent().on('close.dropdown.amui', function (e) {
                 $("#posts").on('click','.posts-body', function(ev){
                     location.href = '/p/'+$(this).parents('article').attr('id');
                 });
-                //console.log('open event triggered');
             });
             $(this).parent().dropdown('toggle');
 

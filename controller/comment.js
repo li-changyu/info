@@ -229,10 +229,7 @@ comment.commentView = function (req, res) {
         });
 };
 comment.commentDel = function (req, res) {
-    //console.log('success in api');
-    //console.log(req.param('id'));
-    //console.log(req.param('token'))
-    //console.log(req.body.id);
+
     if(req.body.id){
         conn.query(
             {
@@ -246,7 +243,7 @@ comment.commentDel = function (req, res) {
                     res.end(JSON.stringify(code.mysqlError));
                     return;
                 }
-                if(r.length>0&&r[0].userId==req.session.userId){
+                if(r.length>0 && r[0].userId==req.session.userId){
                     conn.query({
                         sql: 'DELETE FROM `secret_comment` WHERE id = ' + ":id",
                         params:{
@@ -261,7 +258,7 @@ comment.commentDel = function (req, res) {
                         }
                         res.end(common.format(200, "success", {}));
                     })
-                }else if(req.session.level = 1){
+                }else if(req.session.level == 1){
                     conn.query({
                         sql: 'DELETE FROM `secret_comment` WHERE id = ' + ":id",
                         params:{

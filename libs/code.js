@@ -211,6 +211,10 @@ var code = {
     'canNotFoundContent':{
         code:2046,
         message:"该内容已被删除"
+    },
+    'notAdmin':{
+        code:2047,
+        message:"没有权限"
     }
 };
 

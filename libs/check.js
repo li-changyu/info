@@ -58,6 +58,18 @@ check.autoWechat = function(req,res,next){
 
 };
 
+//api验证是否是管理员
+check.isLoginAdminApi = function(req,res,next){
+
+
+    if(req.session.level==1){
+        next();
+    }else{
+        res.end(JSON.stringify(code.notAdmin));
+        return;
+    }
+};
+
 //api验证是否登录
 check.isLoginApi = function(req,res,next){
 
@@ -81,6 +93,15 @@ check.isNotLoginApi = function(req,res,next){
      }
 };
 
+//api验证是否未登录
+check.isNotLoginApi = function(req,res,next){
+    if(req.session.userStatus=='login'){
+        res.end(JSON.stringify(code.hasLogin));
+        return;
+    }else{
+        next();
+    }
+};
 
 //验证是否登录
 check.isLogin = function(req,res,next){
