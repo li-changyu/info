@@ -751,7 +751,7 @@ post.postsDel = function (req, res) {
                         }
                         res.end(common.format(200, "success", {}));
                     })
-                }else if(req.session.level = 1){
+                }else if(req.session.level == 1){
                     conn.query({
                         sql: 'DELETE FROM `secret_post` WHERE id = :id',
                         params:{
