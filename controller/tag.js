@@ -298,7 +298,7 @@ tag.like = function (req, res) {
                                                 callback(code.mysqlError);
                                                 return;
                                             }
-                                            if(item.secret=1){
+                                            if(item.secret==1){
                                                 items.userId=0;
                                             }else{
                                                 items.userId=item.userId;
