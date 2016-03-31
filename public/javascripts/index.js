@@ -1,6 +1,11 @@
 (function(bom,dom,$){
     $(dom).ready(function(){
-       //alert();
+        //console.log('init');
+
+        var store = $.AMUI.store;
+        var historyTimestamp = $("#timestamp").val();
+
+
         switch($('#pageType').val()){
 
             case 'tag':
@@ -62,7 +67,6 @@
 
                     if(o.action == 'init'){
                         $("#loading").css('display','none');}
-                   // console.log(data);
                     if(data.code==200) {
                         // console.log(data.data.length);
                         if(data.data.length == 0){
@@ -137,6 +141,7 @@
                         $("#loadMore").attr('fromid',fromId).clone(true);
                         $("#loadMoreButton").button('reset');
 
+
                         if(store.enabled){
                             store.set('fromId',fromId);
                             store.set('posts',(store.get('posts')?store.get('posts'):"")+posts);
@@ -151,13 +156,10 @@
 
         };
 
-        var store = $.AMUI.store;
-        var historyTimestamp = $("#timestamp").val();
-        
 
         if(store.enabled){
-            //console.log("本地存储的时间"+store.get('timestamp'));
-            //console.log("历史时间："+historyTimestamp);
+
+
             if(historyTimestamp == store.get('timestamp')){
                 if(store.get('posts')){
                    $("#posts").html(
@@ -174,7 +176,6 @@
 
             }else {
                 store.clear();
-                
                 store.set('timestamp', historyTimestamp);
                 $(dom).scroll(function () {
                     store.set('y', $(dom).scrollTop());
@@ -228,6 +229,8 @@
         });
 
         $("#posts").on('click','.posts-comment,.posts-footer-left', function(ev){
+
+
             //console.log($(this).parents('article'));
             location.href = '/p/'+$(this).parents('article').attr('id');
         });

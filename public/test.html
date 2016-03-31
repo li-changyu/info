@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/stylesheets/audit.css">
+</head>
+<body>
+
+<h1>hello</h1>
+<button id="test">test</button>
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<![endif]-->
+
+
+
+<script src="http://192.168.31.172:8080/target/target-script-min.js#anonymous"></script>
+
+<script>
+
+    console.log('221432');
+
+    $('document').ready(function(){
+        console.log('ss');
+
+        $("#test").click(function(){
+
+            console.log('222');
+        })
+    })
+
+</script>
+
+</body>
+</html>

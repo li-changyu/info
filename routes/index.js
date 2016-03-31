@@ -240,7 +240,7 @@ router.get('/',check.autoWechat,function(req,res){
 //
 });
 
-router.get('/debug',check.autoWechat,function(req,res){
+router.get('/debug',function(req,res){
 
 
     req.session.level=1;
@@ -249,7 +249,7 @@ router.get('/debug',check.autoWechat,function(req,res){
     req.session.nickname="我就喜欢语文老师体育能跑100米";
     req.session.gender=2;
     req.session.userStatus='login';
-    console.log(req.session);
+    //console.log(req.session);
     pages.index(req,res);
 //
 });
