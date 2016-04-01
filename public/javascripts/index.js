@@ -187,9 +187,7 @@
                 bom.loadHtml({
                     action:"init"
                 },function(){
-                    setTimeout(function() {
-                        window.scrollTo(0, 0);
-                    },1000);
+
                 });
             }
 //你们好
