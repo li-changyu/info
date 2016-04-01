@@ -21,9 +21,6 @@ check.isWeixin = function(o){
 check.autoWechat = function(req,res,next){
 
     if(req.session) {
-
-        console.log(req.session);
-
         if(req.session.userStatus == 'login' || req.session.userStatus =='other' || req.session.userStatus == 'wechatNotFans'){
             next();
         }else if (check.isWeixin(req.headers['user-agent'])) {
