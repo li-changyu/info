@@ -290,7 +290,10 @@ account.wechatGetUserInfo = function(req,res) {
                                             level:r2[0].level,
                                             redirect: state[1]
                                         }
-                                    )
+                                    );
+
+
+
                                 } else {
                                     res.end(JSON.stringify(code.noUserInfo));
                                     return;
@@ -298,7 +301,7 @@ account.wechatGetUserInfo = function(req,res) {
 
                             }
                         );
-
+                        console.log('come on');
      account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId,function(e,r){
 
      });
