@@ -3,6 +3,35 @@
     var baseUrl="http://scuinfo.com";
 
     /**
+     * 解析url
+     * @param url
+     * @returns {{protocol: (*|string), host: *, hostname: (*|string), port: *, pathname: (*|string|string), search: (*|Symbol|string), searchObject: {}, hash: (*|number|c.hash|string)}}
+     */
+    bom.parseURL = function(url) {
+        var parser = document.createElement('a'),
+            searchObject = {},
+            queries, split, i;
+        // Let the browser do the work
+        parser.href = url;
+        // Convert query string to object
+        queries = parser.search.replace(/^\?/, '').split('&');
+        for( i = 0; i < queries.length; i++ ) {
+            split = queries[i].split('=');
+            searchObject[split[0]] = split[1];
+        }
+        return {
+            protocol: parser.protocol,
+            host: parser.host,
+            hostname: parser.hostname,
+            port: parser.port,
+            pathname: parser.pathname,
+            search: parser.search,
+            searchObject: searchObject,
+            hash: parser.hash
+        };
+    }
+
+    /**
      * 输出格式化的时间
      * @param time
      * @returns {string}
