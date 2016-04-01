@@ -107,6 +107,54 @@ account.updateWeiboUserInfo = function(accessToken,openId,userId){
 
 };
 
+
+account.updateFansUserInfo = function(openId,userId){
+
+    console.log(openId,userId);
+    api.getUser(openId, function (err, result) {
+        console.log(result);
+        //console.log('下面一条输出是userinfo');
+        if (err) {
+            //没有拿到用户资料
+            //console.log('没拿到资料');
+            return;
+
+        } else {
+
+
+            if (!result.subscribe) {
+
+                //没有拿到用户资料
+                 return;
+            }else{
+
+                var userInfo=result;
+                if(userInfo){
+
+                    console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
+                    conn.query(
+                        {sql:"update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId
+                        },function(e,r){
+                            if(e){
+                                console.log(e);
+                                return;
+                            }else {
+                                console.log(r);
+                                return;
+                            }
+                        }
+                    )
+
+
+
+                }else{
+                    console.log('更新头像出错');
+                }
+            }
+        }
+    });
+
+};
 account.updateUserInfo = function(accessToken,openId,userId,cb){
     console.log(accessToken,openId,userId);
     request('https://api.weixin.qq.com/sns/userinfo?access_token='+accessToken+'&openid='+openId,function(eee21,rrr21,bbb21){
@@ -124,7 +172,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
         }
 
         console.log(body);
-        
+
         if(body.errcode){
             console.log(bbb21);
             return;
@@ -257,7 +305,6 @@ account.wechatGetUserInfo = function(req,res) {
             }
                 var codeResult = result.data;
 
-        console.log(codeResult);
             conn.query(
                 {
                     sql: 'select unionId,userId from secret_open where openId = "' + codeResult.openid + '"'
@@ -305,9 +352,7 @@ account.wechatGetUserInfo = function(req,res) {
                             }
                         );
                         console.log('come on'+r1[0].userId);
-     account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId,function(e,r){
-
-     });
+     account.updateFansUserInfo(codeResult.openid,r1[0].userId);
 
                     } else {
 
