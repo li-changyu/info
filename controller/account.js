@@ -255,6 +255,8 @@ account.wechatGetUserInfo = function(req,res) {
                 return;
             }
                 var codeResult = result.data;
+
+        console.log(codeResult);
             conn.query(
                 {
                     sql: 'select unionId,userId from secret_open where openId = "' + codeResult.openid + '"'
