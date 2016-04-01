@@ -136,7 +136,7 @@ account.updateFansUserInfo = function(openId,userId){
                                 console.log(e);
                                 return;
                             }else {
-                                console.log(r);
+                                //console.log(r);
                                 return;
                             }
                         }
