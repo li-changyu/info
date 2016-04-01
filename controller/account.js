@@ -953,7 +953,7 @@ account.wechatLogin = function (req, res) {
                                     } else {
 
                                         oauthWechat.getUser(codeResult.openid, function(eeee1,userInfo){
-c
+
                                             console.log(userInfo);
 
                                             if (eeee1) {
