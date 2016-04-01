@@ -151,6 +151,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
 
 
             }else{
+            console.log('更新头像出错');
         }
     });
 
@@ -256,7 +257,7 @@ account.wechatGetUserInfo = function(req,res) {
             }
                 var codeResult = result.data;
 
-        //console.log(codeResult);
+        console.log(codeResult);
             conn.query(
                 {
                     sql: 'select unionId,userId from secret_open where openId = "' + codeResult.openid + '"'
@@ -303,7 +304,7 @@ account.wechatGetUserInfo = function(req,res) {
 
                             }
                         );
-                        console.log('come on');
+                        console.log('come on'+r1[0].userId);
      account.updateUserInfo(codeResult.access_token,codeResult.openid,r1[0].userId,function(e,r){
 
      });
