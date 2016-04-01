@@ -735,7 +735,7 @@ account.wechatLogin = function (req, res) {
                                         res.end(JSON.stringify(code.mysqlError));
                                         return;
                                     }
-                                    console.log(r5);
+                                    //console.log(r5);
                                     //console.log(r1);
                                     if (r5.length > 0) {
 
@@ -954,7 +954,7 @@ account.wechatLogin = function (req, res) {
 
                                         oauthWechat.getUser(codeResult.openid, function(eeee1,userInfo){
 
-                                            console.log(userInfo);
+                                            //console.log(userInfo);
 
                                             if (eeee1) {
                                                 console.log(eeee1);
