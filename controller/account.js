@@ -108,6 +108,7 @@ account.updateWeiboUserInfo = function(accessToken,openId,userId){
 };
 
 account.updateUserInfo = function(accessToken,openId,userId,cb){
+    console.log(accessToken,openId,userId);
     request('https://api.weixin.qq.com/sns/userinfo?access_token='+accessToken+'&openid='+openId,function(eee21,rrr21,bbb21){
 
         if(eee21){
@@ -121,12 +122,17 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
         }catch(e){
             var body=null;
         }
+
+        console.log(body);
+        
         if(body.errcode){
             console.log(bbb21);
             return;
         }
         var userInfo=body;
         if(userInfo){
+
+            console.log("update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId);
                 conn.query(
                     {sql:"update secret_user_extend set gender="+ userInfo.sex+",avatar='"+userInfo.headimgurl+"',nickname='"+userInfo.nickname+"' where userId="+userId
                     },function(e,r){
@@ -135,7 +141,7 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
                             cb(e)
                             return;
                         }else {
-                            //console.log( r);
+                            console.log( r);
                             cb(null,'yes');
                             return;
                         }
