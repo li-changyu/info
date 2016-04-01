@@ -46,14 +46,11 @@ api.registerTicketHandle(function (type, callback) {
 // getTicketToken
 
 pages.index = function(req,res){
-
-    //res.header('Cache-Control','public');
     var url = req.protocol+"://"+config.host.url+req.originalUrl;
     var param = {
         url: url
     };
     api.getJsConfig(param, function(e,wechatJs){
-
 
         if(e){
             res.end(JSON.stringify(code.getWechatTicketError))
@@ -80,15 +77,12 @@ pages.index = function(req,res){
             }});
     });
 
-// saveTicketToken
-
 
 };
 
 
 
 pages.tag = function(req,res){
-    //console.log(parseInt(new Date()/1000));
     res.header('Cache-Control','public');
     var url = req.protocol+"://"+config.host.url+req.originalUrl;
     var param = {
