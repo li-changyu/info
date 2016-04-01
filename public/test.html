@@ -8,6 +8,34 @@
 <body>
 
 <h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+<h1>hello</h1>
+
 <button id="test">test</button>
 
 <!--[if (gte IE 9)|!(IE)]><!-->
@@ -18,22 +46,29 @@
 <![endif]-->
 
 
+<script src="http://cdn.amazeui.org/amazeui/2.4.0/js/amazeui.min.js"></script>
+<!--<script src="/javascripts/hammer.min.js"></script>-->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="/javascripts/common.js"></script>
 
-<script src="http://192.168.31.172:8080/target/target-script-min.js#anonymous"></script>
 
 <script>
 
-    console.log('221432');
-
-    $('document').ready(function(){
-        console.log('ss');
-
+    (function(bom,dom,$){
+        $('dom').ready(function(){
         $("#test").click(function(){
-
             console.log('222');
-        })
-    })
+            history.replaceState({y:''}, null, '#222');
+            location.href="http://baidu.com"
 
+        });
+
+        var url = parseURL(location.href);
+        console.log(url);
+
+
+    });
+    })(self,self.document,self.jQuery);
 </script>
 
 </body>

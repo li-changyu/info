@@ -3,8 +3,6 @@
         //console.log('init');
 
         var store = $.AMUI.store;
-        var historyTimestamp = $("#timestamp").val();
-
 
         switch($('#pageType').val()){
 
@@ -67,7 +65,8 @@
 
                     if(o.action == 'init'){
                         $("#loading").css('display','none');}
-                    if(data.code==200) {
+
+                if(data.code==200) {
                         // console.log(data.data.length);
                         if(data.data.length == 0){
                             if(o.action == 'init'){
@@ -147,7 +146,8 @@
                             store.set('posts',(store.get('posts')?store.get('posts'):"")+posts);
 
                         }
-                        cb(null);
+
+                    cb(null);
 
                     }else{
                         alert(data.message);
@@ -159,33 +159,73 @@
 
         if(store.enabled){
 
-
-            if(historyTimestamp == store.get('timestamp')){
+       var currentUrl = bom.parseURL(location.href);
+            if(currentUrl.hash){
                 if(store.get('posts')){
-                   $("#posts").html(
-                      store.get('posts')
-                   ).clone(true);
-                   setTimeout(function() {window.scrollTo(0,store.get('y'));},1);
-                   $("#loadMore").attr('fromid',store.get('fromId'));
-                   $("#loadMoreButton").button('reset');
-                   $("#loadMore").css('display','block');
-                   $(dom).scroll(function () {
-                       store.set('y', $(dom).scrollTop());
-                   });
-               }
+                    $("#posts").html(
+                        store.get('posts')
+                    ).clone(true);
+                    setTimeout(function() {
+                        window.scrollTo(0,store.get('y'));
+                        history.replaceState({y: store.get('y')}, null, currentUrl.protocol+"//"+currentUrl.host+currentUrl.search);
+
+                    },1);
+                    $("#loadMore").attr('fromid',store.get('fromId'));
+                    $("#loadMoreButton").button('reset');
+                    $("#loadMore").css('display','block');
+                    $(dom).scroll(function () {
+                        store.set('y', $(dom).scrollTop());
+                    });
+                }
 
             }else {
                 store.clear();
-                store.set('timestamp', historyTimestamp);
                 $(dom).scroll(function () {
                     store.set('y', $(dom).scrollTop());
                 });
+
                 bom.loadHtml({
                     action:"init"
                 },function(){
-
+                    setTimeout(function() {
+                        window.scrollTo(0, 0);
+                    },1000);
                 });
             }
+//你们好
+            //
+            //if(historyTimestamp == store.get('timestamp')){
+            //    if(store.get('posts')){
+            //       $("#posts").html(
+            //          store.get('posts')
+            //       ).clone(true);
+            //       setTimeout(function() {window.scrollTo(0,store.get('y'));},1);
+            //       $("#loadMore").attr('fromid',store.get('fromId'));
+            //       $("#loadMoreButton").button('reset');
+            //       $("#loadMore").css('display','block');
+            //       $(dom).scroll(function () {
+            //           store.set('y', $(dom).scrollTop());
+            //       });
+            //   }
+            //
+            //}else {
+            //    store.clear();
+            //    store.set('timestamp', historyTimestamp);
+            //    $(dom).scroll(function () {
+            //        store.set('y', $(dom).scrollTop());
+            //    });
+            //    bom.loadHtml({
+            //        action:"init"
+            //    },function(){
+            //
+            //    });
+            //}
+        }else{
+            bom.loadHtml({
+                action:"init"
+            },function(){
+
+            });
         }
 
 
@@ -225,6 +265,9 @@
 
         $("#posts").on('click','.posts-body', function(ev){
             //console.log($(this).parents('article'));
+            if(store.enabled) {
+                history.replaceState({y: store.get('y')}, null, '#' + store.get('y'));
+            }
             location.href = '/p/'+$(this).parents('article').attr('id');
         });
 
@@ -232,6 +275,9 @@
 
 
             //console.log($(this).parents('article'));
+            if(store.enabled) {
+                history.replaceState({y: store.get('y')}, null, '#' + store.get('y'));
+            }
             location.href = '/p/'+$(this).parents('article').attr('id');
         });
 
