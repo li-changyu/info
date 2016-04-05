@@ -430,6 +430,8 @@ bom.getDateDiff = function(dateTimeStamp) {
                 return;
             }
             //console.log('2');
+            mixpanel.track("like action");
+
             $.ajax({
                 type: o.method?o.method:"POST",
                 url: '/api/like/post',
@@ -537,6 +539,7 @@ bom.getDateDiff = function(dateTimeStamp) {
                 },
                 success: function (res) {
                     //alert('已分享');
+
                     $("#wechatShareTips").css('display', "none");
 
                 },
@@ -587,8 +590,12 @@ bom.getDateDiff = function(dateTimeStamp) {
                 }
             });
 
+            mixpanel.track("share wechat");
+
+
             // });
         }else{
+            mixpanel.track("share weibo");
 
             article = $(this).parent().parent().parent();
                 wbUrl			= encodeURIComponent(article.attr('href')),

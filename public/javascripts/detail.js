@@ -228,7 +228,7 @@
                     return;
                 }
 
-                console.log(r);
+                //console.log(r);
                 
                 $.ajax({
                     type: 'POST',
@@ -238,6 +238,8 @@
                     // console.log(data);
                     //    data.data.content = r.content;
                     //    console.log(22);
+                        mixpanel.track("comment action");
+
                         cb(data);
                     },
                     contentType: "application/json",

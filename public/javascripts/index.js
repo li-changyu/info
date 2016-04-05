@@ -2,6 +2,8 @@
     $(dom).ready(function(){
         //console.log('init');
 
+
+
         var store = $.AMUI.store;
 
         switch($('#pageType').val()){
@@ -249,6 +251,7 @@
             }
         });
         $("#loadMoreButton").on('click',function(){
+
             bom.loadHtml({
                 action:"loadMore",
                 fromId:$("#loadMore").attr('fromid')
@@ -262,6 +265,7 @@
 
 
         $("#posts").on('click','.posts-body', function(ev){
+
             //console.log($(this).parents('article'));
             if(store.enabled) {
                 history.replaceState({y: store.get('y')}, null, '#' + store.get('y'));
