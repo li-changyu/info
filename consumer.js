@@ -47,7 +47,7 @@ consumer.weibo = function(){
                 console.log(e+new Date());
                 return;
             }
-            console.log(r);
+            // console.log(r);
             if(r.length>0){
 
 
@@ -85,10 +85,10 @@ consumer.weibo = function(){
                                 if(result.code==200){
                                     var form = new FormData();
 
-                                    // var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
-                                     var content = ((rr[0].content.substr(0,135)));
+                                    var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
+                                    //  var content = ((rr[0].content.substr(0,135)));
 
-                                    console.log((content));
+                                    // console.log((content));
                                     form.append('status', encodeURIComponent(content));
                                     form.append('access_token',weiboToken.access_token);
                                     form.append('pic', request(result.data.url));
@@ -103,7 +103,7 @@ consumer.weibo = function(){
                                         });
                                         res.on('end', function() {
 
-                                          console.log(body);
+                                          // console.log(body);
                                             try {
                                                 var userInfo = JSON.parse(body);
                                             } catch (e) {
@@ -115,7 +115,13 @@ consumer.weibo = function(){
 
                                             if (userInfo.error_code) {
                                                 // console.log(userInfo + new Date());
-
+                                                conn.query(
+                                                    {
+                                                        sql:"update secret_weibo_query set status=4,postAt="+common.time()+" where id="+r[0].id
+                                                    },function(eeeee,rrrrr){
+                                                        console.log(eeeee,userInfo);
+                                                    }
+                                                );
 
                                                 hooks.bearychatIncoming({
                                                     type:"scuinfo同步微博出错",
@@ -127,6 +133,8 @@ consumer.weibo = function(){
                                                     }
                                                 });
                                                 return;
+
+
                                             }
                                             // console.log(userInfo);
                                             conn.query(
