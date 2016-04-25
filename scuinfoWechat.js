@@ -227,10 +227,10 @@ app.use('/wechat', wechat(config, wechat.text(function (message, req, res, next)
             break;
 
     }
-    
-    
-    
-    
+
+
+
+
 })));
 
 

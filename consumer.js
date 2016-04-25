@@ -102,6 +102,8 @@ consumer.weibo = function(){
                                             body += chunk;
                                         });
                                         res.on('end', function() {
+
+                                          console.log(body);
                                             try {
                                                 var userInfo = JSON.parse(body);
                                             } catch (e) {
@@ -126,7 +128,7 @@ consumer.weibo = function(){
                                                 });
                                                 return;
                                             }
-                                            //console.log(userInfo);
+                                            // console.log(userInfo);
                                             conn.query(
                                                 {
                                                     sql: "update secret_weibo_query set status=1,postAt=" + common.time() + ",weiboId=" + userInfo.id + " where id=" + r[0].id
