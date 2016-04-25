@@ -88,7 +88,7 @@ consumer.weibo = function(){
                                     // var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
                                      var content = ((rr[0].content.substr(0,135)));
 
-                                    //console.log(encodeURIComponent(content));
+                                    console.log(encodeURIComponent(content));
                                     form.append('status', encodeURIComponent(content));
                                     form.append('access_token',weiboToken.access_token);
                                     form.append('pic', request(result.data.url));
