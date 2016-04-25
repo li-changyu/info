@@ -32,7 +32,7 @@ fs.readFile('./token/weibo_token.txt', 'utf8', function (err, txt) {
     }catch(e){
         weiboToken={}
     }
-    
+
 });
 /**
  * 微博发布消费者
@@ -63,8 +63,9 @@ consumer.weibo = function(){
                             console.log(ee+new Date());
                             return;
                         }
-                        
+
                         if(rr.length>0){
+
 //console.log(rr);
 
                             request.post('http://text2pic.scuinfo.com',{form:{
@@ -84,7 +85,9 @@ consumer.weibo = function(){
                                 if(result.code==200){
                                     var form = new FormData();
 
-                                    var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
+                                    // var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
+                                     var content = ((rr[0].content.substr(0,135)));
+
                                     //console.log(encodeURIComponent(content));
                                     form.append('status', encodeURIComponent(content));
                                     form.append('access_token',weiboToken.access_token);
@@ -109,7 +112,7 @@ consumer.weibo = function(){
 
 
                                             if (userInfo.error_code) {
-                                                console.log(userInfo + new Date());
+                                                // console.log(userInfo + new Date());
 
 
                                                 hooks.bearychatIncoming({
@@ -156,7 +159,7 @@ consumer.weibo = function(){
 
                             });
 
-                            
+
                         }else{
                             console.log('该帖子已被删除'+new Date());
                             conn.query(
@@ -180,9 +183,9 @@ consumer.weibo = function(){
 
 
 
-                
+
                 //console.log('发布');
-                
+
             }else{
                 //console.log('没有待发布的微博');
             }
@@ -501,5 +504,3 @@ setInterval(function(){
 setInterval(function(){
     consumer.checkStatus();
 },5*60*1000);
-
-
