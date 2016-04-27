@@ -215,6 +215,10 @@ var code = {
     'notAdmin':{
         code:2047,
         message:"没有权限"
+    },
+    'userblock':{
+      code:2048,
+      message:"用户当前已被锁定"
     }
 };
 

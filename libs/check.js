@@ -373,6 +373,7 @@ check.userInfo = function(o){
 };
 check.postCreate = function(o,cb){
 
+
     //console.log(o);
     if(!o.content){
         cb(code.contentCantNull);
@@ -391,6 +392,11 @@ check.postCreate = function(o,cb){
     var title = check.title({content: o.content});
 
     var userInfo = check.userInfo({session: o.session,secret:secret});
+
+    if(userInfo.userId == '28874'){
+      cb(code.userblock);
+      return;
+    }
 
     conn.query({
         sql:"select id from secret_post where content=:content",
