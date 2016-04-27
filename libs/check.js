@@ -393,7 +393,7 @@ check.postCreate = function(o,cb){
 
     var userInfo = check.userInfo({session: o.session,secret:secret});
 
-    if(userInfo.userId == '28874' || userInfo.userId== '28388'){
+    if(userInfo.userId == '28874' || userInfo.userId== '28388' || userInfo.userId =='1'){
       cb(code.userblock);
       return;
     }
