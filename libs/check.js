@@ -407,7 +407,7 @@ check.postCreate = function(o,cb){
             cb(code.userBlock);
             return;
           }else{
-]            redis.setnx(logIpKey,1).then((r)=>{
+            redis.setnx(logIpKey,1).then((r)=>{
               if(r===0){
                 return redis.incr(logIpKey);
               }else{
