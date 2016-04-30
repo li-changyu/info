@@ -386,12 +386,12 @@ check.postCreate = function(o,cb){
     var userInfo = check.userInfo({session: o.session,secret:secret});
     var ip = '127.0.0.3';
     var userId = userInfo.userId;
-    // var blockTime = 60*60*6;
-    var blockTime = 60;
+    var blockTime = 60*60*12;
+    // var blockTime = 60;
     var blockIpKey = 'block:ip:'+ip;
     var blockUserKey = 'block:user:'+userId;
-    var logTime = 20;
-    var maxPostCount = 3;
+    var logTime = 60*10;
+    var maxPostCount = 8;
     var logIpKey="log:ip:"+ip;
     var logUserKey = 'log:user:'+userId;
     redis.hgetall(blockIpKey).then(function(r){
