@@ -384,10 +384,9 @@ check.postCreate = function(o,cb){
     }
 
     var userInfo = check.userInfo({session: o.session,secret:secret});
-    var ip = '127.0.0.3';
+    var ip = o.ip;
     var userId = userInfo.userId;
     var blockTime = 60*60*12;
-    // var blockTime = 60;
     var blockIpKey = 'block:ip:'+ip;
     var blockUserKey = 'block:user:'+userId;
     var logTime = 60*10;
