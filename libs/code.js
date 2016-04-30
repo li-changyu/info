@@ -216,9 +216,17 @@ var code = {
         code:2047,
         message:"没有权限"
     },
-    'userblock':{
+    'userBlock':{
       code:2048,
       message:"用户当前已被锁定"
+    },
+    'ipBlock':{
+      code:2049,
+      message:"ip当前已被锁定"
+    },
+    'redisError':{
+      code:2050,
+      message:"redis错误"
     }
 };
 

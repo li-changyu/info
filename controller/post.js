@@ -254,7 +254,8 @@ post.createArticle = function(req,res,data){
             userId:data.userId,
             userStatus:'login',
             gender:data.gender
-        }
+        },
+        ip:req.get("X-Real-IP") || req.get("X-Forwarded-For") || req.ip
     },function(e,r) {
 
         if (e) {
@@ -384,7 +385,8 @@ post.createMove = function(req,res){
             userId:req.body.userId,
             userStatus:'login',
             gender:req.body.gender
-        }
+        },
+        ip:req.get("X-Real-IP") || req.get("X-Forwarded-For") || req.ip
     },function(e,r) {
 
         if (e) {
@@ -593,7 +595,8 @@ post.create = function(req,res){
     check.postCreate({
         content:req.body.content,
         secret:req.body.secret,
-        session:req.session
+        session:req.session,
+        ip:req.get("X-Real-IP") || req.get("X-Forwarded-For") || req.ip
     },function(e,r) {
 
         if (e) {
@@ -624,7 +627,7 @@ post.create = function(req,res){
                 }
 //console.log('1');
 //                console.log(datas.tag);
-                
+
                 //console.log('22');
                 if (r.tags.length > 0) {
                     var newTags = [];
@@ -685,7 +688,7 @@ post.create = function(req,res){
                         for (var i = 0; i < r.tags.length; i++) {
                             tagRelationValues[i] = '(' + common.time() + ',"' + datas.tag[r.tags[i]] + '",' + rr.insertId + ')';
                         }
-                        
+
                         conn.query(
                             {
                                 sql: "insert into secret_tag_relation (date,tagId,postId) values " + tagRelationValues.join(',')
@@ -1072,7 +1075,7 @@ post.postsView = function (req, res) {
             }
         }
     }
-    
+
     //console.log(sql);
     //console.log(sql);return;
     //console.log('SELECT * FROM secret_post where userId = ' + ':userId' + ' order by date desc limit 0,' + ':pageSize');return;
@@ -1178,14 +1181,14 @@ post.postsView = function (req, res) {
                         //console.log(data);
                         for (var i = 0; i < data.length; i++) {
                             if (data[i].top == 1) {
-                                
+
                                 //console.log(i);
                                 newData.push(data[i]);
                                 data.splice(i,1);
                                 topStatus=1;
                             }
                         }
-                        
+
                         //console.log(data);
 
 

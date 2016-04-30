@@ -7,6 +7,7 @@ var models_path = __dirname + '/models';
 fs.readdirSync(models_path).forEach(function (file) {
     if (~file.indexOf('.js')) require(models_path + '/' + file)
 });
+var redis = require('./libs/redis');
 
 var express = require('express');
 var favicon = require('serve-favicon');

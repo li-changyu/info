@@ -4,9 +4,12 @@ var libs = require('./libs.js');
 var conn = require('./mysql.js');
 var config =require('../config.js');
 var escape = require('escape-html');
+var redis = require('../libs/redis');
 var check = {
     name:"检测页"
 };
+
+
 check.isWeixin = function(o){
 
     var ua = o.toLowerCase();
@@ -350,7 +353,6 @@ check.tag = function(o){
  * @param cb
  */
 check.userInfo = function(o){
-
     if(o.secret){
         return{
                 userId: o.session.userId,
@@ -372,163 +374,245 @@ check.userInfo = function(o){
 
 };
 check.postCreate = function(o,cb){
-
-
-    //console.log(o);
     if(!o.content){
         cb(code.contentCantNull);
         return;
     }
-
-    //判断是否重复content
     var secret=0;
     if(o.secret){
         secret=1;
     }
 
-    o.content=escape(o.content);
-
-
-    var title = check.title({content: o.content});
-
     var userInfo = check.userInfo({session: o.session,secret:secret});
+    var ip = '127.0.0.3';
+    var userId = userInfo.userId;
+    // var blockTime = 60*60*6;
+    var blockTime = 60;
+    var blockIpKey = 'block:ip:'+ip;
+    var blockUserKey = 'block:user:'+userId;
+    var logTime = 20;
+    var maxPostCount = 3;
+    var logIpKey="log:ip:"+ip;
+    var logUserKey = 'log:user:'+userId;
+    redis.hgetall(blockIpKey).then(function(r){
+      if(Object.keys(r).length>0){
+        //ip在黑名单里
+        cb(code.ipBlock);
+        return;
+      }else{
+        //没有被拉黑检测用户是否被拉黑
+        redis.hgetall(blockUserKey).then(function(r){
+          if(Object.keys(r).length>0){
+            //userId在黑名单里
+            cb(code.userBlock);
+            return;
+          }else{
+]            redis.setnx(logIpKey,1).then((r)=>{
+              if(r===0){
+                return redis.incr(logIpKey);
+              }else{
+                return redis.expire(logIpKey,logTime);
+              }
+            }).then((r)=>{
+              //如果超过n词就写入锁定的key
 
-    if(userInfo.userId == '28874' || userInfo.userId== '28388' || userInfo.userId =='1'){
-      cb(code.userblock);
+            if(r>maxPostCount){
+                var blockIpKey = 'block:ip:'+ip;
+                return redis.hmset(blockIpKey,'reason','访问过于频繁','unblock',common.time()+blockTime).then((r)=>{
+                   redis.expire(blockIpKey,blockTime).then((rr)=>{
+                     redis.setnx(logUserKey,1).then(rrr=>{
+                       if(rrr===0){
+                         return redis.incr(logUserKey);
+                       }else{
+                         return redis.expire(logUserKey,logTime);
+                       }
+                     })
+                   });
+                })
+              }else{
+                  return redis.setnx(logUserKey,1).then(rrr=>{
+                    if(rrr===0){
+                      return redis.incr(logUserKey);
+                    }else{
+                      return redis.expire(logUserKey,logTime);
+                    }
+                  })
+              }
+            }
+
+            ).then((rrrr)=>{
+              if(rrrr>maxPostCount){
+                redis.hmset(blockUserKey,'reason','访问过于频繁','unblock',common.time()+blockTime).then((rrrrr)=>{
+                  redis.expire(blockUserKey,blockTime).then((rr)=>{
+                    cb(code.userBlock);
+                    return;
+                  }).catch((rrr)=>{
+                    console.log(rrr);
+                    cb(code.redisError);
+                    return;
+                  });
+                }).catch((e)=>{
+                  cb(code.redisError);
+                  return;
+                });
+              }else{
+                //正常流程
+                o.content=escape(o.content);
+
+
+                var title = check.title({content: o.content});
+
+                conn.query({
+                    sql:"select id from secret_post where content=:content",
+                    params:{
+                        content: o.content
+                    }
+                },function(e,r){
+                    if(e){
+                        console.log(e);
+                        cb(code.mysqlError);
+                        return;
+                    }
+
+                    if(r.length>0){
+                        cb(code.contentRepeat);
+                        return;
+                    }
+
+                    cb(null,{
+
+                        title:title.title,
+                        content: o.content,
+                        secret: secret,
+                        tags: check.tag({content: o.content}),
+                        more:title.more,
+                        avatar: userInfo.avatar,
+                        nickname: userInfo.nickname,
+                        gender:userInfo.gender,
+                        userId:userInfo.userId,
+                        date:common.time()
+
+                    });
+
+                });
+            };
+            check.postReport = function(o,cb){
+                if(!o.content){
+                    cb(code.contentCantNull);
+                    return;
+                }
+
+                if(!o.postId){
+                    cb(code.lackParamsPostId);
+                    return;
+                }
+
+                o.content=escape(o.content);
+
+
+
+                    cb(null,{
+
+                        content: o.content,
+                        postId:o.postId,
+                        userId:o.session.userId,
+                        time:common.time()
+                    });
+            };
+
+            check.register = function(o,cb){
+                var tel,nickname,avatar,openId,unionId,gender,source;
+                if(!o.tel){
+                   tel="";
+                }else{
+                    //todo 正则
+
+                    tel= o.tel;
+
+                }
+
+                if(!o.source){
+                    source = "default"
+                }else{
+                    source = o.source
+                }
+                if(!o.nickname) {
+                    cb(code.lackParamsNickname);
+                    return;
+                }else{
+                    nickname= o.nickname;
+                }
+
+                if(!o.gender){
+                    gender=0;
+                }else{
+                    gender= o.gender;
+                }
+                if(!o.avatar){
+                    avatar=libs.randomAvatar({
+                        gender:gender
+                    });
+                }else{
+                    //todo  正则
+                    avatar= o.avatar;
+                }
+
+                if(!o.openId){
+                    cb(code.lackParamsOpenId);
+                    return;
+                }else{
+                    openId= o.openId;
+                }
+
+                if(!o.unionId){
+                    unionId=""
+                }else{
+                    unionId= o.unionId;
+                }
+
+
+
+                if(!o.redirect){
+                    redirect = '/';
+                }else{
+                    redirect = o.redirect;
+                }
+
+
+                cb(null,{
+                    tel:tel,
+                    date:common.time(),
+                    nickname: nickname,
+                    avatar: avatar,
+                    openId: openId,
+                    unionId: unionId,
+                    gender:gender,
+                    source:source,
+                    redirect:redirect
+
+                });
+                return;
+              }
+            }).catch((e)=>{console.log(e);
+              cb(code.redisError);
+              return;
+            });
+
+          }
+        }).catch((e)=>{
+          console.log(e);
+          cb(code.redisError);
+          return;
+        });
+
+      }
+    }).catch(function(e){
+      console.log(e);
+      cb(code.redisError);
       return;
-    }
-
-    conn.query({
-        sql:"select id from secret_post where content=:content",
-        params:{
-            content: o.content
-        }
-    },function(e,r){
-        if(e){
-            console.log(e);
-            cb(code.mysqlError);
-            return;
-        }
-
-        if(r.length>0){
-            cb(code.contentRepeat);
-            return;
-        }
-
-        cb(null,{
-
-            title:title.title,
-            content: o.content,
-            secret: secret,
-            tags: check.tag({content: o.content}),
-            more:title.more,
-            avatar: userInfo.avatar,
-            nickname: userInfo.nickname,
-            gender:userInfo.gender,
-            userId:userInfo.userId,
-            date:common.time()
-
-        });
-
     });
-};
-check.postReport = function(o,cb){
-
-    //console.log(o);
-    if(!o.content){
-        cb(code.contentCantNull);
-        return;
-    }
-
-    if(!o.postId){
-        cb(code.lackParamsPostId);
-        return;
-    }
-
-    o.content=escape(o.content);
 
 
-
-        cb(null,{
-
-            content: o.content,
-            postId:o.postId,
-            userId:o.session.userId,
-            time:common.time()
-        });
-};
-
-check.register = function(o,cb){
-    var tel,nickname,avatar,openId,unionId,gender,source;
-    if(!o.tel){
-       tel="";
-    }else{
-        //todo 正则
-
-        tel= o.tel;
-
-    }
-
-    if(!o.source){
-        source = "default"
-    }else{
-        source = o.source
-    }
-    if(!o.nickname) {
-        cb(code.lackParamsNickname);
-        return;
-    }else{
-        nickname= o.nickname;
-    }
-
-    if(!o.gender){
-        gender=0;
-    }else{
-        gender= o.gender;
-    }
-    if(!o.avatar){
-        avatar=libs.randomAvatar({
-            gender:gender
-        });
-    }else{
-        //todo  正则
-        avatar= o.avatar;
-    }
-
-    if(!o.openId){
-        cb(code.lackParamsOpenId);
-        return;
-    }else{
-        openId= o.openId;
-    }
-
-    if(!o.unionId){
-        unionId=""
-    }else{
-        unionId= o.unionId;
-    }
-
-
-
-    if(!o.redirect){
-        redirect = '/';
-    }else{
-        redirect = o.redirect;
-    }
-
-
-    cb(null,{
-        tel:tel,
-        date:common.time(),
-        nickname: nickname,
-        avatar: avatar,
-        openId: openId,
-        unionId: unionId,
-        gender:gender,
-        source:source,
-        redirect:redirect
-
-    })
 };
 
 
