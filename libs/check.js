@@ -390,7 +390,7 @@ check.postCreate = function(o,cb){
     var blockIpKey = 'block:ip:'+ip;
     var blockUserKey = 'block:user:'+userId;
     var logTime = 60*10;
-    var maxPostCount = 8;
+    var maxPostCount = 100;
     var logIpKey="log:ip:"+ip;
     var logUserKey = 'log:user:'+userId;
     redis.hgetall(blockIpKey).then(function(r){
