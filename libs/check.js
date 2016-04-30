@@ -390,15 +390,9 @@ check.postCreate = function(o,cb){
     var blockIpKey = 'block:ip:'+ip;
     var blockUserKey = 'block:user:'+userId;
     var logTime = 60*10;
-    var maxPostCount = 100;
+    var maxPostCount = 8;
     var logIpKey="log:ip:"+ip;
     var logUserKey = 'log:user:'+userId;
-    redis.hgetall(blockIpKey).then(function(r){
-      if(Object.keys(r).length>0){
-        //ip在黑名单里
-        cb(code.ipBlock);
-        return;
-      }else{
         //没有被拉黑检测用户是否被拉黑
         redis.hgetall(blockUserKey).then(function(r){
           if(Object.keys(r).length>0){
@@ -406,40 +400,13 @@ check.postCreate = function(o,cb){
             cb(code.userBlock);
             return;
           }else{
-            redis.setnx(logIpKey,1).then((r)=>{
-              if(r===0){
-                return redis.incr(logIpKey);
-              }else{
-                return redis.expire(logIpKey,logTime);
-              }
-            }).then((r)=>{
-              //如果超过n词就写入锁定的key
-
-            if(r>maxPostCount){
-                var blockIpKey = 'block:ip:'+ip;
-                return redis.hmset(blockIpKey,'reason','访问过于频繁','unblock',common.time()+blockTime).then((r)=>{
-                   redis.expire(blockIpKey,blockTime).then((rr)=>{
-                     redis.setnx(logUserKey,1).then(rrr=>{
+                      redis.setnx(logUserKey,1).then(rrr=>{
                        if(rrr===0){
                          return redis.incr(logUserKey);
                        }else{
                          return redis.expire(logUserKey,logTime);
                        }
-                     })
-                   });
-                })
-              }else{
-                  return redis.setnx(logUserKey,1).then(rrr=>{
-                    if(rrr===0){
-                      return redis.incr(logUserKey);
-                    }else{
-                      return redis.expire(logUserKey,logTime);
-                    }
-                  })
-              }
-            }
-
-            ).then((rrrr)=>{
+                     }).then((rrrr)=>{
               if(rrrr>maxPostCount){
                 redis.hmset(blockUserKey,'reason','访问过于频繁','unblock',common.time()+blockTime).then((rrrrr)=>{
                   redis.expire(blockUserKey,blockTime).then((rr)=>{
@@ -495,6 +462,23 @@ check.postCreate = function(o,cb){
 
                 });
             };
+
+
+          }).catch((e)=>{console.log(e);
+            cb(code.redisError);
+            return;
+          });
+
+        }
+      }).catch((e)=>{
+        console.log(e);
+        cb(code.redisError);
+        return;
+      });
+
+
+  }
+
             check.postReport = function(o,cb){
                 if(!o.content){
                     cb(code.contentCantNull);
@@ -591,28 +575,7 @@ check.postCreate = function(o,cb){
 
                 });
                 return;
-              }
-            }).catch((e)=>{console.log(e);
-              cb(code.redisError);
-              return;
-            });
-
-          }
-        }).catch((e)=>{
-          console.log(e);
-          cb(code.redisError);
-          return;
-        });
-
-      }
-    }).catch(function(e){
-      console.log(e);
-      cb(code.redisError);
-      return;
-    });
-
-
-};
+              };
 
 
 check.renew = function(o,cb){
