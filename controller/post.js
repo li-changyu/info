@@ -243,8 +243,6 @@ post.createWechat = function(req,res){
 
 
 post.createArticle = function(req,res,data){
-
-    //console.log(data);
     check.postCreate({
         content:data.content,
         secret:data.secret,
@@ -370,7 +368,6 @@ post.createArticle = function(req,res,data){
 
             });
     });
-
 
 
 };
@@ -1075,11 +1072,6 @@ post.postsView = function (req, res) {
             }
         }
     }
-
-    //console.log(sql);
-    //console.log(sql);return;
-    //console.log('SELECT * FROM secret_post where userId = ' + ':userId' + ' order by date desc limit 0,' + ':pageSize');return;
-//console.log(sql);
     conn.query(
         {
             sql: sql,

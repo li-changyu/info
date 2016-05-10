@@ -31,6 +31,10 @@ var config = {
         password:"123456",
         database:"secret"
     },
+    redis:{
+      port:6379,
+      host:'127.0.0.1'
+    },
     queueUrl:"http://queue.scuinfo.com",
     queueMax:50,
 
