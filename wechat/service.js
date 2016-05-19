@@ -159,31 +159,38 @@ conn.query(
         //todo 严谨起见还是判断下id好
 
         if(msg.source=='weibo'){
-            dbs.getWechatText({
-                name: "postWeibo"
-            }, function (eee, rrrr) {
-                if (eee) {
-                    res.reply(JSON.stringify(eee));
-                    return;
-                }
-                //console.log(rrrr);
-                res.reply(rrrr);
+            // dbs.getWechatText({
+            //     name: "postWeibo"
+            // }, function (eee, rrrr) {
+            //     if (eee) {
+            //         res.reply(JSON.stringify(eee));
+            //         return;
+            //     }
+            //     //console.log(rrrr);
+            //     res.reply(rrrr);
+            //
+            // });
+            res.reply(`说吧，我开始记了(10分钟内有效)：
 
-            });
+(你接下说的话我会帮你匿名发布到scuinfo里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博@scuinfo 把你说的话发一条微博出去，你也可以直接访问http://www.scuinfo.com发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`)
             return;
         }
 
-    dbs.getWechatText({
-        name:"post"
-    },function(eee,rrrr){
-        if(eee){
-            res.reply(JSON.stringify(eee));
-            return;
-        }
-        //console.log(rrrr);
-        res.reply(rrrr);
+    // dbs.getWechatText({
+    //     name:"post"
+    // },function(eee,rrrr){
+    //     if(eee){
+    //         res.reply(JSON.stringify(eee));
+    //         return;
+    //     }
+    //     //console.log(rrrr);
+    //     res.reply(rrrr);
+    //
+    // });
+    //
+    res.reply(`说吧，我开始记了(10分钟内有效)：
 
-    });
+(你接下说的话我会帮你匿名发布到<a href="http://scuinfo.com">scuinfo</a>里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博<a href="http://weibo.com/scuinfo">@scuinfo</a> 把你说的话发一条微博出去，你也可以直接访问<a href="http://www.scuinfo.com">scuinfo</a>发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`);
     return;
 
 
