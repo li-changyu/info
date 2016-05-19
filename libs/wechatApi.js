@@ -191,7 +191,7 @@ wechatApi.sendText = function(req,res){
 wechatApi.sendNews = function(req,res){
 
     //console.log(req.body);
-    
+
     api.sendNews(req.body.openId, req.body.articles, function(e,r){
         //console.log(e,r);
         if(e){
@@ -372,7 +372,7 @@ console.log(e,r);
 /**
  * 创建菜单
  */
-wechatApi.createMenu();
+// wechatApi.createMenu();
 
 
 /**

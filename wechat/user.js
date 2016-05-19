@@ -184,7 +184,7 @@ user.score = function(msg,req,res,next){
                     url: "http://202.115.47.141/bxqcjcxAction.do?totalrows=16&pageSize=300",
                     timeout:3000
                 }, function (e, r) {
-                    
+
                     //console.log(e);
                     if (e) {
                         res.reply("教务处无法访问。请稍后重试");
@@ -204,14 +204,14 @@ user.score = function(msg,req,res,next){
                                     text += "\n\n"+scoresData[i].name+"["+scoresData[i].property+"]" + ":" + scoresData[i].score + "";
                                 }
                             }
-                            
+
                             if(hasFlag==false){
                                 text+="\n\n 本学期没有已出成绩的科目";
                             }
-                            
-                            
+
+
                             var notFlag=false;
-                            
+
                             text+="\n\n未出成绩的科目：";
                             for(var i=0;i<scoresData.length;i++){
                                 if(scoresData[i].score=="") {
@@ -224,7 +224,7 @@ user.score = function(msg,req,res,next){
                                 text+="\n\n 无";
                             }
 
-                            text+=((msg.source=='weibo')?('\n\n点此查看全部成绩:'+config.site.url+'/score'):("\n\n <a href=\"'+config.site.url+'/score\">点击查看全部成绩</a>\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk"));
+                            text+=((msg.source=='weibo')?('\n\n点此查看全部成绩:'+config.site.url+'/score'):('"\n\n <a href=\"'+config.site.url+'/score\">点击查看全部成绩</a>\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk")');
 
                             //var date ='\n\n最后更新时间:'+(new Date(parseInt(scores.data.updateAt)*1000).getMonth()+1)+"月"+(new Date(parseInt(scores.data.updateAt)*1000).getDate())+"日 "+new Date(parseInt(scores.data.updateAt)*1000).getHours()+":"+new Date(parseInt(scores.data.updateAt)*1000).getMinutes();
                             res.reply(text);
@@ -376,7 +376,7 @@ user.score = function(msg,req,res,next){
                     }catch(e){
                         var scores= {};
                     }
-                    
+
                     console.log(scores);
                     if(scores.code==200){
                         var scoresData=scores.data.scores;
@@ -493,7 +493,7 @@ user.score = function(msg,req,res,next){
                     return;
 
                 });
-            
+
             */
         }
 

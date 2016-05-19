@@ -4,8 +4,8 @@
  */
 var config = {
     urls:{
-        wechatSendTemplate:"",//微信模板发送地址
-        wechatSendNews:"" //微信图文消息发送地址
+        wechatSendTemplate:"http://localhost:8120/api/wechat/sendTemplate",
+        wechatSendNews:"http://localhost:8120/api/wechat/sendNews"
     },
 
     /**
@@ -15,16 +15,24 @@ var config = {
       count:1
     },
 
-    localhostUrl:"http://localhost:4150", //本地网址
-    db:"", //mongodb地址
-    luckyUrl:"", //lucky本地网址
+    localhostUrl:"http://localhost:4150",
+    db:"mongodb://localhost:27017/scuinfo-lucky",
+   luckyUrl:"http://localhost:3000",
+    queueUrl:"http://queue.scuinfo.com",
+    queueMax:50,
 
     api:{
         baseUrl:"http://api.fyscu.com",
-        appId:10000, //飞扬appId
-        appSecret:'' //飞扬apisecret
+        appId:10000,
+        appSecret:'scuinfo'
     },
 
+    //api:{
+    //    baseUrl:"http://localhost:9231",
+    //    appId:10000,
+    //    appSecret:'scuinfo'
+    //},
+    //
     mysql:{
         'host':"127.0.0.1",
         'user':"root",
@@ -35,23 +43,30 @@ var config = {
       port:6379,
       host:'127.0.0.1'
     },
-    queueUrl:"http://queue.scuinfo.com",
-    queueMax:50,
+
 
     /**
-     *      * 微信公众号正式的id和key，请勿必不要在测试环境下使用
+     *      * 正式的id和key，请勿必不要在测试环境下使用
      *           */
 
     wechat:{
-        'token':"",
+        'token':"scuinfoWechat",
         'appId':"wx64902e8505feae7f",
-        'appSecret':""
+        'appSecret':"xx"
     },
+
+
+    testWechat:{
+        'appId':"wx65f95de25e8b320b",
+        'appSecret':"xx",
+        'token':"xx"
+    },
+
 
 
     wechatWeb:{
         'appId':"wx8f8d7578a5a3023b",
-        'appSecret':"" //微信网页版
+        'appSecret':"xx"
     },
     host:{
         url:"scuinfo.com"
@@ -60,7 +75,7 @@ var config = {
     weibo:{
         'appkey':"1159008171",
         'uid':"3656973697",
-        'appSecret':'' //微博
+        'appSecret':'xx'
 
     },
 

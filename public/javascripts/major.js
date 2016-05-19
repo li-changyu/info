@@ -8,7 +8,7 @@
         currentDay=getWeek();
     }
 
-    console.log($($("table tr th")[currentDay]).css('color','rgba(26, 188, 156,1.0)'));
+    // console.log($($("table tr th")[currentDay]).css('color','rgba(26, 188, 156,1.0)'));
 
 
     bom.isWeixin = function(){
