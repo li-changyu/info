@@ -224,7 +224,7 @@ user.score = function(msg,req,res,next){
                                 text+="\n\n 无";
                             }
 
-                            text+=((msg.source=='weibo')?('\n\n点此查看全部成绩:'+config.site.url+'/score'):('"\n\n <a href=\"'+config.site.url+'/score\">点击查看全部成绩</a>\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk")');
+                            text+=((msg.source=='weibo')?('\n\n点此查看全部成绩:'+config.site.url+'/score'):('\n\n <a href="'+config.site.url+'/score">点击查看全部成绩</a>\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk'));
 
                             //var date ='\n\n最后更新时间:'+(new Date(parseInt(scores.data.updateAt)*1000).getMonth()+1)+"月"+(new Date(parseInt(scores.data.updateAt)*1000).getDate())+"日 "+new Date(parseInt(scores.data.updateAt)*1000).getHours()+":"+new Date(parseInt(scores.data.updateAt)*1000).getMinutes();
                             res.reply(text);
