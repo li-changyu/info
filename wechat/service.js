@@ -98,7 +98,7 @@ service.subscribe = function(msg,req,res,next){
 
 @scuinfo不是官方的。不是官方的。不是官方的。（被问1w遍）
 
-来，跟我念：s(si)s(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
+来，跟我念：s(si)c(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
 
 如果你希望和我进行更加亲密的互动，请添加我的微信个人号: infotalk
 
