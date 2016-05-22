@@ -594,7 +594,7 @@ var luckyUrl = config.luckyUrl;
                             group_counts: profile.group.length
                             };
                         var info = encodeURIComponent(new Buffer(encodeURIComponent(JSON.stringify(rrrr))).toString('base64'));
-                        res.redirect(luckyUrl+'/storage?i='+info);
+                        res.redirect(luckyUrl+'/storage.html?i='+info);
                     });
                 }else{
 
@@ -641,7 +641,7 @@ var luckyUrl = config.luckyUrl;
                                     };
                                     //console.log(rrrr);
                                     var info = encodeURIComponent(new Buffer(encodeURIComponent(JSON.stringify(rrrr))).toString('base64'));
-                                    res.redirect(luckyUrl + '/storage?i=' + info);
+                                    res.redirect(luckyUrl + '/storage.html?i=' + info);
                                 });
 
                             }
@@ -839,7 +839,7 @@ account.wechatLogin = function (req, res) {
                     return;
                 }
                 var codeResult = result.data;
-                
+
                 //console.log(codeResult);
                 conn.query(
                     {
