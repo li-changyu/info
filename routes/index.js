@@ -397,7 +397,27 @@ var upload = multer()
 router.post('/test',upload.single('pic'),function(req,res){
    account.test(req,res);
 });
+router.get('/test',function(req,res){
 
+
+  var uas = req.headers['user-agent'];
+  console.log(uas);
+
+  var isWeixin = function(o){
+
+      var ua = o.toLowerCase();
+      console.log(ua);
+      if(ua.match(/MicroMessenger/i)=="micromessenger") {
+          return true;
+      } else {
+          return false;
+      }
+  };
+
+  var weixin = isWeixin(uas);
+
+  res.end(uas+weixin);
+});
 
 router.get('/bind/dean',check.autoWechat,check.isLogin,function(req,res){
    pages.bindDean(req,res);
