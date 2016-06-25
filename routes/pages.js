@@ -576,9 +576,9 @@ pages.post = function(req,res){
 
 pages.report = function(req,res){
     var url = req.protocol+"://"+config.host.url+req.originalUrl;
-    res.render('report',{title:"举报不良内容"+config.site.separator+config.site.name,
+    res.render('report',{title:"报告不良内容"+config.site.separator+config.site.name,
         userId:req.session.userId,
-        barTitle:"举报",
+        barTitle:"报告",
         page:{
             userId:req.session.userId,
             avatar:req.session.avatar,
