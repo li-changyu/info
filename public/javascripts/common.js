@@ -182,7 +182,7 @@ bom.getDateDiff = function(dateTimeStamp) {
        //console.log(index);
         if(index>=0) {
             var nextIndex = o.content.indexOf("#", (index + 2));
-            
+
             //console.log('next'+nextIndex);
             if (nextIndex >= (index + 2)) {
 
@@ -410,6 +410,50 @@ bom.getDateDiff = function(dateTimeStamp) {
         })
 
     };
+    bom.block = function(o,cb){
+
+        bom.check(o,function(e,r){
+            if(e){
+                cb(e);
+                return;
+            }
+
+            //console.log(r);
+            $.ajax({
+                type: 'post',
+                url: '/api/block',
+                data: JSON.stringify(r),
+                success: function(data) { //alert('data: ' + data);
+                    cb(data);
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+        })
+
+    };
+    bom.white = function(o,cb){
+
+        bom.check(o,function(e,r){
+            if(e){
+                cb(e);
+                return;
+            }
+
+            //console.log(r);
+            $.ajax({
+                type: 'post',
+                url: '/api/white',
+                data: JSON.stringify(r),
+                success: function(data) { //alert('data: ' + data);
+                    cb(data);
+                },
+                contentType: "application/json",
+                dataType: 'json'
+            });
+        })
+
+    };
     bom.checkPost = function(o,cb){
         if(!o.id){
             cb({
@@ -430,7 +474,6 @@ bom.getDateDiff = function(dateTimeStamp) {
                 return;
             }
             //console.log('2');
-            mixpanel.track("like action");
 
             $.ajax({
                 type: o.method?o.method:"POST",
@@ -590,12 +633,10 @@ bom.getDateDiff = function(dateTimeStamp) {
                 }
             });
 
-            mixpanel.track("share wechat");
 
 
             // });
         }else{
-            mixpanel.track("share weibo");
 
             article = $(this).parent().parent().parent();
                 wbUrl			= encodeURIComponent(article.attr('href')),
@@ -662,86 +703,18 @@ bom.getDateDiff = function(dateTimeStamp) {
         ev.stopPropagation();
     });
 
-    //$("#posts").hammer({
-    //    domEvents:true,
-    //    threshold:1,
-    //    velocity:0.8
-    //}).on('swiperight','.posts-body', function(ev){
-    //
-    //    // alert('滑动')
-    //    // console.log($(this));
-    //    var like = $($(this).children()[0]);
-    //    like.css('display','block');
-    //    var id =  $(this).parent().attr('id') ;
-    //    var likeIcon = $($($($(this).parent().children()[2]).children()[1]).children()[0]);
-    //    var likeCount = $($($($(this).parent().children()[2]).children()[1]).children()[1]);
-    //    if(likeIcon.hasClass("posts-footer-icon-active")){
-    //        like.removeClass("posts-footer-icon-active");
-    //        likeIcon.removeClass("posts-footer-icon-active");
-    //        if((parseInt(likeCount.text())-1)>=0) {
-    //            likeCount.text((parseInt(likeCount.text()) - 1));
-    //        }
-    //        bom.postLike({
-    //            id:id,
-    //            method:"DELETE"
-    //        },function(e,r){
-    //            if(e){
-    //                like.addClass("posts-footer-icon-active");
-    //                likeIcon.addClass("posts-footer-icon-active");
-    //                    likeCount.text((parseInt(likeCount.text()) + 1));
-    //                alert(e.message);
-    //
-    //                console.log(e);
-    //                return;
-    //            }
-    //
-    //            if(r.code!=200){
-    //                alert(r.message);
-    //                like.addClass("posts-footer-icon-active");
-    //                likeIcon.addClass("posts-footer-icon-active");
-    //                likeCount.text((parseInt(likeCount.text()) + 1));
-    //            }
-    //
-    //        });
-    //    }else{
-    //        like.addClass("posts-footer-icon-active");
-    //        likeIcon.addClass("posts-footer-icon-active");
-    //        likeCount.text((parseInt(likeCount.text()) + 1));
-    //        bom.postLike({
-    //            id:id
-    //        },function(e,r){
-    //            if(e){
-    //                like.removeClass("posts-footer-icon-active");
-    //                likeIcon.removeClass("posts-footer-icon-active");
-    //                likeCount.text((parseInt(likeCount.text()) - 1));
-    //                console.log(e);
-    //                alert(e.message);
-    //                return;
-    //            }
-    //
-    //            if(r.code!=200){
-    //                like.removeClass("posts-footer-icon-active");
-    //                likeIcon.removeClass("posts-footer-icon-active");
-    //                likeCount.text((parseInt(likeCount.text()) - 1));
-    //                console.log(e);
-    //                alert(e.message);
-    //                return;
-    //            }
-    //
-    //        });
-    //    }
-    //    setTimeout(function(){
-    //        like.css('display','none');
-    //    },1000);
-    //
-    //});
-
     $("#posts").on('click','.posts-footer-more',function(){
-
             var x=$(this).parents('article').attr('level');
-            if($(this).parents('article').attr('author')==0  && $(this).parents('article').attr('level')!=1){
-                $($(this).next().children()[1]).remove();
+            if($(this).parents('article').attr('author')==1  || x==1){
+                $($(this).next().children()[2]).css("display","block");
             }
+
+            if( x ==1){
+              $($(this).next().children()[3]).css("display","block");
+              $($(this).next().children()[4]).css("display","block");
+            }
+
+
             $(this).parent().on('open.dropdown.amui', function (e) {
                 $("#posts").off('click','.posts-body');
             });
@@ -757,7 +730,44 @@ bom.getDateDiff = function(dateTimeStamp) {
         }
     );
 
+    $("#posts").on('click','.posts-white',function(){
 
+        var article = $(this).parent().parent().parent().parent().parent();
+        bom.white({
+            id:article.attr('id')
+        },function(data){
+            if(data.code == 200){
+                $("#tips .tips-alert p").text("已加入白名单");
+                $("#tips").css('display','block');
+                setTimeout(function(){
+                  $("#tips").css('display','none');
+                },2000);
+            }else{
+                alert(data.message);
+            }
+        });
+
+    });
+
+    $("#posts").on('click','.posts-block',function(){
+
+        var article = $(this).parent().parent().parent().parent().parent();
+        console.log(article);
+        bom.block({
+            id:article.attr('id')
+        },function(data){
+            if(data.code == 200){
+                $("#tips .tips-alert p").text("封禁成功");
+                $("#tips").css('display','block');
+                setTimeout(function(){
+                  $("#tips").css('display','none');
+                },2000);
+            }else{
+                alert(data.message);
+            }
+        });
+
+    });
 
 
     $("#posts").on('click','.shareToWeibo',function(){
@@ -779,7 +789,7 @@ bom.getDateDiff = function(dateTimeStamp) {
             location.href = '/u/'+$(this).parent().parent().parent().attr('userId');
         }
     });
-    
+
     $("#title").on('dblclick',function(){
 
         window.scrollTo(0,0);

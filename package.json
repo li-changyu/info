@@ -18,6 +18,7 @@
     "express": "~4.11.0",
     "express-session": "~1.11.1",
     "form-data": "^0.2.0",
+    "fy-mysql": "^0.2.11",
     "iconv-lite": "^0.4.11",
     "ioredis": "^2.0.0-rc2",
     "jade": "~1.9.2",

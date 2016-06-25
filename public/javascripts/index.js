@@ -125,8 +125,11 @@
                                 '<div class="am-dropdown am-dropdown-up more-dropdown">'+
                                 '<span class="am-icon-ellipsis-h am-icon-md posts-footer-icon posts-footer-more"></span>'+
                                '<ul class="am-dropdown-content">'+
-                                '<li class="shareToWeibo"><a href="#"><span class="am-icon-weibo"></span> 分享到微博</a></li>'+
-                            '<li class="posts-delete"><a href="#"><span class="am-icon-trash"></span> 删除</a></li>'+
+                                '<li class="shareToWeibo"><a><span class="am-icon-weibo"></span> 分享到微博</a></li>'+
+                                '<li class="posts-report"><a><span class="am-icon-flag"></span> 报告</a></li>'+
+                                '<li class="posts-delete"><a><span class="am-icon-trash"></span> 删除</a></li>'+
+                                '<li class="posts-white"><a><span class="am-icon-beer"></span> 白名单</a></li>'+
+                                '<li class="posts-block"><a><span class="am-icon-lock"></span> 拉黑</a></li>'+
                                 '</ul> </div> </span></footer> </article>';
 
                         }
@@ -192,34 +195,7 @@
 
                 });
             }
-//你们好
-            //
-            //if(historyTimestamp == store.get('timestamp')){
-            //    if(store.get('posts')){
-            //       $("#posts").html(
-            //          store.get('posts')
-            //       ).clone(true);
-            //       setTimeout(function() {window.scrollTo(0,store.get('y'));},1);
-            //       $("#loadMore").attr('fromid',store.get('fromId'));
-            //       $("#loadMoreButton").button('reset');
-            //       $("#loadMore").css('display','block');
-            //       $(dom).scroll(function () {
-            //           store.set('y', $(dom).scrollTop());
-            //       });
-            //   }
-            //
-            //}else {
-            //    store.clear();
-            //    store.set('timestamp', historyTimestamp);
-            //    $(dom).scroll(function () {
-            //        store.set('y', $(dom).scrollTop());
-            //    });
-            //    bom.loadHtml({
-            //        action:"init"
-            //    },function(){
-            //
-            //    });
-            //}
+
         }else{
             bom.loadHtml({
                 action:"init"

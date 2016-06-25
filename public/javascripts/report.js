@@ -77,6 +77,7 @@ bom.post = function(o,cb){
                         $submitButton.button('reset');
                         //console.log('success');
                         //跳转到前一页
+                        alert('谢谢您的监督,已成功提交报告,管理员将及时进行审核,审核期间该帖将不能被赞上微博')
                         location.href = '/';
                     }else{
                         $submitButton.button('reset');

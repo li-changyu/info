@@ -393,7 +393,7 @@ check.postCreate = function(o,cb){
     var maxPostCount = 8;
     var logIpKey="log:ip:"+ip;
     var logUserKey = 'log:user:'+userId;
-        //没有被拉黑检测用户是否被拉黑
+        //检测用户是否被拉黑
         redis.hgetall(blockUserKey).then(function(r){
           if(Object.keys(r).length>0){
             //userId在黑名单里

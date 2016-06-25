@@ -73,7 +73,7 @@
 
                         $("#loadMore").attr('fromid',fromId).clone(true);
                         $("#loadMoreButton").button('reset');
- 
+
 
                         cb(null);
 
@@ -120,8 +120,11 @@
                 '<div class="am-dropdown am-dropdown-up more-dropdown">'+
                 '<span class="am-icon-ellipsis-h am-icon-md posts-footer-icon posts-footer-more"></span>'+
                 '<ul class="am-dropdown-content">'+
-                '<li class="shareToWeibo"><a href="#"><span class="am-icon-weibo"></span> 分享到微博</a></li>'+
-                '<li class="posts-delete"><a href="#"><span class="am-icon-trash"></span> 删除</a></li>'+
+                '<li class="shareToWeibo"><a><span class="am-icon-weibo"></span> 分享到微博</a></li>'+
+                '<li class="posts-report"><a><span class="am-icon-flag"></span> 报告</a></li>'+
+                '<li class="posts-delete"><a><span class="am-icon-trash"></span> 删除</a></li>'+
+                '<li class="posts-white"><a><span class="am-icon-beer"></span> 白名单</a></li>'+
+                '<li class="posts-block"><a><span class="am-icon-lock"></span> 拉黑</a></li>'+
                 '</ul> </div> </span></footer> </article>';
                 $("#posts").html(post.replace(/\n/g,"<br>"));
                 $("#loading").css('display','none');
@@ -144,8 +147,6 @@
         var flag=false,count= 0,max=100;
 
         $(bom).scroll(function() {
-            
-            console.log($("#loadMore").css('display'));
        if($("#loadMore").css('display')=='block'){
             if(($(bom).scrollTop()  >( $(dom).height() - $(bom).height() - 10 )) && count<max && !flag) {
                 flag = true;
@@ -190,6 +191,13 @@
             });
 
         });
+        $("#posts").on('click','.posts-report',function(){
+
+            var article = $(this).parent().parent().parent().parent().parent();
+          
+              location.href = '/report/?id='+article.attr('id');
+
+        });
 
         /**
          * 检测提交文章的参数
@@ -229,7 +237,7 @@
                 }
 
                 //console.log(r);
-                
+
                 $.ajax({
                     type: 'POST',
                     url: '/api/comment',
@@ -362,7 +370,7 @@
             //console.log('li');
 
             $commentLikeIcon = $(this);
-            
+
             $commentLikeCount = $(this).parents('article').find("footer .comment-footer-like-count");
             //console.log($commentLikeCount);
             if($commentLikeIcon.hasClass('comment-like-active')){
