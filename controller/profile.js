@@ -1041,8 +1041,7 @@ profile.share = function(req,res){
     }
     conn.query(
         {
-            sql:"insert into secret_share (userId,type,avatar,nickname,gender,createAt) values ("+":userId"+",'"+":type"+"','"+":avatar" +
-            "','"+req.body.nickname+"',"+(req.body.gender?req.body.gender:0)+","+common.time()+")",
+            sql:"insert into secret_share (userId,type,avatar,nickname,gender,createAt) values (:userId,:type,:avatar,'"+req.body.nickname+"',"+(req.body.gender?req.body.gender:0)+","+common.time()+")",
             params:{
                 userId:parseInt(req.body.userId),
                 type:req.body.type,
