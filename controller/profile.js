@@ -251,7 +251,7 @@ profile.major = function(req,res){
                         url:config.api.baseUrl+"/api/major?appId="+ config.api.appId+"&appSecret="+config.api.appSecret+"&studentId="+ r[0].studentId+"&password="+aes.encode(config.api.appId,config.api.appSecret,r[0].password)
                     },function(eeeee,rrrrr,body){
 
-                        //console.log(eeeee,body);
+                        console.log(eeeee,body);
                         if(eeeee){
                             res.end(JSON.stringify(code.requestError));
                             return;
@@ -817,12 +817,13 @@ profile.shareExam = function(req,res){
 //console.log("select * from secret_share where userId="+req.query.userId+" and type='"+req.query.type+"' limit 0,1");
     conn.query(
         {
-            sql:"select * from secret_share where userId="+":userId"+" and type='"+":type"+"' order by id desc limit 0,1",
+            sql:"select * from secret_share where userId=:userId and type=:type order by id desc limit 0,1",
             params:{
                 userId:parseInt(req.query.userId),
                 type:req.query.type
             }
         },function(e3,r3){
+          console.log(r3);
             if(e3){
                 console.log(e3);
                 res.end(JSON.stringify(code.mysqlError));
@@ -835,7 +836,7 @@ profile.shareExam = function(req,res){
 
                 conn.query(
                     {
-                        sql:"select studentId,password from secret_account where userId="+":userId"+" order by id desc",
+                        sql:"select studentId,password from secret_account where userId=:userId order by id desc",
                         params:{
                             userId:parseInt(req.query.userId)
                         }
@@ -845,7 +846,7 @@ profile.shareExam = function(req,res){
                             res.end(JSON.stringify(code.mysqlError));
                             return;
                         }
-                        //console.log(r);
+                        console.log(r);
 
                         if(r.length>0){
                             request.get(
@@ -1141,7 +1142,7 @@ profile.updateCallbackNews = function(req,res){
                     res.end(JSON.stringify(code[noBind]));
                     return;
                 }
-                
+
                 //console.log("select openId from secret_open where userId="+r[0].userId+" and source='wechat' order by id desc limit 0,1");
                 conn.query(
                     {
@@ -1158,7 +1159,7 @@ profile.updateCallbackNews = function(req,res){
                             return;
                         }
 
-                        
+
                         request.post(
                             {
                                 url:config.urls.wechatSendNews,

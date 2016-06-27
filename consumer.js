@@ -223,13 +223,13 @@ consumer.wechatSession=function(){
 
 consumer.checkStatus = function(){
     var opt1 = {
-        url:"http://api.fyscu.com"
+        url:"http://api.scuinfo.com"
     };
 
     request(opt1,function(e,r){
         if(e || r.statusCode!=200){
             hooks.bearychatIncoming({
-                type:"fyscu api 故障"
+                type:"scuinfo api 故障"
             },function(e){
                 if(e){
                     console.log(e);
