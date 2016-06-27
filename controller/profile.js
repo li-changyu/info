@@ -594,7 +594,7 @@ profile.shareBook = function(req,res){
 
     conn.query(
         {
-            sql:"select * from secret_share where userId="+":userId"+" and type='"+":type"+"' limit 0,1",
+            sql:"select * from secret_share where userId=:userId and type=:type limit 0,1",
             params:{
                 userId:parseInt(req.query.userId),
                 type:req.query.type
@@ -610,7 +610,7 @@ profile.shareBook = function(req,res){
 
                 conn.query(
                     {
-                        sql:"select studentId,password from secret_library where userId="+":userId"+" order by id desc",
+                        sql:"select studentId,password from secret_library where userId=:userId order by id desc",
                         params:{
                             userId:parseInt(req.query.userId)
                         }
@@ -705,7 +705,7 @@ profile.shareMajor = function(req,res){
 
     conn.query(
         {
-            sql:"select * from secret_share where userId="+":userId"+" and type='"+":type"+"' limit 0,1",
+            sql:"select * from secret_share where userId=:userId and type=:type limit 0,1",
             params:{
                 userId:parseInt(req.query.userId),
                 type:req.query.type
@@ -721,7 +721,7 @@ profile.shareMajor = function(req,res){
 
                 conn.query(
                     {
-                        sql:"select studentId,password from secret_account where userId="+":userId"+" order by id desc",
+                        sql:"select studentId,password from secret_account where userId=:userId order by id desc",
                         params:{
                             userId:parseInt(req.query.userId)
                         }
@@ -823,7 +823,7 @@ profile.shareExam = function(req,res){
                 type:req.query.type
             }
         },function(e3,r3){
-          console.log(r3);
+          // console.log(r3);
             if(e3){
                 console.log(e3);
                 res.end(JSON.stringify(code.mysqlError));
@@ -846,7 +846,7 @@ profile.shareExam = function(req,res){
                             res.end(JSON.stringify(code.mysqlError));
                             return;
                         }
-                        console.log(r);
+                        // console.log(r);
 
                         if(r.length>0){
                             request.get(
@@ -932,7 +932,7 @@ profile.shareExamAgain = function(req,res){
 //console.log("select * from secret_share where userId="+req.query.userId+" and type='"+req.query.type+"' limit 0,1");
     conn.query(
         {
-            sql:"select * from secret_share where userId="+":userId"+" and type='"+":type"+"' order by id desc limit 0,1",
+            sql:"select * from secret_share where userId=:userId"+" and type=:type order by id desc limit 0,1",
             params:{
                 userId:parseInt(req.query.userId),
                 type:req.query.type
@@ -950,7 +950,7 @@ profile.shareExamAgain = function(req,res){
 
                 conn.query(
                     {
-                        sql:"select studentId,password from secret_account where userId="+":userId"+" order by id desc",
+                        sql:"select studentId,password from secret_account where userId=:userId order by id desc",
                         params:{
                             userId:parseInt(req.query.userId)
                         }
@@ -1246,7 +1246,7 @@ profile.updateCallbackTemplate = function(req,res){
                 break;
         }
         conn.query(
-            {sql:"select userId from "+table+" where studentId="+":studentId"+" order by id desc limit 0,1",
+            {sql:"select userId from "+table+" where studentId:studentId order by id desc limit 0,1",
                 params:{
                     studentId:parseInt(req.body.studentId)
                 }},function(e,r){
@@ -1382,7 +1382,7 @@ profile.update = function(req,res){
 profile.examAgainNotice = function(req,res){
 
     conn.query(
-        {sql:"select userId from secret_account where studentId="+":studentId"+" order by id desc limit 0,1",
+        {sql:"select userId from secret_account where studentId=:studentId order by id desc limit 0,1",
             params:{
                 studentId:parseInt(req.body.studentId)
             }},function(e,r) {
