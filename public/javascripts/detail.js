@@ -194,7 +194,7 @@
         $("#posts").on('click','.posts-report',function(){
 
             var article = $(this).parent().parent().parent().parent().parent();
-          
+
               location.href = '/report/?id='+article.attr('id');
 
         });
@@ -246,7 +246,6 @@
                     // console.log(data);
                     //    data.data.content = r.content;
                     //    console.log(22);
-                        mixpanel.track("comment action");
 
                         cb(data);
                     },
