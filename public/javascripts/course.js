@@ -7,7 +7,7 @@ var currentPage = 1;
         var $submitButton=$(this);
         $submitButton.button('loading');
 var url;
-        var apiBase = "http://api.fyscu.com";
+        var apiBase = "http://api.scuinfo.com";
 
         //var apiBase = "http://localhost:9231";
 
@@ -72,7 +72,7 @@ var url;
         $loadButton.button('loading');
         var url;
 
-        var apiBase = "http://api.fyscu.com";
+        var apiBase = "http://api.scuinfo.com";
 
 
         //var apiBase = "http://localhost:9231";
@@ -102,7 +102,7 @@ var url;
 
 
         console.log(url);
-        
+
         $.get(url,function(data){
                 console.log(data);
                 $loadButton.button('reset');

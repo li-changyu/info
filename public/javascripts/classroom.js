@@ -301,7 +301,7 @@
         $("#building").append(buildingOption);
 
     });
-    
+
     function datetimeToTimestamp(datetime) {
         var d = datetime.split("-");
         var date = new Date();
@@ -321,7 +321,7 @@ var url;
 
         var selectBuilding = $("#building option:selected").val();
 
-        var apiBase = "http://api.fyscu.com";
+        var apiBase = "http://api.scuinfo.com";
         if(selectBuilding=="0"){
             url = apiBase+"/classroom?start="+datetimeToTimestamp($("#date").val())+"&end="+(parseInt(datetimeToTimestamp($("#date").val()))+24*60*60)+"&campusId="+$("#campus").val();
         }else{
@@ -331,7 +331,7 @@ var url;
         $.get(url,function(data){
                 $submitButton.button('reset');
                 if(data.code=='200'){
-                    
+
                     //console.log(data);
                     var capmpusHash = {
                         "01":"望江",
@@ -374,16 +374,16 @@ var url;
 
         var selectBuilding = $("#building option:selected").val();
 
-        var apiBase = "http://api.fyscu.com";
+        var apiBase = "http://api.scuinfo.com";
         if(selectBuilding=="0"){
             url = apiBase+"/classroom?start="+datetimeToTimestamp($("#date").val())+"&end="+(parseInt(datetimeToTimestamp($("#date").val()))+24*60*60)+"&campusId="+$("#campus").val()+"&page="+(currentPage+1);
         }else{
             url = apiBase+"/classroom?start="+datetimeToTimestamp($("#date").val())+"&end="+(parseInt(datetimeToTimestamp($("#date").val()))+24*60*60)+"&campusId="+$("#campus").val()+"&buildingId="+selectBuilding+"&page="+(currentPage+1);
 
         }
-        
+
         console.log(url);
-        
+
         $.get(url,function(data){
                 console.log(data);
                 $loadButton.button('reset');
@@ -434,7 +434,7 @@ var url;
 
             var selectBuilding = $("#building option:selected").val();
 
-            var apiBase = "http://api.fyscu.com";
+            var apiBase = "http://api.scuinfo.com";
             if(selectBuilding=="0"){
                 url = apiBase+"/classroom?start="+datetimeToTimestamp($("#date").val())+"&end="+(parseInt(datetimeToTimestamp($("#date").val()))+24*60*60)+"&campusId="+$("#campus").val()+"&page="+(currentPage+1);
             }else{
