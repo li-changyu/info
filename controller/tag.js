@@ -37,7 +37,7 @@ tag.tag = function (req, res) {
                 res.end(JSON.stringify(code.mysqlError));
                 return;
             }
-            
+
             for(var i = 0;i<rows.length;i++){
                 items.id = rows[i].id;
                 items.name = rows[i].name;
@@ -279,7 +279,7 @@ tag.like = function (req, res) {
 //                            console.log(r1[0]['count ("postId")']);
                             conn.query(
                                 {//
-                                    sql: 'select count("postId") from `secret_post_like` where "postId" = "' + item.id + '"'
+                                    sql: 'select count("postId") from `secret_post_like` where postId = ' + item.id 
                                 }, function (e2, r2) {
                                     if (e2) {
                                         console.log(e2);
