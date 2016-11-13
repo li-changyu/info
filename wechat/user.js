@@ -363,7 +363,7 @@ user.score = function(msg,req,res,next){
             request.get(
 
                 {
-                    url:config.api.baseUrl+"/api/score/latest?appId="+ config.api.appId+"&appSecret="+config.api.appSecret+"&studentId="+ r.studentId+"&password="+ aes.encode(config.api.appId,config.api.appSecret,r.password)
+                    url:config.api.baseUrl+"/api/score?appId="+ config.api.appId+"&appSecret="+config.api.appSecret+"&studentId="+ r.studentId+"&password="+ aes.encode(config.api.appId,config.api.appSecret,r.password)
                 },function(eeeee,rrrrr,body){
                     console.log(eeeee);
                     if(eeeee){
