@@ -7,6 +7,7 @@ var datas = require('../libs/datas.js');
 var request = require('request');
 var redis = require('../libs/redis');
 var hooks = require('../libs/hooks.js');
+var xss = require('xss');
 //var tokenName = 1;
 var post = {
 

@@ -5,6 +5,7 @@ var code = require('../libs/code.js');
 var async = require('async');
 var conn = require('../libs/mysql.js');
 var datas = require('../libs/datas.js');
+var xss = require('xss');
 var comment = {
 
     name:"评论处理页"
@@ -21,6 +22,7 @@ comment.commentPost = function (req, res) {
         res.end(JSON.stringify(code.lackParamsContent));
         return;
     }
+    res.body.content = xss(res.body.content);
 
     if(!req.body.parentId){
         req.body.parentId = 0;

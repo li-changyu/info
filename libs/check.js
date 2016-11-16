@@ -5,6 +5,7 @@ var conn = require('./mysql.js');
 var config =require('../config.js');
 var escape = require('escape-html');
 var redis = require('../libs/redis');
+var xss = require('xss');
 var check = {
     name:"检测页"
 };
@@ -378,6 +379,7 @@ check.postCreate = function(o,cb){
         cb(code.contentCantNull);
         return;
     }
+    o.content = xss(o.content);
     var secret=0;
     if(o.secret){
         secret=1;
