@@ -22,7 +22,7 @@ comment.commentPost = function (req, res) {
         res.end(JSON.stringify(code.lackParamsContent));
         return;
     }
-    res.body.content = xss(res.body.content);
+    req.body.content = xss(req.body.content);
 
     if(!req.body.parentId){
         req.body.parentId = 0;
