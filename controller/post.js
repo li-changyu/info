@@ -1155,6 +1155,7 @@ post.postsView = function(req, res) {
           var items = {};
           items.id = item.id;
           items.title = item.title;
+          items.content = item.content;
           items.gender = item.gender;
           items.secret = item.secret;
           items.avatar = item.avatar;
