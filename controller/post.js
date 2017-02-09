@@ -682,7 +682,16 @@ post.create = function(req, res) {
               return;
             }
             res.end(common.format(200, 'success', {
-              insertId: rr.insertId
+              insertId: rr.insertId,
+              title: r.title,
+              content: r.content,
+              secret: r.secret,
+              more: r.more,
+              avatar: r.avatar,
+              nickname: r.nickname,
+              gender: r.gender,
+              userId: r.userId,
+              date: r.date
             }));
             return;
           });
@@ -693,7 +702,16 @@ post.create = function(req, res) {
       } else {
 
         res.end(common.format(200, 'success', {
-          insertId: rr.insertId
+          insertId: rr.insertId,
+          title: r.title,
+          content: r.content,
+          secret: r.secret,
+          more: r.more,
+          avatar: r.avatar,
+          nickname: r.nickname,
+          gender: r.gender,
+          userId: r.userId,
+          date: r.date
         }));
         return;
 
