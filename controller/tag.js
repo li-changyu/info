@@ -247,7 +247,7 @@ tag.like = function (req, res) {
         {
             sql: sql,
             params:{
-                userId:parseInt(req.query.userId),
+                userId:parseInt(userId),
                 fromId:parseInt(req.query.fromId),
                 pageSize:parseInt(req.query.pageSize)
             }
@@ -291,7 +291,7 @@ tag.like = function (req, res) {
                                         {
                                             sql:'select * from secret_post_like where userId='+":userId"+' and postId ='+item.id,
                                             params:{
-                                                userId:parseInt(req.query.userId)
+                                                userId:parseInt(userId)
                                             }
                                         },function(e3,r3){
                                             if(e3){
