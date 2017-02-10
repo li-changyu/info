@@ -226,7 +226,8 @@ tag.list= function (req, res) {
 
 }};
 tag.like = function (req, res) {
-    if(req.query.userId){
+    var userId = req.query.userId || req.session.userId;
+    if(userId){
     //console.log('success in api');
     //console.log(req.body);
     //console.log(req.query);
@@ -279,7 +280,7 @@ tag.like = function (req, res) {
 //                            console.log(r1[0]['count ("postId")']);
                             conn.query(
                                 {//
-                                    sql: 'select count("postId") from `secret_post_like` where postId = ' + item.id 
+                                    sql: 'select count("postId") from `secret_post_like` where postId = ' + item.id
                                 }, function (e2, r2) {
                                     if (e2) {
                                         console.log(e2);
