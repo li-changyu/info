@@ -159,6 +159,7 @@ tag.list= function (req, res) {
 
                                                                     items.level = req.session.level;
                                                                     items.title = item.title;
+                                                                    items.content = item.content;
                                                                     items.gender = item.gender;
                                                                     items.secret = item.secret;
                                                                     items.avatar = item.avatar;
@@ -227,6 +228,8 @@ tag.list= function (req, res) {
 }};
 tag.like = function (req, res) {
     var userId = req.query.userId || req.session.userId;
+    console.log(req.session.userId);
+    console.log(userId);
     if(userId){
     //console.log('success in api');
     //console.log(req.body);
@@ -309,6 +312,7 @@ tag.like = function (req, res) {
                                             items.title = item.title;
                                             items.gender = item.gender;
                                             items.secret = item.secret;
+                                            items.content = item.content;
                                             items.avatar = item.avatar;
                                             items.nickname = item.nickname;
                                             items.commentCount = r1[0]['count("postId")'];
