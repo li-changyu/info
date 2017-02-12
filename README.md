@@ -723,3 +723,10 @@
                 code:200
                 }
                 }
+
+### 27.登录
+
+    登录的url是
+    /login?type=wechat&redirect={url}
+    支持hash
+    type有3个值:wechat,wechatWeb,weibo
