@@ -228,8 +228,7 @@ account.loginHandle = function(req,res){
             message:"必须传入type参数"
         }))
     }
-    var currentHost = req.protocol+"://"+req.headers.host;
-
+    var currentHost = req.protocol+"://"+req.host;
     var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
     redirect = decodeURIComponent(redirect);
     var redirectHash = "";
