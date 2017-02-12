@@ -52,15 +52,15 @@
                "picUrl":"图片地址",//可以为空
                "url":"图文网址"
              }]
-           
+
            }
-    
-    
+
+
     },
     return:{
         code:200
         }
-        
+
     }
 
 
@@ -82,11 +82,11 @@
     return:{
         code:200
         }
-        
+
         }
 
-    
-    
+
+
 ### 3.发送微信模板消息通知（每天只允许发10w次）
 
 
@@ -111,7 +111,7 @@
     return:{
     code:200
     }
-    
+
     }
 
 
@@ -135,7 +135,7 @@
 	message:"提示信息",  //成功可省略,失败为错误提示信息
 	data:{}     //可以为空
 	}
-	
+
 0.5 匿名如果在评论区的话，可识别为作者
 
 0.6 同一个帖子下,作者只能为一种身份 实名/匿名
@@ -151,9 +151,9 @@
     //如果是匿名的情况下，插入一个随机的avatar,和一个昵称 '某同学'
 	{
 	method:"post"
-	
+
 	url:"/api/post"
-	
+
 	params:{
 	secret:0/1 //是否匿名
 	content:"内容"
@@ -171,7 +171,7 @@
 	id:2
 	}
 	}
-	
+
 ### 3.帖子列表
 
     {
@@ -182,7 +182,7 @@
     fromId:53  //从第53个文章id往前的15篇文章
     userId:23 //如果有这个字段则返回 该人的帖子列表
     //待定参数
-     
+
     }
     }
 
@@ -240,7 +240,7 @@
            date:12343214321,  //时间戳
            userId:0/3  //作者id，如果是实名则返回作者id，否则为0
         }
-    
+
 ### 5.发布一条评论
 
     {
@@ -253,7 +253,7 @@
     content:"评论内容"
     }
     }
-    
+
 ### 6.删除一条评论
 	{
 	method:"delete"
@@ -262,8 +262,8 @@
 	id:23
 	}
 	}
-	
-	
+
+
 ### 7.评论列表
 
 
@@ -273,13 +273,13 @@
     params:{
     postId:12，
     pageSize:15 //请求的评论数
-    fromId:从第几条起的评论 
-    
-    
+    fromId:从第几条起的评论
+
+
     //待定参数
-     
+
     }
-    
+
     return:{
     code:200,
     data:[
@@ -298,14 +298,14 @@
     nickname:"",
     gender:""
     likeCount:2 //点赞数量
-    
-    
+
+
     }
-    
+
     ]
     }
     }
-    
+
 ### 8.评论详情
 
 
@@ -314,11 +314,11 @@
     url:"/api/comment",
     params:{
     id:322  //评论id
-    
+
     }
-    
+
     return:
-    
+
        {
         id:23,
             parentId:22,
@@ -334,10 +334,10 @@
             nickname:"",
             gender:""
             likeCount:2 //点赞数量
-        
+
         }
     }
-    
+
 ### 9.给某帖子点赞
     {
     method:"post",
@@ -346,7 +346,7 @@
     id:12
     }
     }
-    
+
 ### 10.给某评论点赞
     {
     method:"post",
@@ -363,7 +363,7 @@
     id:"3"
     }
     }
-    
+
 ### 10.1.给某评论取消点赞
     {
     method:"delete",
@@ -383,7 +383,7 @@
     id:"2"
     }
     }
-    
+
 ### 12.评论匿名转实名
 
 
@@ -402,15 +402,15 @@
     method:"get",
     url:"/api/tags,
     params:{
-    
+
     pageSize:15,
     fromId:"2"
-    
+
     }
     return;{
     code:200,
     data:[
-    
+
     {id:1,
      name:'test1'},
       {id:2,
@@ -419,28 +419,28 @@
                name:'test3'},
                 {id:4,
                     name:'test4'}
-     
+
      ]
     }
     }
-    
+
 ### 14.标签查找帖子列表
     {
     method:"get",
     url:"/api/tag",
     params:{
-    
+
     name:"test1",
     pageSize:15,
     fromId:2
-    
+
     }
-    
-    
+
+
      return:{
         code:0,
         data:[
-    
+
         {
         id:12,
             title:"xxx",
@@ -458,10 +458,10 @@
             userId:0/3  //作者id，如果是实名则返回作者id，否则为0
         }
         ]
-    
+
         }
     }
-    
+
 ### 15.赞过的帖子接口
 
      {
@@ -470,9 +470,9 @@
     params:{
     pageSize:15 //请求的文章数
     fromId:53  //从第53个文章id往前的15篇文章
-    userId:23  *必填
-    //待定参数
-     
+    userId:23  //如果不传的话，默认使用当前登录的用户的id
+    /待定参数
+
     }
     }
 
@@ -499,8 +499,8 @@
     ]
 
     }
-    
-    
+
+
 ### 16.某某某的个人数据
 
     {
@@ -509,7 +509,7 @@
     params:{
     userId:23  //如果没有此参数，则返回当前登录用户的个人数据，如果没有登录，则返回错误{"xxx":"请先登录"}
     //待定参数
-     
+
     }
     }
 
@@ -529,21 +529,21 @@
         {
         'key':"score",
         'name':"成绩"
-        
+
         }
         ],
         myScenes[
         'score'
         ]
         */
-        
+
         }
-    
+
 
     }
-    
+
 ### 17.获取某个标签的文章数
-    
+
         {
          method:"get",
          url:"/api/tag/count"
@@ -553,49 +553,49 @@
          end://时间戳 可选，结束的事件戳
         }
         }
-    
+
         return:{
         code:200,
         data:
-    
+
         {
             postsCount:21 //文章总数
-      
+
             }
-        
-    
+
+
         }
-        
+
 ### 18.获取当前登录用户的通知数
-        
+
         {
         method:"get",
         url:"/api/notice/count",
-        
+
         params:{
-        
+
         type:"all"  //默认是all
-        
+
         },
-        
+
         return:{
-        
+
         code:200,
-        
+
         data:{
-        
+
         likeCount:12,
         replyCount:13,
         count:25
-        
+
         }
-        
+
         }
-        
+
         }
 
 ### 19.获取当前登录用户的通知列表
-                
+
         {
         method:"get",
         url:"/api/notices",
@@ -641,9 +641,9 @@
           code:200
           }
           }
-          
+
 ### 21.绑定学号密码
-          
+
           {
           method:"post",
           url:"/api/bind/dean",
@@ -652,10 +652,10 @@
           password:"密码"
           }
           }
-          
-          
+
+
 ### 22.举报不良内容
-    
+
           {
           method:"post",
           url:"/api/report",
@@ -667,7 +667,7 @@
         code:200
         }
         }
-        
+
 ### 23.审核列表
 
         {
@@ -710,5 +710,16 @@
         code:200
         }
         }
-        
-        
+### 26.我发布的帖子列表
+
+        {
+                method:"get",
+                url:"/api/posts/self",
+                params:{
+                fromId:22222, //从那篇起
+                pageSize:15, //每页多少篇
+                },
+                return:{
+                code:200
+                }
+                }
