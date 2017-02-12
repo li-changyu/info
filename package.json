@@ -29,6 +29,7 @@
     "promise": "^7.0.1",
     "request": "~2.55.0",
     "serve-favicon": "~2.2.0",
+    "url-join-query": "^1.0.2",
     "wechat": "^2.0.2",
     "wechat-api": "^1.9.0",
     "wechat-oauth": "^1.0.1",

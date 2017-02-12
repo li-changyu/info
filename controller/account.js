@@ -5,8 +5,11 @@ var conn = require('../libs/mysql.js');
 var datas = require('../libs/datas.js');
 var request = require('request');
 var config = require('../config.js');
+var url = require('url');
 var OAUTH = require('wechat-oauth');
 var API = require('wechat-api');
+var queryString = require('querystring');
+var urlJoinQuery = require('url-join-query');
 var fs = require('fs');
 var AuthLib = require('../libs/auth.js');
 var mongoose = require('mongoose')
@@ -206,10 +209,62 @@ account.logout = function(req,res){
             res.end(JSON.stringify(code.logoutError));
             return;
         }
+        var redirect = "/"
+        if(req.query.redirect){
+            reidrect = decodeURIComponent(req.query.redirect);
 
-        res.redirect(req.query.redirect?req.query.redirect:"/");
+        }
+
+        res.redirect(redirect);
     })
 };
+
+account.loginHandle = function(req,res){
+    let type = req.query.type;
+    let typeSet = new Set(['wechatWeb','wechat','weibo'])
+    if(!type || !typeSet.has(type)){
+        res.end(JSON.stringify({
+            code:9009,
+            message:"必须传入type参数"
+        }))
+    }
+    var currentHost = req.protocol+"://"+req.headers.host;
+
+    let redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
+    redirect = decodeURIComponent(redirect);
+    let redirectHash = "";
+    let redirectWithoutHash = ""
+    if(redirect.indexOf("#")>-1){
+        //有#号的做特殊处理
+        //先提取#号后面的内容
+        var redirectArr = redirect.split('#');
+        redirectWithoutHash = redirectArr[0]
+        redirectHash = redirectArr[1];
+        redirect = urlJoinQuery(redirectWithoutHash,{
+            toHash:redirectHash
+        });
+    }
+
+
+    let openLoginUrl = "";
+    let loginCallbackUrl = ""
+    console.log(currentHost);
+    if(type==='wechat'){
+        loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
+        openLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_userinfo&state=wechat#wechat_redirect`;
+    }else if(type==='wechatWeb'){
+        loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
+        openLoginUrl = `https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_login&state=wechatWeb#wechat_redirect`;
+    }else{
+        loginCallbackUrl = currentHost+"/auth/weibo?r="+encodeURIComponent(redirect);
+        //weibo
+        openLoginUrl = `https://api.weibo.com/oauth2/authorize?client_id=1159008171&response_type=code&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&state=weibo`
+    }
+    console.log(openLoginUrl);
+
+    res.end(openLoginUrl);
+    // res.redirect(redirect);
+}
 
 account.login = function(req,res,data){
     req.session.userId = data.userId;
@@ -218,7 +273,11 @@ account.login = function(req,res,data){
     req.session.avatar = data.avatar;
     req.session.userStatus = 'login';
     req.session.level = data.level?data.level:0;
-    res.redirect(data.redirect?data.redirect:"/");
+    var redirect = "/";
+    if(data.redirect){
+        redirect = data.redirect;
+    }
+    res.redirect(redirect);
 };
 
 
@@ -664,6 +723,14 @@ account.wechatLogin = function (req, res) {
     }
     var state = [];
     state = req.query.state.split(',');
+    var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
+    var redirectObj = url.parse(redirect,true);
+    if(redirectObj.query.toHash){
+        let redirectHash = "#"+redirectObj.query.toHash;
+        delete redirectObj.query.toHash;
+        let redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
+        redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
+    }
         //get code
     if(state[0]=='wechatWeb') {
 
@@ -707,7 +774,7 @@ account.wechatLogin = function (req, res) {
                                                 source: state[0],
                                                 level: r2[0].level,
                                                 userId: r1[0].userId,
-                                                redirect: state[1]
+                                                redirect: state[1] || redirect
                                             }
                                         )
                                     } else {
@@ -769,7 +836,7 @@ account.wechatLogin = function (req, res) {
                                                                     nickname: r7[0].nickname,
                                                                     gender: r7[0].gender,
                                                                     source: state[0],
-                                                                    redirect: state[1],
+                                                                    redirect: state[1] || redirect,
                                                                     level: r7[0].level
                                                                 });
                                                         } else {
@@ -808,7 +875,7 @@ account.wechatLogin = function (req, res) {
                                                         nickname: userInfo.nickname,
                                                         gender: userInfo.sex,
                                                         source: state[0],
-                                                        redirect: state[1]
+                                                        redirect: state[1] || redirect
                                                     }
                                                 );
                                             } else {
@@ -873,7 +940,7 @@ account.wechatLogin = function (req, res) {
                                                 gender: r2[0].gender,
                                                 source:state[0],
                                                 userId:r1[0].userId,
-                                                redirect:state[1],
+                                                redirect:state[1] || decodeURIComponent(redirectEncode),
                                                 level:r2[0].level
                                             }
                                         )
@@ -999,7 +1066,13 @@ account.weiboLogin = function (req, res) {
     var state = [];
     state = req.query.state.split(',');
 
-
+    var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
+    var redirectObj = url.parse(redirect,true);
+    if(redirectObj.query.toHash){
+        let redirectHash = "#"+redirectObj.query.toHash;
+        delete redirectObj.query.toHash;
+        redirect = redirectObj.protocol+"//"+redirectObj.hostname+((redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+"?"+queryString.stringify(redirectObj.query)+redirectHash;
+    }
     //get code
 
     var appId,appSecret;
@@ -1067,7 +1140,7 @@ account.weiboLogin = function (req, res) {
                                                 gender: r2[0].gender,
                                                 source:state[0],
                                                 userId:r1[0].userId,
-                                                redirect:state[1],
+                                                redirect:state[1] || redirect,
                                                 level:r2[0].level
                                             }
                                         )
@@ -1122,7 +1195,7 @@ account.weiboLogin = function (req, res) {
                                         nickname:userInfo.screen_name,
                                         gender:gender[userInfo.gender],
                                         source:state[0],
-                                        redirect:state[1]
+                                        redirect:state[1] || redirect
                                     }
                                 );
                             });

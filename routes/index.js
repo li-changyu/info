@@ -222,6 +222,10 @@ router.post('/api/bind/accounts',function(req,res){
     bind.accounts(req,res);
 });
 
+router.get('/login',check.isNotLogin,function(req,res){
+    account.loginHandle(req,res);
+})
+
 router.get('/auth/wechat',check.isNotLogin,function(req,res){
     account.wechatLogin(req,res);
 });
