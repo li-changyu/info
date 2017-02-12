@@ -211,7 +211,7 @@ account.logout = function(req,res){
         }
         var redirect = "/"
         if(req.query.redirect){
-            reidrect = decodeURIComponent(req.query.redirect);
+            redirect = decodeURIComponent(req.query.redirect);
 
         }
 
