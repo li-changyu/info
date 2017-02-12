@@ -247,7 +247,7 @@ account.loginHandle = function(req,res){
 
     var openLoginUrl = "";
     var loginCallbackUrl = ""
-    console.log(currentHost);
+    // console.log(currentHost);
     if(type==='wechat'){
         loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
         openLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_userinfo&state=wechat#wechat_redirect`;
@@ -259,7 +259,7 @@ account.loginHandle = function(req,res){
         //weibo
         openLoginUrl = `https://api.weibo.com/oauth2/authorize?client_id=1159008171&response_type=code&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&state=weibo`
     }
-    console.log(openLoginUrl);
+    // console.log(openLoginUrl);
 
     // res.end(openLoginUrl);
     res.redirect(openLoginUrl);
@@ -1073,8 +1073,8 @@ account.weiboLogin = function (req, res) {
         var redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
     }
-    console.log(state);
-    console.log(redirect);
+    // console.log(state);
+    // console.log(redirect);
     //get code
 
     var appId,appSecret;
@@ -1101,7 +1101,7 @@ account.weiboLogin = function (req, res) {
                     var codeResult = {error_code:23333};
                 }
 
-                console.log('codeResult',codeResult);
+                // console.log('codeResult',codeResult);
 
 
                 if(codeResult.error_code){
