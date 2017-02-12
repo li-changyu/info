@@ -220,8 +220,8 @@ account.logout = function(req,res){
 };
 
 account.loginHandle = function(req,res){
-    let type = req.query.type;
-    let typeSet = new Set(['wechatWeb','wechat','weibo'])
+    var type = req.query.type;
+    var typeSet = new Set(['wechatWeb','wechat','weibo'])
     if(!type || !typeSet.has(type)){
         res.end(JSON.stringify({
             code:9009,
@@ -230,10 +230,10 @@ account.loginHandle = function(req,res){
     }
     var currentHost = req.protocol+"://"+req.headers.host;
 
-    let redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
+    var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
     redirect = decodeURIComponent(redirect);
-    let redirectHash = "";
-    let redirectWithoutHash = ""
+    var redirectHash = "";
+    var redirectWithoutHash = ""
     if(redirect.indexOf("#")>-1){
         //有#号的做特殊处理
         //先提取#号后面的内容
@@ -246,8 +246,8 @@ account.loginHandle = function(req,res){
     }
 
 
-    let openLoginUrl = "";
-    let loginCallbackUrl = ""
+    var openLoginUrl = "";
+    var loginCallbackUrl = ""
     console.log(currentHost);
     if(type==='wechat'){
         loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
@@ -726,9 +726,9 @@ account.wechatLogin = function (req, res) {
     var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
     var redirectObj = url.parse(redirect,true);
     if(redirectObj.query.toHash){
-        let redirectHash = "#"+redirectObj.query.toHash;
+        var redirectHash = "#"+redirectObj.query.toHash;
         delete redirectObj.query.toHash;
-        let redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
+        var redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
     }
         //get code
@@ -1069,7 +1069,7 @@ account.weiboLogin = function (req, res) {
     var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
     var redirectObj = url.parse(redirect,true);
     if(redirectObj.query.toHash){
-        let redirectHash = "#"+redirectObj.query.toHash;
+        var redirectHash = "#"+redirectObj.query.toHash;
         delete redirectObj.query.toHash;
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+"?"+queryString.stringify(redirectObj.query)+redirectHash;
     }
