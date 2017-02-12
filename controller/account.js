@@ -228,7 +228,7 @@ account.loginHandle = function(req,res){
             message:"必须传入type参数"
         }))
     }
-    var currentHost = req.protocol+"://"+req.host;
+    var currentHost = req.protocol+"://"+"scuinfo.com";
     var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
     redirect = decodeURIComponent(redirect);
     var redirectHash = "";
@@ -261,8 +261,8 @@ account.loginHandle = function(req,res){
     }
     console.log(openLoginUrl);
 
-    res.end(openLoginUrl);
-    // res.redirect(redirect);
+    // res.end(openLoginUrl);
+    res.redirect(openLoginUrl);
 }
 
 account.login = function(req,res,data){
