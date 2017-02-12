@@ -1070,8 +1070,11 @@ account.weiboLogin = function (req, res) {
     if(redirectObj.query.toHash){
         var redirectHash = "#"+redirectObj.query.toHash;
         delete redirectObj.query.toHash;
-        redirect = redirectObj.protocol+"//"+redirectObj.hostname+((redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+"?"+queryString.stringify(redirectObj.query)+redirectHash;
+        var redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
+        redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
     }
+    console.log(state);
+    console.log(redirect);
     //get code
 
     var appId,appSecret;
@@ -1098,7 +1101,7 @@ account.weiboLogin = function (req, res) {
                     var codeResult = {error_code:23333};
                 }
 
-                //console.log(codeResult);
+                console.log('codeResult',codeResult);
 
 
                 if(codeResult.error_code){
