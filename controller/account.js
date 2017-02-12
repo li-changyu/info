@@ -939,7 +939,7 @@ account.wechatLogin = function (req, res) {
                                                 gender: r2[0].gender,
                                                 source:state[0],
                                                 userId:r1[0].userId,
-                                                redirect:state[1] || decodeURIComponent(redirectEncode),
+                                                redirect:state[1] || decodeURIComponent(redirect),
                                                 level:r2[0].level
                                             }
                                         )
