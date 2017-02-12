@@ -33,6 +33,10 @@ router.get('/api/posts',function(req,res){//文章列表
    // console.log('success in index');
     post.postsView(req,res);
 });
+router.get('/api/posts/self',check.isLoginApi,function(req,res){//文章列表
+   // console.log('success in index');
+    post.selfPosts(req,res);
+});
 
 router.post('/api/white',function(req,res){
   post.postsDelReport(req,res);
