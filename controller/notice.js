@@ -26,7 +26,8 @@ notice.count = function (req,res) {
                     console.log(e);
                     res.end(JSON.stringify(code.mysqlError));
                     return;
-                }conn.query(
+                }
+                conn.query(
                     {
                         sql:'select count("id") from `secret_notice` where status=1 and pattern in(2,4) and userId ='+req.session.userId
                     },function(ee,rr){
@@ -45,11 +46,21 @@ notice.count = function (req,res) {
             }
         )}else{
         console.log('你没有登陆');
+        res.end(JSON.stringify({
+            code:2015,
+            message:"没有登录"
+        }))
         return;
     }
 };
 
 notice.list = function (req, res) {
+    var pageSize,page;
+    if (!req.query.pageSize) {
+      pageSize = 15
+  }else{
+      pageSize = req.query.pageSize;
+  }
     if(req.session.userId){
         //console.log('xxx');
         if(!req.query.type){
@@ -58,19 +69,28 @@ notice.list = function (req, res) {
         var sql='';
         switch(req.query.type){
             case 'all':
-                sql='select * from secret_notice where authorId = '+req.session.userId;
+                sql='select * from secret_notice where authorId = :authorId ';
                 break;
             case 'like':
-                sql='select * from secret_notice where pattern in (2,4) and authorId = '+req.session.userId;
+                sql='select * from secret_notice where pattern in (2,4) and authorId = :authorId';
                 break;
             case 'reply':
-                sql='select * from secret_notice where pattern in (1,3) and authorId = '+req.session.userId;
+                sql='select * from secret_notice where pattern in (1,3) and authorId = :authorId';
                 break;
         }
-        //console.log(sql);return;
+        if(req.query.fromId){
+            sql += ' and id<' + ':id' ;
+        }
+        sql += ' order by id desc limit 0,:pageSize';
+        // console.log(sql);
         conn.query(
             {
-                sql:sql
+                sql:sql,
+                params:{
+                    authorId:req.session.userId,
+                    id:req.query.fromId,
+                    pageSize:pageSize
+                }
             }, function (e,r) {
                 if(e){
                     console.log(e);
@@ -85,9 +105,11 @@ notice.list = function (req, res) {
                     //console.log(r[i].userId);return;
                     data.userId = r[i].userId;
                     data.authorId = r[i].authorId;
+                    data.nickname = r[i].nickname
                     switch (r[i].pattern){
                         case 1:
                             data.action='likePost';
+                            delete data.nickname;
                             break;
                         case 2:
                             data.action='replyPost';
@@ -96,6 +118,7 @@ notice.list = function (req, res) {
                         case 3:
                             data.action='likeComment';
                             data.parentCommentId=r[i].parentCommentId;
+                            delete data.nickname;
                             break;
                         case 4:
                             data.action='replyComment';
@@ -107,6 +130,8 @@ notice.list = function (req, res) {
                     data.originContent = r[i].originContent;
                     data.postId = r[i].postId;
                     data.status = r[i].status;
+                    data.id = r[i].id;
+                    data.date = r[i].date;
                     datas.push(data);
                     //console.log('xxx');
                 }
