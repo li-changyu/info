@@ -59,7 +59,7 @@ notice.list = function (req, res) {
     if (!req.query.pageSize) {
       pageSize = 15
   }else{
-      pageSize = req.query.pageSize;
+      pageSize = Number(req.query.pageSize);
   }
     if(req.session.userId){
         //console.log('xxx');
