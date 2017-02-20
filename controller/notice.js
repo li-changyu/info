@@ -155,20 +155,21 @@ notice.change = function (req, res) {
             var sql='';
             switch(req.query.type){
                 case 'single':
-                    sql='update secret_notice set status='+":action"+' where id='+":id";
+                    sql='update secret_notice set status='+":action"+' where id=:id and userId=:userId';
                     break;
                 case 'multiply':
-                    var a = req.query.id.join();
-                    sql='update secret_notice set status='+':action'+' where id in('+a+')';
+                    var a = req.query.id.join(",");
+                    sql='update secret_notice set status=:action where id in('+a+') and userId=:userId';
                     break;
                 case 'all':
-                    sql='update secret_notice set status='+':action'+' where userId='+req.session.id;
+                    sql='update secret_notice set status=:action where userId=:userId';
                     break;
             }
             conn.query(
                 {
                     sql:sql,
                     params:{
+                        userId:req.session.userId,
                         id:parseInt(req.query.id),
                         action:req.query.action
                     }
