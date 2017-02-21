@@ -730,3 +730,27 @@
     /login?type=wechat&redirect={url}
     支持hash
     type有3个值:wechat,wechatWeb,weibo
+
+### 28.拉黑
+    {
+        method:"post",
+        url:"/api/block",
+        params:{
+            id:222,//文章id
+        },
+        return :{
+            code:200
+        }
+    }
+
+### 29.白名单
+    {
+        method:"post",
+        url:"/api/white",
+        params:{
+            id:222,//文章id
+        },
+        return :{
+            code:200
+        }
+    }
