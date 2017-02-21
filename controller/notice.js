@@ -20,7 +20,7 @@ notice.count = function (req,res) {
         //console.log(sql, fff);return;
         conn.query(
             {
-                sql:'select count("id") from `secret_notice` where status=1 and pattern in (1,3) and userId ='+req.session.userId
+                sql:'select count("id") from `secret_notice` where status=1 and pattern in (1,3) and authorId ='+req.session.userId
             },function(e,r){
                 if(e){
                     console.log(e);
@@ -29,7 +29,7 @@ notice.count = function (req,res) {
                 }
                 conn.query(
                     {
-                        sql:'select count("id") from `secret_notice` where status=1 and pattern in(2,4) and userId ='+req.session.userId
+                        sql:'select count("id") from `secret_notice` where status=1 and pattern in(2,4) and authorId ='+req.session.userId
                     },function(ee,rr){
                         if(e){
                             console.log(e);
@@ -155,14 +155,14 @@ notice.change = function (req, res) {
             var sql='';
             switch(req.query.type){
                 case 'single':
-                    sql='update secret_notice set status='+":action"+' where id=:id and userId=:userId';
+                    sql='update secret_notice set status='+":action"+' where id=:id and authorId=:userId';
                     break;
                 case 'multiply':
                     var a = req.query.id.join(",");
-                    sql='update secret_notice set status=:action where id in('+a+') and userId=:userId';
+                    sql='update secret_notice set status=:action where id in('+a+') and authorId=:userId';
                     break;
                 case 'all':
-                    sql='update secret_notice set status=:action where userId=:userId';
+                    sql='update secret_notice set status=:action where authorId=:userId';
                     break;
             }
             conn.query(
