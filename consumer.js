@@ -85,7 +85,7 @@ consumer.weibo = function(){
                                 if(result.code==200){
                                     var form = new FormData();
 
-                                    var content = ((rr[0].content.substr(0,120)+config.site.url+"/p/"+rr[0].id));
+                                    var content = ((rr[0].content.substr(0,110)+config.site.url+"/#page=detail&id="+rr[0].id));
                                     //  var content = ((rr[0].content.substr(0,135)));
 
                                     // console.log((content));
