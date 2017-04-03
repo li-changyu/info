@@ -65,7 +65,8 @@
 
 mysql -u username -p database_name < file.sql
 ```
-
+8. 安装git
+9.
 ## 部署scuinfo后端服务
 
 
@@ -86,7 +87,29 @@ mysql -u username -p database_name < file.sql
 3. 更改/token 下各个带example的文件,去掉example
 
 
+## 更新，如何支持emoji
+1. 修改数据库表或者字段的字符集为utf8mb4，修改的sql语句如下：
+- 修改整库的字符集
 
+```
+ALTER DATABASE database_name CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+```
+- 修改整张表的字符集
+
+```
+ALTER TABLE haviea.share_article_comment CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+- 修改单个字段的字符集
+```
+ALTER TABLE table_name CHANGE src_column_name target_column_name VARCHAR(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+2.修改mysql配置文件设置字符集和跳过客户端设置。添加的配置项如下：
+```
+[mysqld]
+character-set-server=utf8mb4
+init-connect='set names utf8mb4'
+skip-character-set-client-handshake
+```
 
 
 
