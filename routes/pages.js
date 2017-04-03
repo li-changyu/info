@@ -44,7 +44,27 @@ api.registerTicketHandle(function (type, callback) {
 );
 
 // getTicketToken
-
+pages.debug = function(req,res){
+    res.render('index',{
+        title:config.site.name,
+        barTitle:"首页",
+        timestamp:parseInt(new Date()/1000),
+        wechatJs:'',
+        weibo:{
+            appKey:config.weibo.appkey,
+            uid:config.weibo.uid
+        },
+        userId:req.session.userId,
+        page:{
+            type:"index",
+            userId:req.session.userId,
+            avatar:req.session.avatar,
+            nickname:req.session.nickname,
+            gender:req.session.gender,
+            userStatus:req.session.userStatus,
+            url:url
+        }});
+}
 pages.index = function(req,res){
     var url = req.protocol+"://"+config.host.url+req.originalUrl;
     var param = {

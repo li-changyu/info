@@ -74,6 +74,7 @@ check.isLoginApi = function(req,res,next){
     if(req.session.userStatus=='login'){
         next();
     }else{
+        res.clearCookie('isLogin');
         res.end(JSON.stringify(code.notLogin));
         return;
     }
@@ -86,6 +87,7 @@ check.isNotLoginApi = function(req,res,next){
          res.end(JSON.stringify(code.hasLogin));
          return;
      }else{
+         res.clearCookie('isLogin');
          next();
      }
 };
@@ -106,6 +108,7 @@ check.isLogin = function(req,res,next){
     if(req.session.userStatus == 'login'){
         next();
     }else{
+        res.clearCookie('isLogin');
         res.redirect('/signin?redirect='+encodeURIComponent(req.protocol+"://"+config.host.url+req.originalUrl));
         return;
     }
@@ -118,6 +121,7 @@ check.isNotLogin = function(req,res,next){
         res.redirect('/?redirect='+encodeURIComponent(req.protocol+"://"+config.host.url+req.originalUrl));
         return;
     }else{
+        res.clearCookie('isLogin');
         next();
     }
 };

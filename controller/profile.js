@@ -14,7 +14,8 @@ var profile = {
 
 profile.like = function (req, res) {
     var data = {};
-    if(req.query.userId && req.query.userId!='undefined'){
+
+    if(req.query.userId && req.query.userId!=undefined){
         if(req.query.userId ==req.session.userId){
             //是本人
             conn.query(

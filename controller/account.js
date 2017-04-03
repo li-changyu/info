@@ -202,19 +202,19 @@ account.updateUserInfo = function(accessToken,openId,userId,cb){
 
 
 account.logout = function(req,res){
-
     req.session.destroy(function(err) {
 
         if(err){
+            console.log('err',err);
             res.end(JSON.stringify(code.logoutError));
             return;
         }
+        res.clearCookie("isLogin");
         var redirect = "/"
         if(req.query.redirect){
             redirect = decodeURIComponent(req.query.redirect);
 
         }
-
         res.redirect(redirect);
     })
 };
@@ -272,6 +272,7 @@ account.login = function(req,res,data){
     req.session.avatar = data.avatar;
     req.session.userStatus = 'login';
     req.session.level = data.level?data.level:0;
+    res.cookie("isLogin","yes");
     var redirect = "/";
     if(data.redirect){
         redirect = data.redirect;

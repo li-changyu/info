@@ -1,8 +1,72 @@
 # scuinfo
 3.0
 
+## 需要具备的一些基础
 
-## 部署
+1. linux基本使用
+2. vi的使用
+3. javascript,nodejs基础,mysql基础
+4. webpack构建工具
+
+
+## 部署前的准备：
+
+1. 注册域名
+2. 购买服务器，阿里云，并备案
+3. 注册微信公众号的服务号，并认证
+4. 在微信开放平台(open.weixin.qq.com)注册并认证，添加网站应用后提交审核。
+5. 注册微博，注册微博开发者open.weibo.com
+6. 注册git.oschina.net ,代码管理平台。
+6. 在服务器部署（mysql,mongoddb,redis,nginx,nodejs)
+7. 注册bearychat,用于即时推送服务器消息，微博推送消息
+8. 在域名注册商那里将域名解析到你买的服务器ip地址上
+7. 上线。
+
+
+### 服务器环境问题
+1. 安装nginx(https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-14-04-lts)
+2. 安装mysql(https://www.linode.com/docs/databases/mysql/install-mysql-on-ubuntu-14-04/)
+3. 安装nodejs(https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+4. 安装redis-server(https://www.digitalocean.com/community/tutorials/how-to-configure-a-redis-cluster-on-ubuntu-14-04)
+5. 安装mongodb(https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-14-04)
+6. 配置nginx，把请求分配到某个端口
+
+    ```
+    vi /etc/nginx/conf.d/info.conf
+    ```
+    然后把下面的配置粘贴进去:
+    ```
+    server {
+        listen 80;
+	server_name  swfeinfo.com;
+	location = / {
+                rewrite ^/$ /dist/index.html last;
+        }
+	location / {
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass http://127.0.0.1:4150;
+         }
+	location ^~ /dist {
+		root /data/src/scuinfo-client;
+		index index.html;
+	}
+	location /v3/ {
+		proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass http://127.0.0.1:4150/;
+	}
+}
+    ```
+7. 导入数据库
+
+```
+//先把sql文件传到服务器
+
+mysql -u username -p database_name < file.sql
+```
+
+## 部署scuinfo后端服务
 
 
         git clone git@git.oschina.net:xiaomingplus/scuinfo.git
@@ -12,6 +76,7 @@
         cnpm i pm2 -g
         cp config.example.js config.js  //随后修改config文件内的相关配置
         导入mysql数据库
+
         chmod -R 777 token/
 
 1. 更改根目录下的config.example.js 为 config.js

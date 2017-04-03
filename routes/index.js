@@ -19,7 +19,8 @@ var wechatApi= require('../libs/wechatApi.js');
 
 router.all('/api/*',function(req,res,next){
     //console.log('success in all')
-
+    // console.log('cookie',req.cookies);
+    // console.log('session',req.session);
     api.before(req,res,next);
 });
 
@@ -127,7 +128,6 @@ router.get('/api/posts/like', function (req, res) {//我赞过的帖子列表
     tag.like(req,res);
 });
 router.get('/api/profile',function(req,res){//用户数据
-    //req.session.userId=14004;
     profile.like(req,res);
 });
 
@@ -255,31 +255,32 @@ router.get('/',check.autoWechat,function(req,res){
 //
 });
 
-router.get('/debug',function(req,res){
-
-
-    req.session.level=0;
-    req.session.userId=1;
-    req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    req.session.nickname="我就喜欢语文老师体育能跑100米";
-    req.session.gender=2;
-    req.session.userStatus='login';
-    //console.log(req.session);
-    pages.index(req,res);
+// router.get('/debug',function(req,res){
 //
-});
-router.get('/debug/:userId',check.autoWechat,function(req,res){
-
-    req.session.level=0;
-    req.session.userId=req.params.userId;
-    req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-    req.session.nickname="我就喜欢语文老师体育能跑100米";
-    req.session.gender=2;
-    req.session.userStatus='login';
-    console.log(req.session);
-    pages.index(req,res);
+//     //
+//     // req.session.level=0;
+//     // req.session.userId=1;
+//     // req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+//     // req.session.nickname="我就喜欢语文老师体育能跑100米";
+//     // req.session.gender=2;
+//     // req.session.userStatus='login';
+//     // //console.log(req.session);
+//     // pages.debug(req,res);
+// //
+// });
+// router.get('/debug/:userId',function(req,res){
 //
-});
+//     // req.session.level=1;
+//     // req.session.userId=req.params.userId;
+//     // req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+//     // req.session.nickname="我就喜欢语文老师体育能跑100米";
+//     // req.session.gender=2;
+//     // req.session.userStatus='login';
+//     // res.cookie("isLogin","yes");
+//     // console.log(req.session);
+//     // pages.index(req,res);
+// //
+// });
 
 
 
