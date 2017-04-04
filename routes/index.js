@@ -204,7 +204,9 @@ router.post('/api/update',function(req,res){
    profile.update(req,res);
 });
 
-
+router.get('/api/signature/wechat',function(req,res){
+    pages.getSignature(req,res);
+});
 
 /**
  * 微信主动接口类

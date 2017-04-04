@@ -219,6 +219,28 @@ pages.profilePosts = function(req,res){
         });
     });
 };
+pages.getSignature = function(req,res){
+    var url = req.query.url;
+    if(!url){
+        res.end(JSON.stringify(code.paramError))
+        return;
+    }
+    var param = {
+        url: url
+    };
+    api.getJsConfig(param, function(e,wechatJs) {
+        if (e) {
+            res.end(JSON.stringify(code.getWechatTicketError))
+            return;
+        }
+        res.end(JSON.stringify({
+            code:200,
+            data:{
+                wechatSignature:wechatJs
+            }
+        }))
+    })
+};
 pages.detail = function(req,res){
     //console.log(parseInt(new Date()/1000));
     res.header('Cache-Control','public');
