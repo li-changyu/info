@@ -723,7 +723,7 @@ account.wechatLogin = function (req, res) {
     }
     var state = [];
     state = req.query.state.split(',');
-    var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
+    var redirect = req.query.r || "";
     var redirectObj = url.parse(redirect,true);
     if(redirectObj.query.toHash){
         var redirectHash = "#"+redirectObj.query.toHash;
@@ -1065,8 +1065,7 @@ account.weiboLogin = function (req, res) {
 
     var state = [];
     state = req.query.state.split(',');
-
-    var redirect = req.query.r ? decodeURIComponent(req.query.r):"";
+    var redirect = req.query.r || "";
     var redirectObj = url.parse(redirect,true);
     if(redirectObj.query.toHash){
         var redirectHash = "#"+redirectObj.query.toHash;
