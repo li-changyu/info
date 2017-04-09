@@ -819,12 +819,14 @@ skip-character-set-client-handshake
     支持hash
     type有3个值:wechat,wechatWeb,weibo
 
-### 28.拉黑
+### 28.通过帖子拉黑
     {
         method:"post",
         url:"/api/block",
         params:{
             id:222,//文章id
+            blockTime:1233333,//多少秒之后杰出封禁
+            reason:"理由",封禁理由
         },
         return :{
             code:200
@@ -837,6 +839,41 @@ skip-character-set-client-handshake
         url:"/api/white",
         params:{
             id:222,//文章id
+        },
+        return :{
+            code:200
+        }
+    }
+### 30.通过评论拉黑
+    {
+        method:"post",
+        url:"/api/comment/block",
+        params:{
+            id:222,//评论id
+            blockTime:1233333,//多少秒之后杰出封禁
+            reason:"理由",封禁理由
+        },
+        return :{
+            code:200
+        }
+    }
+### 31.通过帖子解除拉黑
+    {
+        method:"post",
+        url:"/api/unblock",
+        params:{
+            id:222,//文章id
+        },
+        return :{
+            code:200
+        }
+    }
+### 32.通过评论解除拉黑
+    {
+        method:"post",
+        url:"/api/comment/unblock",
+        params:{
+            id:222,//评论id
         },
         return :{
             code:200

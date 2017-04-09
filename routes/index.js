@@ -10,7 +10,6 @@ var like = require('../controller/like.js');
 var tag = require('../controller/tag.js');
 var account = require('../controller/account.js');
 var profile = require('../controller/profile.js');
-//var notice = require('../controller/notice.js');
 var check = require('../libs/check.js');
 var bind = require('../controller/bind.js');
 var notice = require('../controller/notice.js')
@@ -44,6 +43,15 @@ router.post('/api/white',function(req,res){
 });
 router.post('/api/block',function(req,res){
   post.block(req,res);
+});
+router.post('/api/unblock',function(req,res){
+  post.unblock(req,res);
+})
+router.post('/api/comment/block',function(req,res){
+  comment.block(req,res);
+})
+router.post('/api/comment/unblock',function(req,res){
+  comment.unblock(req,res);
 })
 router.get('/api/hot',function(req,res){//文章列表
     // console.log('success in index');
@@ -259,29 +267,29 @@ router.get('/',check.autoWechat,function(req,res){
 
 // router.get('/debug',function(req,res){
 //
-//     //
-//     // req.session.level=0;
-//     // req.session.userId=1;
-//     // req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-//     // req.session.nickname="我就喜欢语文老师体育能跑100米";
-//     // req.session.gender=2;
-//     // req.session.userStatus='login';
-//     // //console.log(req.session);
-//     // pages.debug(req,res);
-// //
+//
+//     req.session.level=1;
+//     req.session.userId=1;
+//     req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+//     req.session.nickname="我就喜欢语文老师体育能跑100米";
+//     req.session.gender=2;
+//     req.session.userStatus='login';
+//     //console.log(req.session);
+//     pages.debug(req,res);
+//
 // });
 // router.get('/debug/:userId',function(req,res){
 //
-//     // req.session.level=1;
-//     // req.session.userId=req.params.userId;
-//     // req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
-//     // req.session.nickname="我就喜欢语文老师体育能跑100米";
-//     // req.session.gender=2;
-//     // req.session.userStatus='login';
-//     // res.cookie("isLogin","yes");
-//     // console.log(req.session);
-//     // pages.index(req,res);
-// //
+//     req.session.level=1;
+//     req.session.userId=req.params.userId;
+//     req.session.avatar="http://img5q.duitang.com/uploads/blog/201504/03/20150403214054_nekQt.jpeg";
+//     req.session.nickname="我就喜欢语文老师体育能跑100米";
+//     req.session.gender=2;
+//     req.session.userStatus='login';
+//     res.cookie("isLogin","yes");
+//     console.log(req.session);
+//     pages.index(req,res);
+//
 // });
 
 

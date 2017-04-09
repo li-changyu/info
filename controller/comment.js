@@ -3,6 +3,7 @@ var libs = require('../libs/libs.js');
 var common = require('../libs/common.js');
 var code = require('../libs/code.js');
 var async = require('async');
+var redis = require('../libs/redis');
 var conn = require('../libs/mysql.js');
 var datas = require('../libs/datas.js');
 var xss = require('xss');
@@ -27,6 +28,17 @@ comment.commentPost = function (req, res) {
     if(!req.body.parentId){
         req.body.parentId = 0;
     }
+
+    var blockUserKey = 'block:user:'+req.session.userId;
+        //检测用户是否被拉黑
+        redis.hgetall(blockUserKey).then(function(r){
+          if(Object.keys(r).length>0){
+            //userId在黑名单里
+            res.end(JSON.stringify(code.userBlock));
+            return;
+        }else{
+
+
 
 
                 conn.query(
@@ -103,11 +115,87 @@ comment.commentPost = function (req, res) {
                                         }
                                     )
                                 });
-
+                            }
+                          })
                         }
                     }
                 );
 
+};
+
+comment.block = function(req,res){
+  if (req.body.id) {
+      if (req.session.level == 1) {
+        conn.query({
+          sql:"select userId from `secret_comment` where id=:id",
+          params:{
+            id:req.body.id
+          }
+        },function(eeeee,ret){
+          if(eeeee || ret.length===0){
+            res.end(JSON.stringify(code.noData));
+          }else{
+            var reason = req.body.reason || "访问过于频繁";
+            var blockTime = req.body.blockTime || 60*60*12;
+            var blockUserKey = 'block:user:'+ret[0].userId;
+            redis.hmset(blockUserKey,'reason',reason,'unblock',common.time()+Number(blockTime)).then((rrrrr)=>{
+              redis.expire(blockUserKey,blockTime).then((rr)=>{
+                res.end(common.format(200, "success", {}));
+                return;
+              }).catch((rrr)=>{
+                res.end(JSON.stringify(code.redisError));
+                return;
+              });
+            }).catch((e)=>{
+              res.end(JSON.stringify(code.redisError));
+              return;
+            });
+          }
+        });
+
+
+      } else {
+        res.end(JSON.stringify(code.loginError));
+        return;
+      }
+  } else {
+    //console.log('ID都没有,删个鬼');
+    res.end(JSON.stringify(code.paramError));
+    return;
+  }
+};
+
+comment.unblock = function(req,res){
+  if (req.body.id) {
+      if (req.session.level == 1) {
+        conn.query({
+          sql:"select userId from `secret_comment` where id=:id",
+          params:{
+            id:req.body.id
+          }
+        },function(eeeee,ret){
+          if(eeeee || ret.length===0){
+            res.end(JSON.stringify(code.noData));
+          }else{
+            var blockUserKey = 'block:user:'+ret[0].userId;
+            redis.del(blockUserKey).then((rrrrr)=>{
+                res.end(common.format(200, "success", {}));
+                return;
+            }).catch((e)=>{
+              res.end(JSON.stringify(code.redisError));
+              return;
+            });
+          }
+        });
+      } else {
+        res.end(JSON.stringify(code.loginError));
+        return;
+      }
+  } else {
+    //console.log('ID都没有,删个鬼');
+    res.end(JSON.stringify(code.paramError));
+    return;
+  }
 };
 comment.commentView = function (req, res) {
     //console.log('success in api');

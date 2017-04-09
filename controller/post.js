@@ -793,9 +793,10 @@ post.block = function(req,res){
           if(eeeee || ret.length===0){
             res.end(JSON.stringify(code.noData));
           }else{
-            var blockTime = 60*60*12;
+            var reason = req.body.reason || "访问过于频繁";
+            var blockTime = req.body.blockTime || 60*60*12;
             var blockUserKey = 'block:user:'+ret[0].userId;
-            redis.hmset(blockUserKey,'reason','访问过于频繁','unblock',common.time()+blockTime).then((rrrrr)=>{
+            redis.hmset(blockUserKey,'reason',reason,'unblock',common.time()+blockTime).then((rrrrr)=>{
               redis.expire(blockUserKey,blockTime).then((rr)=>{
                 res.end(common.format(200, "success", {}));
                 return;
@@ -821,7 +822,38 @@ post.block = function(req,res){
     return;
   }
 };
-
+post.unblock = function(req,res){
+  if (req.body.id) {
+      if (req.session.level == 1) {
+        conn.query({
+          sql:"select userId from `secret_post` where id=:id",
+          params:{
+            id:req.body.id
+          }
+        },function(eeeee,ret){
+          if(eeeee || ret.length===0){
+            res.end(JSON.stringify(code.noData));
+          }else{
+            var blockUserKey = 'block:user:'+ret[0].userId;
+            redis.del(blockUserKey).then((rrrrr)=>{
+                res.end(common.format(200, "success", {}));
+                return;
+            }).catch((e)=>{
+              res.end(JSON.stringify(code.redisError));
+              return;
+            });
+          }
+        });
+      } else {
+        res.end(JSON.stringify(code.loginError));
+        return;
+      }
+  } else {
+    //console.log('ID都没有,删个鬼');
+    res.end(JSON.stringify(code.paramError));
+    return;
+  }
+};
 post.postsDelReport = function(req, res) {
   if (req.body.id) {
       if (req.session.level == 1) {
