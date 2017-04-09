@@ -45,7 +45,7 @@ notice.count = function (req,res) {
 
             }
         )}else{
-        console.log('你没有登陆');
+        // console.log('你没有登陆');
         res.end(JSON.stringify({
             code:2015,
             message:"没有登录"
@@ -189,7 +189,7 @@ notice.change = function (req, res) {
             return;
         }
     }else{
-        console.log('你没有登陆');
+        // console.log('你没有登陆');
         res.end(JSON.stringify(code.loginError));
         return;
     }

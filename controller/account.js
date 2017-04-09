@@ -230,11 +230,11 @@ account.loginHandle = function(req,res){
     }
     var currentHost = req.protocol+"://"+"scuinfo.com";
     var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
-    console.log('type',type);
-    console.log('currentHost',currentHost);
-    console.log('redirectOrigin',redirect);
+    // console.log('type',type);
+    // console.log('currentHost',currentHost);
+    // console.log('redirectOrigin',redirect);
     redirect = decodeURIComponent(redirect);
-    console.log('redirectDecode',redirect);
+    // console.log('redirectDecode',redirect);
     var redirectHash = "";
     var redirectWithoutHash = "";
     if(redirect.indexOf("#")>-1){
@@ -247,7 +247,7 @@ account.loginHandle = function(req,res){
             toHash:redirectHash
         });
     }
-    console.log('redirectHandle',redirect);
+    // console.log('redirectHandle',redirect);
 
 
     var openLoginUrl = "";
@@ -729,17 +729,17 @@ account.wechatLogin = function (req, res) {
     var state = [];
     state = req.query.state.split(',');
     var redirect = req.query.r || "";
-    console.log('session',req.session);
-    console.log('redirectAuthOrigin',redirect);
+    // console.log('session',req.session);
+    // console.log('redirectAuthOrigin',redirect);
     var redirectObj = url.parse(redirect,true);
-    console.log('redirectObj',redirectObj);
+    // console.log('redirectObj',redirectObj);
     if(redirectObj.query.toHash){
         var redirectHash = "#"+redirectObj.query.toHash;
         delete redirectObj.query.toHash;
         var redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
-        console.log('redirectQuery',redirectQuery);
+        // console.log('redirectQuery',redirectQuery);
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
-        console.log('redirectDist',redirect);
+        // console.log('redirectDist',redirect);
     }
         //get code
     if(state[0]=='wechatWeb') {

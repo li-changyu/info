@@ -97,8 +97,8 @@ like.post = function(req, res) {
              */
             var reportSql = "select * from secret_report where postId = :id";
 
-            console.log(reportSql);
-            console.log(parseInt(req.body.id));
+            // console.log(reportSql);
+            // console.log(parseInt(req.body.id));
 
             conn.query({
                 sql: reportSql,

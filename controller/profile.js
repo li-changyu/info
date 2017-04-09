@@ -175,7 +175,7 @@ profile.like = function (req, res) {
             }
         )
     }else{
-        console.log('既没有id也没登陆我查什么?');
+        // console.log('既没有id也没登陆我查什么?');
         res.end(JSON.stringify(code.paramError));
         return;
     }
