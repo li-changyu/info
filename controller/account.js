@@ -230,9 +230,13 @@ account.loginHandle = function(req,res){
     }
     var currentHost = req.protocol+"://"+"scuinfo.com";
     var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
+    console.log('type',type);
+    console.log('currentHost',currentHost);
+    console.log('redirectOrigin',redirect);
     redirect = decodeURIComponent(redirect);
+    console.log('redirectDecode',redirect);
     var redirectHash = "";
-    var redirectWithoutHash = ""
+    var redirectWithoutHash = "";
     if(redirect.indexOf("#")>-1){
         //有#号的做特殊处理
         //先提取#号后面的内容
@@ -243,6 +247,7 @@ account.loginHandle = function(req,res){
             toHash:redirectHash
         });
     }
+    console.log('redirectHandle',redirect);
 
 
     var openLoginUrl = "";
@@ -724,12 +729,17 @@ account.wechatLogin = function (req, res) {
     var state = [];
     state = req.query.state.split(',');
     var redirect = req.query.r || "";
+    console.log('session',req.session);
+    console.log('redirectAuthOrigin',redirect);
     var redirectObj = url.parse(redirect,true);
+    console.log('redirectObj',redirectObj);
     if(redirectObj.query.toHash){
         var redirectHash = "#"+redirectObj.query.toHash;
         delete redirectObj.query.toHash;
         var redirectQuery = queryString.stringify(redirectObj.query)?"?"+queryString.stringify(redirectObj.query):"";
+        console.log('redirectQuery',redirectQuery);
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
+        console.log('redirectDist',redirect);
     }
         //get code
     if(state[0]=='wechatWeb') {

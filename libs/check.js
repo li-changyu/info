@@ -92,15 +92,6 @@ check.isNotLoginApi = function(req,res,next){
      }
 };
 
-//api验证是否未登录
-check.isNotLoginApi = function(req,res,next){
-    if(req.session.userStatus=='login'){
-        res.end(JSON.stringify(code.hasLogin));
-        return;
-    }else{
-        next();
-    }
-};
 
 //验证是否登录
 check.isLogin = function(req,res,next){
