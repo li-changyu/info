@@ -741,6 +741,9 @@ account.wechatLogin = function (req, res) {
         redirect = redirectObj.protocol+"//"+redirectObj.hostname+((!redirectObj.port || redirectObj.port==80 || redirectObj.port ==443)?"":(":"+redirectObj.port))+redirectObj.pathname+redirectQuery+redirectHash;
         // console.log('redirectDist',redirect);
     }
+    if(!redirectObj.host){
+        redirect = "";
+    }
         //get code
     if(state[0]=='wechatWeb') {
 
