@@ -234,6 +234,9 @@ account.loginHandle = function(req,res){
     // console.log('currentHost',currentHost);
     // console.log('redirectOrigin',redirect);
     redirect = decodeURIComponent(redirect);
+    if(/redirect/.test(redirect)){
+        redirect = currentHost;
+    }
     // console.log('redirectDecode',redirect);
     var redirectHash = "";
     var redirectWithoutHash = "";
