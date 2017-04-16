@@ -57,10 +57,16 @@ libs.randomAvatar = function(o){
     var avatarM = [
         "http://ww1.sinaimg.cn/thumbnail/d9f8fd81gy1feolhwtfoqj20ne0nedmn.jpg"
     ];
+    var avatarUnknow = [
+        'http://ww1.sinaimg.cn/thumbnail/d9f8fd81gy1feomuo7qtkj20zi0zktf7.jpg'
+    ]
     var t;
     if(o.gender==2){
         t=libs.random(0,0);
         return avatarF[t];
+    }else if(o.gender==1){
+        t=libs.random(0,0);
+        return avatarUnknow[t];
     }else{
         t=libs.random(0,0);
         return avatarM[t];
