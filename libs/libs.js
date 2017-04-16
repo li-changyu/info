@@ -66,10 +66,10 @@ libs.randomAvatar = function(o){
         return avatarF[t];
     }else if(o.gender==1){
         t=libs.random(0,0);
-        return avatarUnknow[t];
+        return avatarM[t];
     }else{
         t=libs.random(0,0);
-        return avatarM[t];
+        return avatarUnknow[t];
     }
 
 
