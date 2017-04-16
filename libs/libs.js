@@ -28,35 +28,41 @@ libs.randomAvatar = function(o){
 
 
 
+//     var avatarF = [
+//         'http://ww2.sinaimg.cn/mw690/a958717cgw1erw710tlblj20fs0fswfp.jpg',
+//         'http://ww1.sinaimg.cn/mw690/a958717cgw1erw6zm4z9qj20fs0fs0tx.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6x85xecj20fs0fsmy8.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6vqa7hbj20fs0fsq3y.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6uu1dt6j20fs0fsmyj.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cjw8erw6r4cahyj20u00u00u0.jpg',
+//         'http://ww1.sinaimg.cn/mw690/a958717cjw8erw6pftqsrj20u00u00ty.jpg',
+//         'http://ww2.sinaimg.cn/mw690/a958717cjw8erw6obxxs8j20u00u00u1.jpg'
+
+//     ];
+
+//     var avatarM = [
+// 'http://ww4.sinaimg.cn/mw690/a958717cgw1erw70ntdhuj20fs0fsdh9.jpg',
+//         'http://ww3.sinaimg.cn/mw690/a958717cgw1erw707c5h4j20fs0fsdh3.jpg',
+//         'http://ww3.sinaimg.cn/mw690/a958717cgw1erw6z87przj20fs0fs0u5.jpg',
+//         'http://ww3.sinaimg.cn/mw690/a958717cgw1erw6xvhywjj20fs0fsq48.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6ww64emj20fs0fs75n.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6vbcfjej20fs0fs403.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6ueyjnnj20fs0fst9x.jpg',
+//         'http://ww4.sinaimg.cn/mw690/a958717cjw8erw6rn3q4wj20u00u0ta5.jpg'
+
+//     ];
     var avatarF = [
-        'http://ww2.sinaimg.cn/mw690/a958717cgw1erw710tlblj20fs0fswfp.jpg',
-        'http://ww1.sinaimg.cn/mw690/a958717cgw1erw6zm4z9qj20fs0fs0tx.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6x85xecj20fs0fsmy8.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6vqa7hbj20fs0fsq3y.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6uu1dt6j20fs0fsmyj.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cjw8erw6r4cahyj20u00u00u0.jpg',
-        'http://ww1.sinaimg.cn/mw690/a958717cjw8erw6pftqsrj20u00u00ty.jpg',
-        'http://ww2.sinaimg.cn/mw690/a958717cjw8erw6obxxs8j20u00u00u1.jpg'
-
+        "http://ww1.sinaimg.cn/thumbnail/d9f8fd81gy1feolhb8smlj20lz0ly42j.jpg"
     ];
-
     var avatarM = [
-'http://ww4.sinaimg.cn/mw690/a958717cgw1erw70ntdhuj20fs0fsdh9.jpg',
-        'http://ww3.sinaimg.cn/mw690/a958717cgw1erw707c5h4j20fs0fsdh3.jpg',
-        'http://ww3.sinaimg.cn/mw690/a958717cgw1erw6z87przj20fs0fs0u5.jpg',
-        'http://ww3.sinaimg.cn/mw690/a958717cgw1erw6xvhywjj20fs0fsq48.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6ww64emj20fs0fs75n.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6vbcfjej20fs0fs403.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cgw1erw6ueyjnnj20fs0fst9x.jpg',
-        'http://ww4.sinaimg.cn/mw690/a958717cjw8erw6rn3q4wj20u00u0ta5.jpg'
-
+        "http://ww1.sinaimg.cn/thumbnail/d9f8fd81gy1feolhwtfoqj20ne0nedmn.jpg"
     ];
     var t;
     if(o.gender==2){
-        t=libs.random(0,7);
+        t=libs.random(0,0);
         return avatarF[t];
     }else{
-        t=libs.random(0,7);
+        t=libs.random(0,0);
         return avatarM[t];
     }
 
