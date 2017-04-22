@@ -7,6 +7,7 @@ var datas = require('../libs/datas.js');
 var request = require('request');
 var redis = require('../libs/redis');
 var hooks = require('../libs/hooks.js');
+var config = require("../config.js");
 var xss = require('xss');
 //var tokenName = 1;
 var post = {
@@ -531,11 +532,11 @@ post.report = function(req, res) {
               return;
             }
             hooks.bearychatIncoming({
-                type:"scuinfo有新的帖子报告",
+                type:"社区有新的帖子报告",
                 title:`帖子id:${r.postId}`,
                 text:`报告理由：${r.content}
                 报告内容：${r8[0].content}
-                链接:[http://scuinfo.com/p/${r.postId}](http://scuinfo.com/p/${r.postId})`,
+                链接:[点击进入](http://${config.host.url}/#page=detail&id=${r.postId})`,
             },function(e){
                 if(e){
                     console.log(e);

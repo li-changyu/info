@@ -228,7 +228,7 @@ account.loginHandle = function(req,res){
             message:"必须传入type参数"
         }))
     }
-    var currentHost = req.protocol+"://"+"scuinfo.com";
+    var currentHost = req.protocol+"://"+config.host.url;
     var redirect = req.query.redirect || req.headers['HTTP_REFERER']  || currentHost || config.site.url;
     // console.log('type',type);
     // console.log('currentHost',currentHost);
@@ -258,14 +258,14 @@ account.loginHandle = function(req,res){
     // console.log(currentHost);
     if(type==='wechat'){
         loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
-        openLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx64902e8505feae7f&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_userinfo&state=wechat#wechat_redirect`;
+        openLoginUrl = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${config.wechat.appId}&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_userinfo&state=wechat#wechat_redirect`;
     }else if(type==='wechatWeb'){
         loginCallbackUrl = currentHost+"/auth/wechat?r="+encodeURIComponent(redirect);
-        openLoginUrl = `https://open.weixin.qq.com/connect/qrconnect?appid=wx8f8d7578a5a3023b&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_login&state=wechatWeb#wechat_redirect`;
+        openLoginUrl = `https://open.weixin.qq.com/connect/qrconnect?appid=${config.wechatWeb.appId}&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&response_type=code&scope=snsapi_login&state=wechatWeb#wechat_redirect`;
     }else{
         loginCallbackUrl = currentHost+"/auth/weibo?r="+encodeURIComponent(redirect);
         //weibo
-        openLoginUrl = `https://api.weibo.com/oauth2/authorize?client_id=1159008171&response_type=code&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&state=weibo`
+        openLoginUrl = `https://api.weibo.com/oauth2/authorize?client_id=${config.weibo.appkey}&response_type=code&redirect_uri=${encodeURIComponent(loginCallbackUrl)}&state=weibo`
     }
     // console.log(openLoginUrl);
 
@@ -1281,7 +1281,7 @@ account.weiboAdmin = function(req,res){
                         res.end(e.toString());
                         return;
                     }
-                    res.end("更新scuinfo的token成功，下次过期时间是:"+(common.date((common.time()+codeResult.expires_in)*1000)))
+                    res.end("更新token成功，下次过期时间是:"+(common.date((common.time()+codeResult.expires_in)*1000)))
                 });
 
 
