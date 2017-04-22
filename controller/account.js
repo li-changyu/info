@@ -1232,7 +1232,10 @@ account.weiboAdmin = function(req,res){
     if(!req.query.code) {
         //用户不同意授权
         //res.end(JSON.stringify(code.lackParamsCode));
-        res.render('weiboAdmin');
+        res.render('weiboAdmin',{
+            appId:config.weibo.appkey,
+            siteUrl:config.site.url
+        });
         return;
     }
     //get code
