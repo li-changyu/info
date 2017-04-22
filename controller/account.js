@@ -1232,11 +1232,9 @@ account.weiboAdmin = function(req,res){
     if(!req.query.code) {
         //用户不同意授权
         //res.end(JSON.stringify(code.lackParamsCode));
-
         res.render('weiboAdmin');
         return;
     }
-
     //get code
 
     var appId,appSecret;
@@ -1273,7 +1271,7 @@ account.weiboAdmin = function(req,res){
                 return;
             }
 
-            if(codeResult.uid==3656973697){
+            if(codeResult.uid==config.weibo.uid){
 
                 fs.writeFile('./token/weibo_token.txt', r.body, function(e,r){
                     if(e){
