@@ -94,39 +94,12 @@ service.subscribe = function(msg,req,res,next){
         //
         //});
 
-        res.reply(`终于等到你。
-
-@scuinfo不是官方的。不是官方的。不是官方的。（被问1w遍）
-
-来，跟我念：s(si)c(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
-
-如果你希望和我进行更加亲密的互动，请添加我的微信个人号: infotalk
-
-我会的一些功能成绩、课表什么的都在我的自定菜单里面，你也可以通过发微博"@scuinfo 成绩"，这样我就会把你的成绩私信给你。相信你会很容易的上手使用。
-
-恩，对了，是这样的，你在scuinfo http://scuinfo.com 里发布的帖子，点赞数大于${config.postWeibo.count}个的话，就会自动同步到我的微博@scuinfo 上面。
-
-感谢关注，希望能帮到你。`);
+        res.reply('终于等到你。');
         return;
     }
 
 
-    res.reply(`终于等到你。
-
-scuinfo是四川大学最大的微信公众平台，不是官方的。不是官方的。不是官方的。（被问1w遍）
-
-来，跟我念：s(si)c(cuan)u(university)info(information，读：in缶)，念10遍你就会了。
-
-如果你希望和我进行更加亲密的互动，请添加我的微信个人号: infotalk
-
-
-我的微博id是<a href="http://weibo.com/scuinfo">@scuinfo</a>,上面每天都会有很多好玩的事。
-
-我会的一些功能都在我的自定菜单里面。相信你会很容易的上手使用。
-
-恩，对了，是这样的，你在<a href="http://scuinfo.com">scuinfo</a>里发布的帖子，点赞数大于${config.postWeibo.count}个的话，就会自动同步到我的微博@scuinfo 上面。
-
-感谢关注，希望能帮到你。`);
+    res.reply(`终于等到你。`);
 
 
     //dbs.getWechatText({
@@ -172,7 +145,7 @@ conn.query(
             // });
             res.reply(`说吧，我开始记了(10分钟内有效)：
 
-(你接下说的话我会帮你匿名发布到scuinfo里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博@scuinfo 把你说的话发一条微博出去，你也可以直接访问http://www.scuinfo.com发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`)
+(你接下说的话我会帮你匿名发布到swfeinfo里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博@swfeinfo 把你说的话发一条微博出去，你也可以直接访问http://www.swfeinfo.com发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`)
             return;
         }
 
@@ -190,7 +163,7 @@ conn.query(
     //
     res.reply(`说吧，我开始记了(10分钟内有效)：
 
-(你接下说的话我会帮你匿名发布到<a href="http://scuinfo.com">scuinfo</a>里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博<a href="http://weibo.com/scuinfo">@scuinfo</a> 把你说的话发一条微博出去，你也可以直接访问<a href="http://www.scuinfo.com">scuinfo</a>发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`);
+(你接下说的话我会帮你匿名发布到<a href="http://swfeinfo.com">swfeinfo</a>里，如果点赞数大于${config.postWeibo.count}个的话，它会自动用我的微博<a href="http://weibo.com/swfeinfo">@swfeinfo</a> 把你说的话发一条微博出去，你也可以直接访问<a href="http://www.swfeinfo.com">swfeinfo</a>发布你想说的话，现在请点击左下角切换到输入模式，写下你要说的话[退出本次会话请回复:退出,默认10分钟后退出])`);
     return;
 
 
@@ -271,8 +244,8 @@ service.text = function(msg,req,res,next){
                             if(result.code==200){
                                 var news=[];
                                 news[0]={
-                                    title:'我已经帮你发布在scuinfo.com了',
-                                    description:'点击查看你刚刚发布的内容,如果在scuinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@scuinfo 里\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk",
+                                    title:'我已经帮你发布在swfeinfo.com了',
+                                    description:'点击查看你刚刚发布的内容,如果在swfeinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@swfeinfo 里\n\nPs.",
                                     pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                                     url:config.site.url+'/p/'+result.data.insertId
                             };
@@ -317,7 +290,7 @@ service.text = function(msg,req,res,next){
                                             }
                                             res.reply('已收到你的留言，稍后将人工回复你');
 
-                                            hooks.bearychatIncoming({type:'微信公众号scuinfo有新留言',title:rr.nickname,text:msg.Content},function(e,r){
+                                            hooks.bearychatIncoming({type:'微信公众号swfeinfo有新留言',title:rr.nickname,text:msg.Content},function(e,r){
                                                 //console.log(e,r);
                                             });
                                         }
@@ -352,7 +325,7 @@ service.text = function(msg,req,res,next){
                                             return;
                                         }
                                         res.reply('已收到你的留言，稍后将人工回复你。');
-                                        hooks.bearychatIncoming({type:'微信公众号scuinfo有新留言',title:(r4[0]?r4[0].nickname:'secret'),text:msg.Content},function(e,r){
+                                        hooks.bearychatIncoming({type:'微信公众号swfeinfo有新留言',title:(r4[0]?r4[0].nickname:'secret'),text:msg.Content},function(e,r){
                                             //console.log(e,r);
                                         });
                                     }
@@ -444,7 +417,7 @@ service.text = function(msg,req,res,next){
                                 var news=[];
                                 news[0]={
                                     title:'成功表白！',
-                                    description:'点击查看你的表白，超过'+config.postWeibo.count+'个赞会自动发布在微博@scuinfo',
+                                    description:'点击查看你的表白，超过'+config.postWeibo.count+'个赞会自动发布在微博@swfeinfo',
                                     pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                                     url:config.site.url+'/p/'+result.data.insertId
                                 };
@@ -588,8 +561,8 @@ service.noSessionText = function(msg,req,res,next){
                 if(result.code==200){
                     var news=[];
                     news[0]={
-                        title:'我已经帮你发布在scuinfo.com了',
-                        description:'点击查看你刚刚发布的内容,如果在scuinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@scuinfo 里\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk",
+                        title:'我已经帮你发布在swfeinfo.com了',
+                        description:'点击查看你刚刚发布的内容,如果在swfeinfo.com社区里收到'+config.postWeibo.count+"个以上的赞就会自动同步在微博@swfeinfo 里\n\nPs.",
                         pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                         url:config.site.url+'/p/'+result.data.insertId
                     };
@@ -719,7 +692,7 @@ service.love = function(msg,req,res,next){
                 return;
             }
             //todo 严谨起见还是判断下id好
-            res.reply('接下来请直接写下你的表白（我会帮你加上#川大表白#的话题，10分钟内有效，表白发布后超过'+config.postWeibo.count+'个人点赞，就会自动发布到@scuinfo 的新浪微博）：');
+            res.reply('接下来请直接写下你的表白（我会帮你加上#川大表白#的话题，10分钟内有效，表白发布后超过'+config.postWeibo.count+'个人点赞，就会自动发布到@swfeinfo 的新浪微博）：');
             return;
         });
 

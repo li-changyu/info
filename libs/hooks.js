@@ -24,7 +24,7 @@ hooks.bearychatIncoming = function(option,cb){
     var opts = {
         json:true,
         method:"POST",
-        url:"https://hook.bearychat.com/=bw8fe/incoming/0249756f9b5d2df8429845794486acf0",
+        url:"https://hook.bearychat.com/=bwAjY/incoming/716ab9ef7f4b38478a6a34f161e317a2",
         body:_option
     };
     request(opts,function(e,r,b){
