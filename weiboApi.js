@@ -2,9 +2,15 @@ var weiboApi= {
 
 };
 var request= require('request');
-var access_token='2.00juRUzDLyE8QB9c694d4c4305bX6m';
+var fs = require("fs");
 weiboApi.createButton = function(){
-
+fs.readFile("./token/weibo_token.txt",{
+"encoding":"utf8"
+},(err,data)=>{
+console.log('err',err,data)
+var weiboAuth = data;
+console.log(weiboAuth)
+var access_token=JSON.parse(weiboAuth).access_token;
    var url='https://m.api.weibo.com/2/messages/menu/create.json';
    var menu= {
         "button": [
@@ -158,21 +164,20 @@ weiboApi.createButton = function(){
     //console.log((JSON.stringify(menu1)));
 
     var xx=JSON.stringify(menu);
-    console.log(xx);
-    console.log(JSON.parse(xx));
+    console.log('json',xx)
     console.log(encodeURIComponent(xx));
-    request.post(
+console.log("url",url+"?access_token="+access_token)   
+ request.post(
         {
-            url:url,
+            url:url+"?access_token="+access_token,
             form:{
-                access_token:access_token,
-                menus:encodeURIComponent(xx)
+		menus:xx
             }
         },function(e,r,b){
             console.log(e,b);
         }
     )
-
+})
 };
 
-//weiboApi.createButton();
+weiboApi.createButton();
