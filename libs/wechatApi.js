@@ -298,7 +298,7 @@ var menu1 ={
         {
             "type":"view",
             "name":"scuinfo",
-            "url":"http://scuinfo.com"
+            "url":"http://swfeinfo.com"
         },
         {
             "name":"我的",
