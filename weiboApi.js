@@ -22,35 +22,35 @@ var access_token=JSON.parse(weiboAuth).access_token;
                     //    "url":"http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MjM5OTM3OTM3Mg==#wechat_webview_type=1&wechat_redirect"
                     //
                     //},
-                    {   type:"click",
-                        "name":"神奇海螺",
-                        "key":"fm"
-
-                    },
-                    {
-                        type:"click",
-                        "name":"匿名发帖",
-                        "key":"post"
-                    },
-                    {
-                        type:"click",
-                        "name":"我要表白",
-                        "key":"love"
-                    },
+//                    {   type:"click",
+//                        "name":"神奇海螺",
+//                        "key":"fm"
+//
+//                    },
+//                    {
+//                        type:"click",
+//                        "name":"匿名发帖",
+//                        "key":"post"
+//                    },
+//                    {
+//                        type:"click",
+//                        "name":"我要表白",
+//                        "key":"love"
+//                    },
                     //{
                     //    type:"view",
                     //    "name":"跳蚤市场",
                     //    "url":"http://xiaoqu.qq.com/mobile/barindex.html?_bid=128&_wv=1027&bid=130899"
                     //},
 
-                    {
-                        type:"view",
-                        "name":"空闲教室",
-                        "url":"http://scuinfo.com/classroom"
-                    },
+//                    {
+//                        type:"view",
+//                        "name":"空闲教室",
+//                        "url":"http://scuinfo.com/classroom"
+//                    },
                     {
                         type:"click",
-                        "name":"合作建议",
+                        "name":"联系我们",
                         "key":"advise"
                     }
 
@@ -76,8 +76,8 @@ var access_token=JSON.parse(weiboAuth).access_token;
             },
             {
                 "type":"view",
-                "name":"scuinfo",
-                "url":"http://scuinfo.com"
+                "name":"swfeinfo",
+                "url":"http://swfeinfo.com"
             },
             {
                 "name":"我的",
@@ -89,36 +89,36 @@ var access_token=JSON.parse(weiboAuth).access_token;
                      "key":"notice"
                      },
                      */
-                    {
-                        "type":"click",
-                        "name":"成绩查询 ",
-                        "key":"score"
-                    },
+//                    {
+//                        "type":"click",
+//                        "name":"成绩查询 ",
+//                        "key":"score"
+//                    },
                     //{
                     //    "type":"click",
                     //    "name":"考试查询",
                     //    "key":"exam"
                     //},
 
-                    {
-                        "type":"click",
-                        "name":"补考缓考",
-                        "key":"examAgain"
-                    },
-                    {
-                        "type":"click",
-                        "name":"图书借阅 ",
-                        "key":"book"
-                    },
-                    {
-                        "type":"click",
-                        "name":"课表查询 ",
-                        "key":"major"
-                    },
+//                    {
+//                        "type":"click",
+//                        "name":"补考缓考",
+//                        "key":"examAgain"
+//                    },
+//                    {
+//                        "type":"click",
+//                        "name":"图书借阅 ",
+//                        "key":"book"
+//                    },
+//                    {
+//                        "type":"click",
+//                        "name":"课表查询 ",
+//                        "key":"major"
+//                    },
                     {
                         "type":"view",
                         "name":"我的主页 ",
-                        "url":"http://scuinfo.com/u"
+                        "url":"http://swfeinfo.com/u"
                     }
 
                 ]

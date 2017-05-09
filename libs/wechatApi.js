@@ -231,26 +231,26 @@ var menu1 ={
             //    "url":"http://mp.weixin.qq.com/mp/getmasssendmsg?__biz=MjM5OTM3OTM3Mg==#wechat_webview_type=1&wechat_redirect"
             //
             //},
-            {   type:"click",
-                "name":"神奇海螺",
-                "key":"fm"
-
-            },
-            {
-                 type:"click",
-                "name":"匿名发帖",
-                "key":"post"
-            },
-            {
-              type:"view",
-                "name":"空闲教室",
-                "url":"http://scuinfo.com/classroom"
-            },
-            {
-                type:"view",
-                "name":"跳蚤市场",
-                "url":"http://xiaoqu.qq.com/mobile/barindex.html?_bid=128&_wv=1027&bid=130899"
-            },
+//            {   type:"click",
+//                "name":"神奇海螺",
+//                "key":"fm"
+//
+//            },
+//            {
+//                 type:"click",
+//                "name":"匿名发帖",
+//                "key":"post"
+//            },
+//            {
+//              type:"view",
+//                "name":"空闲教室",
+//                "url":"http://scuinfo.com/classroom"
+//            },
+//            {
+//                type:"view",
+//                "name":"跳蚤市场",
+//                "url":"http://xiaoqu.qq.com/mobile/barindex.html?_bid=128&_wv=1027&bid=130899"
+//            },
             //{
             //    type:"click",
             //    "name":"教务通知",
@@ -264,7 +264,7 @@ var menu1 ={
 
             {
                 type:"click",
-                "name":"其他功能&合作",
+                "name":"联系我们",
                 "key":"advise"
             }
 
@@ -297,7 +297,7 @@ var menu1 ={
         },
         {
             "type":"view",
-            "name":"scuinfo",
+            "name":"swfeinfo",
             "url":"http://swfeinfo.com"
         },
         {
@@ -310,35 +310,35 @@ var menu1 ={
                     "key":"notice"
                 },
                 */
-                {
-                    "type":"click",
-                    "name":"成绩查询 ",
-                    "key":"score"
-                },
-                {
-                   "type":"click",
-                   "name":"考试查询",
-                   "key":"exam"
-                },
+//                {
+//                    "type":"click",
+//                    "name":"成绩查询 ",
+//                    "key":"score"
+//                },
+//                {
+//                   "type":"click",
+//                   "name":"考试查询",
+//                   "key":"exam"
+//                },
                 // {
                 //     "type":"click",
                 //     "name":"补考查询",
                 //     "key":"examAgain"
                 // },
-                {
-                    "type":"click",
-                    "name":"图书借阅 ",
-                    "key":"book"
-                },
-                {
-                    "type":"click",
-                    "name":"课表查询 ",
-                    "key":"major"
-                },
+//                {
+//                    "type":"click",
+//                    "name":"图书借阅 ",
+//                    "key":"book"
+//                },
+//                {
+//                    "type":"click",
+//                    "name":"课表查询 ",
+//                    "key":"major"
+//                },
                 {
                     "type":"view",
                     "name":"我的主页 ",
-                    "url":"http://scuinfo.com/u"
+                    "url":"http://swfeinfo.com/u"
                 }
 
             ]
@@ -348,15 +348,15 @@ var menu1 ={
     var menu={
         "button":[
 
+//            {
+//                "type":"view",
+//                "name":"神奇海螺",
+//                "url":"http://music.163.com/program/10000101/60153606/"
+//            },
             {
                 "type":"view",
-                "name":"神奇海螺",
-                "url":"http://music.163.com/program/10000101/60153606/"
-            },
-            {
-                "type":"view",
-                "name":"scuinfo",
-                "url":"http://scuinfo.com"
+                "name":"swfeinfo",
+                "url":"http://swfeinfo.com"
             }
             ]
     }
