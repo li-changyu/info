@@ -94,12 +94,12 @@ service.subscribe = function(msg,req,res,next){
         //
         //});
 
-        res.reply('终于等到你。');
+        res.reply('终于等到你。感谢你的关注，我们的info刚刚起步，欢迎为我们提供宝贵的意见。\n\n微信联系我们：yuanshushizhu \n电话号码：15681166706');
         return;
     }
 
 
-    res.reply(`终于等到你。`);
+    res.reply(`终于等到你。感谢你的关注，我们的info刚刚起步，欢迎为我们提供宝贵的意见。\n\n微信联系我们：yuanshushizhu \n电话号码：15681166706`);
 
 
     //dbs.getWechatText({
@@ -371,7 +371,7 @@ service.text = function(msg,req,res,next){
                                 var news=[];
                                 news[0]={
                                     title:'神奇海螺已经收到你的留言了',
-                                    description:'点击查看你发布的内容，超过'+config.postWeibo.count+'个赞会自动发布在微博@scuinfo\n\nPs.如果想和我进行更亲密的互动,请加一下我的私人微信:infotalk',
+                                    description:'点击查看你发布的内容，超过'+config.postWeibo.count+'个赞会自动发布在微博@swfeinfo\n\nPs.,
                                     pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                                     url:config.site.url+'/p/'+result.data.insertId
                                 };
@@ -475,7 +475,7 @@ service.noSessionText = function(msg,req,res,next){
                         return;
                     }
                     //todo 严谨起见还是判断下id好
-                    res.reply('接下来请直接写下你的表白（我会帮你加上#川大表白#的话题，10分钟内有效，表白发布后超过'+config.postWeibo.count+'个人点赞，就会自动发布到@scuinfo的新浪微博）：');
+                    res.reply('接下来请直接写下你的表白（我会帮你加上#川大表白#的话题，10分钟内有效，表白发布后超过'+config.postWeibo.count+'个人点赞，就会自动发布到@swfeinfo的新浪微博）：');
                     return;
                 });
 
@@ -509,7 +509,7 @@ service.noSessionText = function(msg,req,res,next){
                     var news=[];
                     news[0]={
                         title:'成功表白！',
-                        description:'点击查看你的表白，超过'+config.postWeibo.count+'个赞会自动发布在微博@scuinfo',
+                        description:'点击查看你的表白，超过'+config.postWeibo.count+'个赞会自动发布在微博@swfeinfo',
                         pic:'http://mmbiz.qpic.cn/mmbiz/icXrYrDQetLvPllUpdooiaIDLf9icrHuGDzxGFpCSOKG8snTOb8RX8JNRib8vkm0VtI9ISzPf1sT3ibERbshSf2Tliaw/640?wx_fmt=png&tp=webp&wxfrom=5',
                         url:config.site.url+'/p/'+result.data.insertId
                     };
