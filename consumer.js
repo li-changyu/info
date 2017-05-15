@@ -70,7 +70,8 @@ consumer.weibo = function(){
 
                             request.post('http://text2pic.scuinfo.com',{form:{
                                 "text":rr[0].content,
-                                "footer":rr[0].nickname+"·"+common.gender(rr[0].gender)+"\n"+common.dayWeibo(rr[0].date*1000)
+                                "footer":rr[0].nickname+"·"+common.gender(rr[0].gender)+"\n"+common.dayWeibo(rr[0].date*1000),
+                                "by":"由swfeinfo.com自动生成，不代表本微博观点。"
                             }},function(eeeee,rrrrr,bbbbb){
                                 try{
                                     var result = JSON.parse(bbbbb);
